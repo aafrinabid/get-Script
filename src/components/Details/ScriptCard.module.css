@@ -1,0 +1,35 @@
+/* .scriptcard{
+    
+    
+} */
+
+.border{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    width: 100%;
+}
+
+.scriptcard{
+    display: grid;
+    grid-template-columns: 1fr;
+
+}
+
+#download{
+    background-color: rgba(185, 187, 189, 0.6);
+    color: black;
+    height: 40px;
+    margin-top: 10px;
+}
+
+#savebutton{
+    background-color: rgba(104, 131, 155, 0.742);
+    margin-right: 190px;
+}
+.button{
+
+   display: flex;
+   justify-content: space-around;
+}

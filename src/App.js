@@ -1,18 +1,22 @@
 import './App.css';
 import { Switch,Route ,Redirect} from 'react-router-dom';
-import Navbar from './components/NavBar/NavBar';
+// import Navbar from './components/NavBar/NavBar';
 import SignIn from './pages/AuthenticationPage';
 import SignUp from './pages/SignUp';
+import Browse from './pages/Browse';
+import ScriptDetails from './pages/ScriptDetails';
 
 function App() {
   return (
-    <div className="App ">
-<Navbar />
+    <div className="App">
+{/* <Navbar /> */}
       
       <Switch>
         <Route path='/' exact>
-      <h1 className='text-green-500'>home page machane</h1>
-          
+      <Browse />
+        </Route>
+        <Route path='/details'>
+          <ScriptDetails />
         </Route>
       <Route path='/login'>
         <SignIn />

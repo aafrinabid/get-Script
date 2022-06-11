@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -9,10 +9,10 @@ const Menu = () => {
 
     return (
         <ButtonGroup aria-label="outlined primary button group" className={classes.navMenu}>
-            <Button component={NavLink} to="/browse" variant="text" exact className={classes.navMenuItem} activeClassName={classes.active}>Accueil</Button>
-            <Button component={NavLink} to="/browse/movies" variant="text" className={classes.navMenuItem} activeClassName={classes.active}>Films</Button>
-            <Button component={NavLink} to="/browse/tvshows" variant="text" className={classes.navMenuItem} activeClassName={classes.active}>TV Shows</Button>
-            <Button component={NavLink} to="/browse/mylist" variant="text" className={classes.navMenuItem} activeClassName={classes.active}>Saved Scripts
+           <Button component={Link} to="/browse" variant="text" exact className={classes.navMenuItem} activeclassname={classes.active}>BROWSE</Button>
+            <Button component={Link} to="/login" variant="text" className={classes.navMenuItem} activeclassname={classes.active}>Films</Button>
+            <Button component={Link} to="/browse/tvshows" variant="text" className={classes.navMenuItem} activeclassname={classes.active}>TV Shows</Button>
+            <Button component={Link} to="/browse/mylist" variant="text" className={classes.navMenuItem} activeclassname={classes.active}>Saved Scripts
             </Button>
         </ButtonGroup>
     );
