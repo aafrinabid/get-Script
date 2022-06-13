@@ -5,3 +5,30 @@
     background-color: rgb(37, 36, 36);
     justify-content: left;
 }
+
+.miniposter{
+    height: 90%;
+    width: 50%;
+}
+
+.details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#download{
+    background-color: rgba(185, 187, 189, 0.6);
+    color: black;
+    height: 40px;
+    /* margin-top: 10px; */
+}
+
+#savebutton{
+    background-color: rgba(104, 131, 155, 0.742);
+    /* margin-right: 190px; */
+}
+/* .button{
+
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+} */

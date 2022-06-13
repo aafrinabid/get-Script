@@ -7,10 +7,6 @@ import {AddBoxRounded} from '@mui/icons-material'
 import { DoneRounded } from '@material-ui/icons';
 
 function ScriptCard() {
-    const [saved,setSaved]=useState(false);
-    const saveClick=()=>{
-        setSaved((prevState)=>!prevState)
-    }
 
     let url="https://cdn.mos.cms.futurecdn.net/9Y8SXNLpFF6ENYKuuWrQ7K.jpg"
     const divImage =  {
@@ -25,7 +21,7 @@ function ScriptCard() {
       <div className={`${classes.border}`} style={divImage}>
         <div className={classes.scriptcard} >
         <img className={classes.titleimage} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43" />
-        <div className={classes.button}>
+        {/* <div className={classes.button}>
         <Button  variant='contained' id={classes.download} size='large'>Download</Button>
          
          <Fab color="primary" aria-label="add" onClick={saveClick} id={classes.savebutton}>
@@ -33,10 +29,8 @@ function ScriptCard() {
           {saved &&  <DoneRounded />}  
          </Fab>
          
-             {/* <Fab color="primary" aria-label="like">
-             <FavoriteIcon />
-         </Fab> */}
-        </div>
+            
+        </div> */}
         </div>
         <div>3+</div>
         </div>

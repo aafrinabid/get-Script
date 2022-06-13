@@ -9,14 +9,16 @@
 }
 
 .poster{
-    height: 100px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 
 }
 
 .grid{
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 30px;
     justify-content: center;
     align-items: center;

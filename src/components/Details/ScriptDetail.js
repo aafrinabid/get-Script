@@ -11,10 +11,11 @@ function ScriptDetail() {
     <div className={classes.scriptdetails}>
         <ScriptCard />
         <ScriptInfo />
-        <ScriptPdf />
         <div className={classes.tablediv}>
+            <h1 className='text-4xl font-bold text-white p-7'>Show Pitch</h1>
         <ScriptTable />
         </div>
+        <ScriptPdf className='pt-4'/>
         <div className={classes.suggestrows}>
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
             <SuggestionRows />
