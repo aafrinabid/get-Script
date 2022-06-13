@@ -2,3 +2,7 @@
     display: grid;
     grid-template-columns: 10% 80% 10% ;
 }
+
+.control{
+    color: white;
+}

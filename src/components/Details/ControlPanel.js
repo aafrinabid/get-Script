@@ -1,7 +1,9 @@
 import React from 'react';
 import { Forward } from '@mui/icons-material';
 import classes from './ControlPanel.module.css';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import clas from './ScriptPdf.module.css';
 
 function ControlPanel(props) {
     const setPageNumber=props.setPageNumber;
@@ -37,12 +39,12 @@ function ControlPanel(props) {
 
 
   return (
-      <div className={`${classes.controlpanel} p-4`}>
-          <Forward className='rotate-180 text-white text-4xl cursor-pointer' onClick={pageBackward}/>
-    <h1 className='text-xl font-semibold text-white px-8'>
+      <div className={`${clas.controlpanel} p-4`}>
+          <ArrowBackIcon className='rotate-180 text-white text-4xl cursor-pointer' onClick={pageBackward}/>
+    <h1 className={`${classes.contorl} text-xl font-semibold text-white px-8`} >
     Page {props.pageNumber} of { numPages}
   </h1>
-  <Forward className='text-white text-4xl cursor-pointer' onClick={pageForward}/>
+  <ArrowForwardIcon className='text-white text-4xl cursor-pointer' onClick={pageForward}/>
   </div>
   )
 }

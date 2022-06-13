@@ -6,12 +6,12 @@ function Browse() {
   return (
     <div>
         <Banner  />
-        <Rows />
-        <Rows />
-        <Rows />
-        <Rows />
-        <Rows />
-        <Rows />
+        <Rows screenper={6}/>
+        <Rows screenper={6}/>
+        <Rows screenper={6}/>
+        <Rows screenper={6}/>
+        <Rows screenper={6}/>
+        <Rows screenper={6}/>
 
     </div>
   )

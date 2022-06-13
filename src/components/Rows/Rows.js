@@ -7,13 +7,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {useHistory} from 'react-router-dom'
-function Rows() {
+function Rows(props) {
 const history =useHistory()
 const details=()=>{
   history.push('/details')
 }
   return (
-<div className={classes.rows}>
+<div className={`${classes.rows} bg-inherit`}>
   <div className={classes.rowtitle}>
     <h2> Trending Now</h2>
   </div>
@@ -21,7 +21,7 @@ const details=()=>{
     // install Swiper modules
     modules={[Navigation, Pagination, Scrollbar, A11y]}
     spaceBetween={1}
-    slidesPerView={6}
+    slidesPerView={props.screenper}
     navigation
     pagination={{ clickable: true }}
     // scrollbar={{ draggable: true }}

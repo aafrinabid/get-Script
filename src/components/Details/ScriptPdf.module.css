@@ -3,4 +3,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 50%;
+    margin: 0 350px;
+    color: white;
+}
+
+
+.controlpanel{
+    display: grid;
+    grid-template-columns: 10% 80% 10% ;
 }
