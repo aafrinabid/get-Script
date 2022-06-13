@@ -1,0 +1,7 @@
+.content{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 30vh;
+    background-color: rgb(37, 36, 36);
+    justify-content: left;
+}
