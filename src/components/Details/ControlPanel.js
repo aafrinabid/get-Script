@@ -39,9 +39,9 @@ function ControlPanel(props) {
 
 
   return (
-      <div className={`${clas.controlpanel} p-4`}>
+      <div className={`${props.className} p-4`} >
           <ArrowBackIcon className='rotate-180 text-white text-4xl cursor-pointer' onClick={pageBackward}/>
-    <h1 className={`${classes.contorl} text-xl font-semibold text-white px-8`} >
+    <h1 className={`${classes.contorl} text-xl font-semibold text-white px-8`}  >
     Page {props.pageNumber} of { numPages}
   </h1>
   <ArrowForwardIcon className='text-white text-4xl cursor-pointer' onClick={pageForward}/>

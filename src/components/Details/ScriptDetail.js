@@ -35,7 +35,7 @@ function ScriptDetail() {
         </div> 
         <div className={classes.suggestrows}>
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
-            <Rows screenper='5' />
+            <Rows screenper='4' />
         </div>
         </div>
 

@@ -13,6 +13,7 @@ function ScriptPdf(props) {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
+  const className=classes.controlpanel
 
   return (
     <Modal
@@ -22,8 +23,10 @@ function ScriptPdf(props) {
     aria-describedby="parent-modal-description"
   >
 
+      
+
     <div className={`bg-inherit ${classes.pdf}`} >
-    <ControlPanel numpages={numPages} pageNumber={pageNumber} setPageNumber={setPageNumber} />
+    <ControlPanel numpages={numPages} pageNumber={pageNumber} setPageNumber={setPageNumber} className={className} scriptHandler={props.scriptHandler}/>
       <Document file="/assets/pdf/my_resume.pdf" onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} />
       </Document>

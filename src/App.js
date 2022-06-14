@@ -1,15 +1,40 @@
 import './App.css';
 import { Switch,Route ,Redirect} from 'react-router-dom';
-// import Navbar from './components/NavBar/NavBar';
+import Navbar from './components/UI/NavBar'
 import SignIn from './pages/AuthenticationPage';
 import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
+import Profile from './pages/Profile';
+import { useEffect, useState } from 'react';
+
 
 function App() {
+  const [colorChange,setColorchange]=useState(false);
+  const changeNavbarColor = () =>{
+    console.log('happening guys')
+    if(window.scrollY >= 80){
+      setColorchange(true);
+    }
+    else{
+      setColorchange(false);
+    }
+ };
+ window.addEventListener('scroll', changeNavbarColor);
+
+//  useEffect(
+//    ()=>{
+//      console.log('happening guys')
+//     if(window.scrollY >= 80){
+//       setColorchange(true);
+//     }
+//     else{
+//       setColorchange(false);
+//     }
+//    },[window.screenY])
   return (
     <div className="App">
-{/* <Navbar /> */}
+<Navbar colorChange={colorChange}/>
       
       <Switch>
         <Route path='/' exact>
@@ -23,6 +48,9 @@ function App() {
       </Route>
       <Route path='/sign-up'>
         <SignUp />
+      </Route>
+      <Route path='/profile'>
+        <Profile />
       </Route>
       <Route path='*'>
         <Redirect to='/'/>

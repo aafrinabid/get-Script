@@ -4,7 +4,7 @@ import Rows from '../components/Rows/Rows';
 
 function Browse() {
   return (
-    <div>
+    <div className='bg-black'>
         <Banner  />
         <Rows screenper={6}/>
         <Rows screenper={6}/>
