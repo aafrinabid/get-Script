@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classes from './Profile.module.css'
 import { useParams,useLocation } from 'react-router-dom';
 import { Instagram, Facebook , LinkedIn, Twitter } from '@mui/icons-material';
+import ScriptPostedCards from '../PostedScriptCards/ScriptPostedCards';
 
 
 function ProfileInfo() {
@@ -22,7 +23,8 @@ function ProfileInfo() {
    };
 
   return (
-    <div className= { `${classes.profilecard} w-screen` }style={divImage} >
+    <div className={classes.profile}>
+    <div className= { `${classes.profilecard} w-full` }style={divImage} >
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
       <h1 className='text-9xl py-20'>Babu Raj</h1>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
@@ -37,13 +39,20 @@ function ProfileInfo() {
         </div>
       </div>
       {/* <div className='h-0.5 bg-cyan-800 col-span-3 m-4'></div> */}
-      <div className={`text-l col-span-3 pl-12 ml-7 pt-6  text-left ${classes.description}`}>
+      <div className={`text-xl col-span-3 pl-12 ml-7 pt-6  text-left ${classes.description}`}>
       Ancient myths, tall tales and ghost stories - Lore and lies. Fascinated by every language in the world and endeavoring to pick at least one up before I die. My cats will tell you I sing too loudly and dance terribly, though I would advise you not to believe them as both are notorious liars. Country, hip-hop, disco, soul, grunge, pop, rock and everything in between. My favourite hobby is laughing until I cry and my goal is making others do the same.
 
       </div>
       
-      
+      </div>
+      <div className={`mt-20 pt-11 h-screen w-full bg-inherit ${classes.postedScripts}`} >
+        <h1 className='py-7 text-3xl text-white  font-extrabold'>Posted Scripts</h1>
+        <div className='bg-inherit h-screen'>
+          <ScriptPostedCards />
 
+        </div>
+
+      </div>
       </div>
   )
 }

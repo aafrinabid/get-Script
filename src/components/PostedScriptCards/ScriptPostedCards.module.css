@@ -1,0 +1,39 @@
+.postedscripts{
+    background-color: rgb(37, 36, 36);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+
+    
+}
+
+.description{
+    display: none;
+  }
+.scriptCard:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.2); 
+    transition: all 1s;
+    height: 300px;
+   border: 1px solid red;
+  }
+
+  .scriptCard:hover .description{
+    display: block;
+    height: auto;
+  }
+
+  .description{
+    height: 0;
+  }
+  .scriptCard{
+    height: 200px;
+    width: 300px;
+  }
+
+  .image{
+    height: 150px;
+  }
