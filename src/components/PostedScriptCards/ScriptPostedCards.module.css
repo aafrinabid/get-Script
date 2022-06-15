@@ -1,8 +1,11 @@
 .postedscripts{
+    /* position: absolute; */
+    /* position: static; */
+    /* position: relative; */
     background-color: rgb(37, 36, 36);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 15px;
     margin-left: 25px;
     margin-right: 25px;
 
@@ -13,23 +16,27 @@
     display: none;
   }
 .scriptCard:hover {
-    -ms-transform: scale(1.2); /* IE 9 */
-    -webkit-transform: scale(1.2); /* Safari 3-8 */
-    transform: scale(1.2); 
-    transition: all 1s;
+   display: block;
+    transition: all .5s;
     height: 300px;
    border: 1px solid red;
   }
 
   .scriptCard:hover .description{
+
     display: block;
-    height: auto;
+    /* height: auto; */
   }
 
   .description{
     height: 0;
   }
   .scriptCard{
+   /* position:absolute ; */
+    
+    /* position: sticky; */
+    display: block;
+    
     height: 200px;
     width: 300px;
   }

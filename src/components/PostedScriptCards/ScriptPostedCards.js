@@ -20,9 +20,9 @@ function ScriptPostedCards() {
 
     }
   return (
-    <div className={`${classes.postedscripts} bg-inherit h-screen`}>
+    <div className={`${classes.postedscripts} bg-inherit`}>
         {scripts.map((i)=>(
-             <Card key={i} sx={{ maxWidth: 345 }} zDepth='5'   className= {`bg-black text-white ${classes.scriptCard}`}  >
+             <Card key={i} sx={{ maxWidth: 345 }}    className= {`bg-black text-white ${classes.scriptCard}`}  >
              <CardMedia
              className={`${classes.image}`}
                component="img"

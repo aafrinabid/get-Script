@@ -47,7 +47,7 @@ function ProfileInfo() {
       </div>
       <div className={`mt-20 pt-11 h-screen w-full bg-inherit ${classes.postedScripts}`} >
         <h1 className='py-7 text-3xl text-white  font-extrabold'>Posted Scripts</h1>
-        <div className='bg-inherit h-screen'>
+        <div className='bg-inherit'>
           <ScriptPostedCards />
 
         </div>
