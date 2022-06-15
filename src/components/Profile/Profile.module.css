@@ -6,8 +6,16 @@
     grid-template-columns: 1fr 2fr 1fr;
     background-color: rgb(37, 36, 36);
     color: white;
-    border-bottom: 5px solid black;
+    /* border-bottom: 5px solid black; */
 }
+
+.profilecard :after {
+    display:block;
+    content: '';
+    border-bottom: solid 5px #4b4b4b;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+  }
 
 .description{
     width: 85%;

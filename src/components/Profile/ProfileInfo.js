@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Profile.module.css'
 import { useParams,useLocation } from 'react-router-dom';
+import { Instagram, Facebook , LinkedIn, Twitter } from '@mui/icons-material';
 
 
 function ProfileInfo() {
@@ -25,10 +26,14 @@ function ProfileInfo() {
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
       <h1 className='text-9xl py-20'>Babu Raj</h1>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
-        <div className='flex flex-col justify-center  '>
-         <h1> Details </h1>
-        <li className='list-none'>awards</li>
-        <li className='list-none'>script writer</li>
+        <div className={classes.socials}>
+         <h1 className='text-3xl mb-3'> Socials </h1>
+        <Instagram className='text-3xl mx-3 cursor-pointer'/>
+        <Facebook className='text-3xl mx-3 cursor-pointer'/>
+        <Twitter className='text-3xl mx-3 cursor-pointer'/>
+        <LinkedIn className='text-3xl mx-3 cursor-pointer'/>
+        <h1 className='text-3xl mt-7'>Scripts Posted</h1>
+        <h1 className='text-5xl'>12</h1>
         </div>
       </div>
       {/* <div className='h-0.5 bg-cyan-800 col-span-3 m-4'></div> */}
