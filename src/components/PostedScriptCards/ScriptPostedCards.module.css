@@ -1,13 +1,14 @@
 .postedscripts{
-    /* position: absolute; */
+    position: absolute;
     /* position: static; */
     /* position: relative; */
     background-color: rgb(37, 36, 36);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 15px;
+    grid-gap: 10px;
     margin-left: 25px;
     margin-right: 25px;
+    /* height: auto; */
 
     
 }
@@ -34,8 +35,8 @@
   .scriptCard{
    /* position:absolute ; */
     
-    /* position: sticky; */
-    display: block;
+    /* position: static; */
+    display: grid;
     
     height: 200px;
     width: 300px;

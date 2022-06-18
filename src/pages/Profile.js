@@ -4,7 +4,7 @@ import classes from './Profile.module.css'
 
 function Profile() {
   return (
-    <div className={` h-screen ${classes.profile}`}>
+    <div className={` h-screen w-full ${classes.profile}`}>
      <ProfileInfo />
     </div>
   )

@@ -20,7 +20,7 @@ function ScriptPostedCards() {
 
     }
   return (
-    <div className={`${classes.postedscripts} bg-inherit`}>
+    <div className={`${classes.postedscripts}  bg-inherit`}>
         {scripts.map((i)=>(
              <Card key={i} sx={{ maxWidth: 345 }}    className= {`bg-black text-white ${classes.scriptCard}`}  >
              <CardMedia

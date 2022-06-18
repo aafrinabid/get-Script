@@ -7,6 +7,7 @@ import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
 import { useEffect, useState } from 'react';
+import UploadScript from './pages/UploadScript';
 
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
       </Route>
       <Route path='/profile'>
         <Profile />
+      </Route>
+      <Route path='/UploadScript'>
+        <UploadScript />
       </Route>
       <Route path='*'>
         <Redirect to='/'/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './NavBar.module.css';
-import { Book, Notifications } from '@material-ui/icons';
+import { Book, Notifications,AddBoxSharp } from '@material-ui/icons';
 import { Avatar, Fab } from '@mui/material';
 import {Link} from 'react-router-dom';
 import { color } from '@mui/system';
@@ -21,6 +21,7 @@ function NavBar({colorChange}) {
     <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
         </div>
         <div className= {`flex ${classes.profile}`} >
+        <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>
         <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
         <Link to='/Profile'>   <Avatar  className='ml-11 mr-2 text-l bg-black  cursor-pointer'>BR</Avatar> </Link> 
         </div>
