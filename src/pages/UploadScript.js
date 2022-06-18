@@ -1,5 +1,6 @@
 import React from 'react';
-import UploadFormInput from '../components/Upload/UploadFormInput';
+// import UploadFormInput from '../components/Upload/UploadFormInput';
+import UploadMainForm from '../components/Upload/UploadMainForm';
 import {Typography} from '@mui/material'
 function UploadScript() {
   return (
@@ -7,7 +8,7 @@ function UploadScript() {
       <Typography gutterBottom variant='h3' align='center'>
             Upload Form
         </Typography>
-        <UploadFormInput />
+        <UploadMainForm />
     </div>
   )
 }
