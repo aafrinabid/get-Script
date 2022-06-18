@@ -5,9 +5,10 @@ import {Typography} from '@mui/material'
 function UploadScript() {
   return (
     <div className='h-screen w-full bg-inherit block bg-zinc-700 pt-12'>
-      <Typography gutterBottom variant='h3' align='center'>
+      {console.log('in uploadd page')}
+      {/* <Typography gutterBottom variant='h3' align='center'>
             Upload Form
-        </Typography>
+        </Typography> */}
         <UploadMainForm />
     </div>
   )

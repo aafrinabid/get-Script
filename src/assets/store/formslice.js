@@ -9,10 +9,13 @@ const formHandleSlice=createSlice({
     },
     reducers:{
         nextStepHandler(state){
-            state.activeStepState++
+
+            state.activeStepState=state.activeStepState+1
+            console.log(state.activeStepState)
         },
         backStepHandler(state){
-            state.activeStepState--
+            state.activeStepState=state.activeStepState-1
+            
         },
         resetStepHandler(state){
             state.activeStepState=0
