@@ -30,7 +30,7 @@ function App() {
  const {pathname}=location
  useEffect(()=>{
   console.log(pathname)
-  if(pathname=="/Profile"){
+  if(pathname==="/Profile"){
    setColorchange(true)
   }else{
     setColorchange(false)
@@ -58,6 +58,7 @@ function App() {
         <Profile />
       </Route>
       <Route path='/UploadScript'>
+        {/* <h1>hiiiii</h1> */}
         <UploadScript />
       </Route>
       <Route path='*'>

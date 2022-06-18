@@ -1,11 +1,12 @@
 import UploadForm from './UploadForm';
-import { Card, Select, TextField,CardContent,Grid, MenuItem} from '@mui/material'
+import { useDispatch } from 'react-redux';
+import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
 import React,{useRef,useState} from 'react';
-import {Box} from '@mui/material';
-import classes from './UploadFormInput.module.css';
+import clas from './UploadFormInput.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
+import { formAction } from '../../assets/store/formslice';
 
 
 
@@ -36,10 +37,10 @@ const genres=['Action Genre',
     const divImage =  {
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.952), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'450px',
+           height:'550px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '120%',
+           backgroundSize: '150%',
            backgroundRepeat: 'no-repeat',
        };
 
@@ -48,8 +49,10 @@ function UploadFormInput() {
     const scriptTitle= useRef();
     const [Entertainment,setEntertainment]= useState('');
     const [genre,setGenre]=useState([]);
-
-    
+    const dispatch=useDispatch();
+   const nextPageHandler=()=>{
+    dispatch(formAction.nextStepHandler())
+   }
     const [type,setType]=useState('');
 
 
@@ -72,7 +75,7 @@ function UploadFormInput() {
         );
       };
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center h-screen bg-zinc-700'>
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent  >
         <Grid container spacing={2} >
@@ -138,7 +141,18 @@ function UploadFormInput() {
           ))}
         </Select>
             </Grid>
-        </Grid>
+               </Grid>
+           <div  className={` ${clas.nextPage}`}>
+        <Button
+        className={`ml-14 ${clas.formButton}`}
+          variant="contained"
+          sx={{ mt: 3, ml: 1 }}
+          color="secondary"
+          onClick={nextPageHandler}
+        >
+          Next
+        </Button>
+      </div>
     </CardContent>
   </Card>
     </div>
