@@ -35,12 +35,12 @@ function UploadMainForm() {
 
 ):(
     <>
-          <Box sx={{ my: 5 }}>
+          {/* <Box sx={{ my: 5 }} className='p-15'>
             <Typography variant="h4" align="center">
               Multi Step Form
             </Typography>
-          </Box>
-          <Stepper activeStep={activeStep} sx={{ py: 3 }} alternativeLabel className='mb-6'>
+          </Box> */}
+          <Stepper activeStep={activeStep} sx={{ py: 3 }} alternativeLabel className='pb-6'>
             {labels.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
