@@ -21,8 +21,8 @@ function ScriptTable(props) {
     <div className={` text-white shadow  ${Classes.table}`}>
         
         {pitch.map((e,i)=>(
-            <div className={Classes.tablecontent}>
-            <h1 className='border-gray-300  border-transparent text-center'>{i}</h1>
+            <div key={i}  className={Classes.tablecontent}>
+            <h1 className='border-gray-300  border-transparent text-center'>{i+1}</h1>
             <h1 className='border-gray-300  border-transparent text-center'>{e}</h1>
             <h1 className={`border-gray-300 border-transparent ${Classes.description} text-left`}>Vince was talking to his mother but later he saw that its his mother that was hurt so i was never wrong lorem ipsam</h1>
            </div>

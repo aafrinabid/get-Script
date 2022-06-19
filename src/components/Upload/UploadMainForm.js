@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import UploadFormInput from './UploadFormInput'
+import UploadForm2 from './UploadForm2'
 // Step titles
 const labels = ['First Step', 'Second Step', 'Confirmation']
 const handleSteps = (step) => {
@@ -15,7 +16,7 @@ const handleSteps = (step) => {
     case 0:
       return <div className='h-screen bg-inherit'> <UploadFormInput /> </div>
     case 1:
-      return <h1>step 2</h1> 
+      return <UploadForm2 /> 
     case 2:
       return <h2>ALL OK</h2>
     default:

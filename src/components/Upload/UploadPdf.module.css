@@ -1,0 +1,13 @@
+.nextPage{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+}
+
+.formButton{
+    width: 50%;
+    /* grid-column: 2/span 1; */
+
+    background-color: blanchedalmond;
+    color:black
+}

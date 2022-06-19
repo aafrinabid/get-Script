@@ -62,6 +62,7 @@ function UploadFormInput() {
         setEntertainment(e.target.value)
     }
     const handleChangeType=(e)=>{
+      console.log(e.target)
         setType(e.target.value)
     }
 
@@ -110,8 +111,9 @@ function UploadFormInput() {
              id="demo-simple-select"
              value={type}
              onChange={handleChangeType}
+             name='entertainmentType'
            >
-            <MenuItem value={10}>Movie Concept</MenuItem>
+            <MenuItem value={10} >Movie Concept</MenuItem>
             <MenuItem value={20}>Series Pilot Episode</MenuItem>
             <MenuItem value={30}>Series Concept</MenuItem>
             <MenuItem value={40}>Anime Concept</MenuItem>
