@@ -1,8 +1,13 @@
 import React from 'react'
+import NavBar from '../components/Admin/NavBar'
+import Contents from '../components/Admin/Contents'
 
 function AdminPanel() {
   return (
-    <div>AdminPanel</div>
+    <div>
+        <NavBar /> 
+        <Contents />
+    </div>
   )
 }
 
