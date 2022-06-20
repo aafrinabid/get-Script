@@ -8,6 +8,7 @@ import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
 import { useEffect, useState } from 'react';
 import UploadScript from './pages/UploadScript';
+import AdminPanel from './pages/AdminPanel';
 
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
 
   return (
     <div className="App">
-<Navbar colorChange={colorChange}/>
+     
+{pathname==='/AdminPanel'?'':<Navbar colorChange={colorChange}/>}
       
       <Switch>
         <Route path='/' exact>
@@ -60,6 +62,9 @@ function App() {
       <Route path='/UploadScript'>
         {/* <h1>hiiiii</h1> */}
         <UploadScript />
+      </Route>
+      <Route path='/AdminPanel'>
+        <AdminPanel />
       </Route>
       <Route path='*'>
         <Redirect to='/'/>
