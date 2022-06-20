@@ -9,6 +9,8 @@ import { useHistory } from 'react-router-dom'
 
 import UploadFormInput from './UploadFormInput'
 import UploadForm2 from './UploadForm2'
+import UplpoadPdf from './UploadPdf'
+import UploadPdf from './UploadPdf'
 // Step titles
 const labels = ['First Step', 'Second Step', 'Confirmation']
 const handleSteps = (step) => {
@@ -18,7 +20,7 @@ const handleSteps = (step) => {
     case 1:
       return <UploadForm2 /> 
     case 2:
-      return <h2>ALL OK</h2>
+      return <UploadPdf />
     default:
       throw new Error('Unknown step')
   }
