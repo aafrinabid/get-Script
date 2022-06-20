@@ -3,7 +3,8 @@ import React from 'react'
 
 function Options() {
   return (
-    <div className='flex flex-col justify-start text-left'>
+    <div className='flex flex-col justify-start text-left border-r-1 h-screen border-red-100 shadow-xl'>
+        <div className='p-5 pt-2'>
        <Typography
             variant="h6"
             noWrap
@@ -12,21 +13,26 @@ function Options() {
           >
             DashBoard
           </Typography>
-          <Typography
+          </div>
+          <div className='p-5 pt-2'>
+       <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            DashBoard
-          </Typography> <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            DashBoard
+            Users
           </Typography>
+          </div>        <div className='p-5 pt-2'>
+       <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Posts
+          </Typography>
+          </div>
     </div>
   )
 }
