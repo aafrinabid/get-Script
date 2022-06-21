@@ -24,7 +24,6 @@ function Cards() {
       </Typography>
       <Typography variant="body2">
         Total numbers of users in
-        <br />
 		app .
       </Typography>
     </CardContent>
@@ -64,7 +63,6 @@ function Cards() {
       </Typography>
       <Typography variant="body2">
         Total numbers of posts in
-        <br />
 		app .
       </Typography>
     </CardContent>

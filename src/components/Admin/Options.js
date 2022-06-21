@@ -1,11 +1,12 @@
 import { Typography } from '@material-ui/core'
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 function Options() {
   return (
     <div className='flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl'>
         <div className='p-5 pt-2'>
-       <Typography
+     <Link to='/AdminPanel' > <Typography
             variant="h6"
             noWrap
             component="div"
@@ -13,9 +14,10 @@ function Options() {
           >
             DashBoard
           </Typography>
+          </Link>
           </div>
           <div className='p-5 pt-2'>
-       <Typography
+       <Link to='/AdminPanel/Posts'> <Typography
             variant="h6"
             noWrap
             component="div"
@@ -23,8 +25,9 @@ function Options() {
           >
             Users
           </Typography>
+          </Link>
           </div>        <div className='p-5 pt-2'>
-       <Typography
+       <Link to='/AdminPanel/Posts'>  <Typography
             variant="h6"
             noWrap
             component="div"
@@ -32,6 +35,7 @@ function Options() {
           >
             Posts
           </Typography>
+          </Link>
           </div>
     </div>
   )
