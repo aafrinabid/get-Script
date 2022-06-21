@@ -3,7 +3,7 @@ import {Bar,Line} from 'react-chartjs-2';
 import { Typography, CardContent, Card } from '@material-ui/core';
 import Countup from 'react-countup';
 // let cx = classnames.bind(classes);
-import classes from './cards.module.css';
+import classes from './PostCard.module.css';
 import UserChart from './chart/UserChart';
 import UserDataBar from './chart/UserDataBar';
 

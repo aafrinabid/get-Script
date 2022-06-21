@@ -1,6 +1,14 @@
 .contents{
     display: grid;
-    grid-template-columns: 20% 80%;
-    width: 90%;
+    grid-template-columns: 15% 85%;
+    width: 100%;
+    background-color: azure;
+
+}
+.clickcontents{
+    display: grid;
+    grid-template-columns:  0% 100%;
+    width: 100%;
+    background-color: azure;
 
 }

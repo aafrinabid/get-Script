@@ -1,11 +1,10 @@
 .container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	align-items: center;
 	grid-gap: 10px;
-	margin:50px;
+	margin-top:50px;
 	padding-left: 15px;
-    height: 400px;
+    height: 200px;
 }
 
 .charts{

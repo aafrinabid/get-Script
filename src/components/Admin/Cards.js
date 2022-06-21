@@ -11,8 +11,8 @@ function Cards() {
   return (
         <div>
 		<div className={classes.container}>
-		<Card>
-		<CardContent>
+		<Card className='h-full '>
+		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         Total Users
       </Typography>
@@ -31,8 +31,8 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card>
-		<CardContent>
+  <Card className='h-full '>
+		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         New Users
       </Typography>
@@ -50,8 +50,8 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card>
-		<CardContent>
+  <Card className='h-full '>
+		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         Total No. of Posts
       </Typography>
@@ -70,8 +70,8 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card>
-		<CardContent>
+  <Card className='h-full '>
+		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         New Posts
       </Typography>

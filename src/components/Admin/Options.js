@@ -1,10 +1,11 @@
 import { Typography } from '@material-ui/core'
+import { Dashboard,EmojiPeopleOutlined,Note } from '@material-ui/icons';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
 function Options() {
   return (
-    <div className='flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl'>
+    <div className='flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl bg-gray-400'>
         <div className='p-5 pt-2'>
      <Link to='/AdminPanel' > <Typography
             variant="h6"
@@ -12,7 +13,7 @@ function Options() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            DashBoard
+           <Dashboard /> DashBoard
           </Typography>
           </Link>
           </div>
@@ -23,7 +24,7 @@ function Options() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Users
+            <EmojiPeopleOutlined /> Users
           </Typography>
           </Link>
           </div>        <div className='p-5 pt-2'>
@@ -33,7 +34,7 @@ function Options() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Posts
+            <Note/> Posts
           </Typography>
           </Link>
           </div>
