@@ -1,0 +1,21 @@
+.container {
+	margin: auto;
+	height: 75%;
+	width: 75%;
+}
+
+@media only screen and (max-width: 740px) {
+	.container {
+		padding: 0em;
+		margin: auto;
+		width: 25rem;
+	}
+}
+
+@media screen and (orientation: landscape) and (max-width: 960px) {
+	.container {
+		padding: 0em;
+		margin: auto;
+		width: 100%;
+	}
+}
