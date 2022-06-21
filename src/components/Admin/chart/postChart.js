@@ -1,3 +1,4 @@
+import { Card } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import classes from './chart.module.css';
@@ -18,7 +19,7 @@ const PostChart = () => {
 			  }} />
 				
 	);
-	return <div className={classes.container}> {line}</div>;
+	return <Card className='bg-black'> {line}</Card>;
 };
 
 export default PostChart;

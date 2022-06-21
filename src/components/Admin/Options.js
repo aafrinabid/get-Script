@@ -8,10 +8,10 @@ import { useSelector } from 'react-redux';
 function Options() {
   const optionSeen=useSelector(state=>state.UiHandler.optionSeen)
   return (
-    <div className={`flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl bg-gray-400 ${classes.options}`}>
+    <div className={`flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl text-white ${classes.options}`}>
         <div className='p-5 pt-2'>
      <Link to='/AdminPanel' > <Typography
-            variant="h6"
+            variant="h7"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
@@ -22,7 +22,7 @@ function Options() {
           </div>
           <div className='p-5 pt-2'>
        <Link to='/AdminPanel/Posts'> <Typography
-            variant="h6"
+            variant="h7"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
@@ -32,7 +32,7 @@ function Options() {
           </Link>
           </div>        <div className='p-5 pt-2'>
        <Link to='/AdminPanel/Posts'>  <Typography
-            variant="h6"
+            variant="h7"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}

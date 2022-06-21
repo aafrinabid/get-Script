@@ -1,3 +1,4 @@
+import { Card } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Bar} from 'react-chartjs-2';
 import classes from './chart.module.css';
@@ -80,7 +81,7 @@ const UserDataBar = () => {
               }} />
 				
 	);
-	return <div className={classes.container}> {bar}</div>;
+	return <Card className='bg-black'> {bar}</Card>;
 };
 
 export default UserDataBar;

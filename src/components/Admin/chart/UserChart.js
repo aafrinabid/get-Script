@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut,Pie } from 'react-chartjs-2';
 import classes from './chart.module.css';
-
+import { Card } from '@mui/material';
 const UserChart = () => {
     const labels=['Producers','Script-Writters']
 
@@ -24,7 +24,7 @@ const UserChart = () => {
               }} />
 				
 	);
-	return <div className={classes.container}> {bar}</div>;
+	return <Card className='bg-black'> {bar}</Card>;
 };
 
 export default UserChart;

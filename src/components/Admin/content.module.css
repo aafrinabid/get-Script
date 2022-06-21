@@ -2,14 +2,18 @@
     display: grid;
     grid-template-columns: 15% 85%;
     width: 100%;
-    background-color: rgb(168, 168, 206);
+    background-color: rgb(12, 22, 33);
+
+    color:white;
 
 }
 .clickcontents{
     display: grid;
-    grid-template-columns:0% 99%;
+    grid-template-columns:0% 100%;
     width: 100%;
-    background-color: rgb(168, 168, 206);
+    background-color: rgb(12, 22, 33);
+
+
 
 
 

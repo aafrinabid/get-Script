@@ -11,7 +11,7 @@ function Cards() {
   return (
         <div>
 		<div className={classes.container}>
-		<Card className='h-full '>
+		<Card className='h-full text-white bg-black '>
 		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         Total Users
@@ -31,7 +31,7 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card className='h-full '>
+  <Card className='h-full text-white bg-black '>
 		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         New Users
@@ -50,7 +50,7 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card className='h-full '>
+  <Card className='h-full text-white bg-black '>
 		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         Total No. of Posts
@@ -70,7 +70,7 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card className='h-full '>
+  <Card className='h-full text-white bg-black '>
 		<CardContent className='h-full'>
       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
         New Posts
@@ -93,7 +93,7 @@ function Cards() {
 
 			
 	</div>
-    <div className= {`${classes.charts} pl-5`}>
+    <div className= {`${classes.charts} pl-5 pt-5`}>
         <Chart />
 		<PostChart />
     </div>
