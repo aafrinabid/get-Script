@@ -5,7 +5,9 @@ import Contents from '../components/Admin/Contents'
 function AdminPanel() {
   return (
     <div>
-        <NavBar /> 
+      <div className='bg-cyan-800'>
+        <NavBar />
+        </div> 
         <Contents />
     </div>
   )

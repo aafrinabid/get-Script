@@ -5,14 +5,15 @@ import Countup from 'react-countup';
 // let cx = classnames.bind(classes);
 import classes from './cards.module.css'
 import Chart from './chart/chart';
+import PostChart from './chart/postChart';
 
 function Cards() {
   return (
         <div>
 		<div className={classes.container}>
-			<Grid container spacing={3} justify="center">
-				<Grid item component={Card} xs={12} md={2} >
-					<CardContent>
+			<Grid container spacing={5} justify="center">
+				<Grid item component={Card} xs={12} md={2}  >
+					<CardContent className='h-1/2'>
 						<Typography gutterBottom>Total users</Typography>
 						<Typography variant="h4" gutterBottom>
 							<Countup start={0} end={10000} duration={1.5} separator="," />
@@ -69,7 +70,10 @@ function Cards() {
 				</Grid>
 			</Grid>
 		</div>
+		<div className= {`${classes.charts} pl-5`}>
         <Chart />
+		<PostChart />
+		</div>
         </div>
   )
 }

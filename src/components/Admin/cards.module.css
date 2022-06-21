@@ -5,6 +5,11 @@
 	margin: 50px 0;
 }
 
+.charts{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .card {
 	background: #333333 !important;
 	color: #ffffff !important;
