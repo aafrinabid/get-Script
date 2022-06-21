@@ -2,13 +2,16 @@
     display: grid;
     grid-template-columns: 15% 85%;
     width: 100%;
-    background-color: azure;
+    background-color: rgb(168, 168, 206);
 
 }
 .clickcontents{
     display: grid;
-    grid-template-columns:  0% 100%;
+    grid-template-columns:0% 99%;
     width: 100%;
-    background-color: azure;
+    background-color: rgb(168, 168, 206);
+
+
+
 
 }

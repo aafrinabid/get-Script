@@ -15,6 +15,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { UiAction } from '../../assets/store/UiSlice';
+import { useDispatch } from 'react-redux';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +59,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const dispatch= useDispatch();
+  const optionShower=()=>dispatch(UiAction.onClickLogo())
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -171,6 +175,7 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
+            onClick={optionShower}
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             GS

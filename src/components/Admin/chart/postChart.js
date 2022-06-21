@@ -12,7 +12,7 @@ const PostChart = () => {
 				  label: 'posts',
 				  data: [100, 30, 180, 81, 96, 85, 200],
 				  fill: false,
-				  borderColor: 'rgb(75, 192, 192)',
+				  borderColor: 'rgb(75, 92, 192)',
 				  tension: 0.1
 				}]
 			  }} />

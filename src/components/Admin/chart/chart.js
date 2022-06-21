@@ -19,7 +19,7 @@ const Chart = () => {
 				  label: 'Producer',
 				  data: [105, 29, 83, 3, 36, 95, 4],
 				  fill: false,
-				  borderColor: 'rgb(75, 102, 192)',
+				  borderColor: 'rgb(175, 102, 192)',
 				  tension: 0.1
 				}]
 			  }} />

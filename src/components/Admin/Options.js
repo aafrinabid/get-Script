@@ -2,10 +2,13 @@ import { Typography } from '@material-ui/core'
 import { Dashboard,EmojiPeopleOutlined,Note } from '@material-ui/icons';
 import React from 'react';
 import {Link} from 'react-router-dom';
+import classes from './Option.module.css';
+import { useSelector } from 'react-redux';
 
 function Options() {
+  const optionSeen=useSelector(state=>state.UiHandler.optionSeen)
   return (
-    <div className='flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl bg-gray-400'>
+    <div className={`flex flex-col justify-start text-left border-r-1 h-screen border-black-100 shadow-xl bg-gray-400 ${classes.options}`}>
         <div className='p-5 pt-2'>
      <Link to='/AdminPanel' > <Typography
             variant="h6"
