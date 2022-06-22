@@ -18,7 +18,7 @@ function Cards() {
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
-      <Typography variant="h5" component="div" className='row-span-2 col-span-2'>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
 	  <Countup start={0} end={10000} duration={1.5} separator="," />
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -37,7 +37,7 @@ function Cards() {
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
-      <Typography variant="h5" component="div" className='row-span-2 col-span-2'>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
 	  <Countup start={0} end={10000} duration={1.5} separator="," />
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -56,7 +56,7 @@ function Cards() {
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
-      <Typography variant="h5" component="div" className='row-span-2 col-span-2'>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
 	  <Countup start={0} end={10000} duration={1.5} separator="," />
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -75,7 +75,7 @@ function Cards() {
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
-      <Typography variant="h5" component="div" className='row-span-2 col-span-2'>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
 	  <Countup start={0} end={10000} duration={1.5} separator="," />
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -94,7 +94,64 @@ function Cards() {
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
-      <Typography variant="h5" component="div" className='row-span-2 col-span-2'>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
+	  <Countup start={0} end={10000} duration={1.5} separator="," />
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        
+      </Typography>
+      <Typography variant="body2" className='col-span-2'>
+        since last year
+      </Typography>
+    </CardContent>
+    {/* <CardActions>
+      <Button size="small">Learn More</Button>
+    </CardActions> */}
+  </Card>
+  <Card className={` h-full  text-white bg-inherit w-full`}>
+		<CardContent className={`${classes.cardcontent} ${classes.totusers} h-full`}>
+      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
+        Total Users
+      </Typography>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
+	  <Countup start={0} end={10000} duration={1.5} separator="," />
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        
+      </Typography>
+      <Typography variant="body2" className='col-span-2'>
+        since last year
+      </Typography>
+    </CardContent>
+    {/* <CardActions>
+      <Button size="small">Learn More</Button>
+    </CardActions> */}
+  </Card>
+  <Card className={` h-full  text-white bg-inherit w-full`}>
+		<CardContent className={`${classes.cardcontent} ${classes.totusers} h-full`}>
+      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
+        Total Users
+      </Typography>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
+	  <Countup start={0} end={10000} duration={1.5} separator="," />
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        
+      </Typography>
+      <Typography variant="body2" className='col-span-2'>
+        since last year
+      </Typography>
+    </CardContent>
+    {/* <CardActions>
+      <Button size="small">Learn More</Button>
+    </CardActions> */}
+  </Card>
+  <Card className={` h-full  text-white bg-inherit w-full`}>
+		<CardContent className={`${classes.cardcontent} ${classes.totusers} h-full`}>
+      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
+        Total Users
+      </Typography>
+      <Typography variant="h6" component="div" className='row-span-2 col-span-2'>
 	  <Countup start={0} end={10000} duration={1.5} separator="," />
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
