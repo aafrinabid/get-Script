@@ -62,10 +62,21 @@ export default function PrimarySearchAppBar() {
   const dispatch= useDispatch();
   const optionShower=()=>dispatch(UiAction.onClickLogo())
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [notAnchorEl, setNotAnchorEl] = React.useState(null);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const notopen = Boolean(notAnchorEl);
+
+   const notHandleClick = (event) => {
+    console.log(event)
+    setNotAnchorEl(event.currentTarget);
+  };
+      const notHandleClose = () => {
+        setNotAnchorEl(null);
+      };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,7 +88,7 @@ export default function PrimarySearchAppBar() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    // handleMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -124,38 +135,88 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          onClick={notHandleClick}
+          onClick={notHandleClick}
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" 
+          onClick={notHandleClick}
+          >
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        {/* <p>Messages</p> */}
       </MenuItem>
       <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
+          onClick={notHandleClick}
         >
-          <Badge badgeContent={17} color="error">
+          {/* <Badge badgeContent={17} color="error"> */}
             <NotificationsIcon />
-          </Badge>
+          {/* </Badge> */}
         </IconButton>
-        <p>Notifications</p>
+        <Menu
+                id="notifications"
+                anchorEl={notAnchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={notopen}
+                onClose={notHandleClose}
+              >
+                <MenuItem onClick={notHandleClose}>Nolan requested for Producer Access</MenuItem>
+                <MenuItem onClick={notHandleClose}>Rafi requested for Producer Access</MenuItem>
+                <MenuItem onClick={notHandleClose}>Kamal requested for Producer Access </MenuItem>
+
+              </Menu>
+
+        
+        {/* <p>Notifications</p> */}
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem >
         <IconButton
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
+          onClick={handleMobileMenuOpen}
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                <MenuItem onClick={handleMenuClose}> logout</MenuItem>
+
+              </Menu>
+
+        {/* <p>Profile</p> */}
       </MenuItem>
     </Menu>
+    
   );
 
   return (
@@ -200,6 +261,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={notHandleClick}
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
