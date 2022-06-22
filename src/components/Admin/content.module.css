@@ -36,7 +36,7 @@
 }
 
 .border{
-    height: 2px;
+    height: .5px;
     background-color: rgb(131, 131, 131);
     width: 90%;
     margin: 0 50px;

@@ -12,7 +12,7 @@ import { Refresh, Sort } from '@material-ui/icons';
 function Contents() {
 
   const optionSeen=useSelector(state=>state.UiHandler.optionSeen)
-  return (<div>
+  return (<div className='h-screen'>
    
   <div className={optionSeen?classes.contents:classes.clickcontents}>
         <Options/>

@@ -26,7 +26,7 @@ const Chart = () => {
 			  }} />
 				
 	);
-	return <Card className='bg-black'> {line}</Card>;
+	return <Card className={classes.chartcards}> {line}</Card>;
 };
 
 export default Chart;
