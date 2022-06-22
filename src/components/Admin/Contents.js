@@ -10,6 +10,7 @@ import { Refresh, Sort } from '@material-ui/icons';
 
 
 function Contents() {
+
   const optionSeen=useSelector(state=>state.UiHandler.optionSeen)
   return (<div>
    
@@ -23,7 +24,7 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
@@ -35,6 +36,7 @@ function Contents() {
     </Typography>
 
     </div>
+    <div className={classes.border}></div>
 <Cards />
 </div>
 </Route>
@@ -44,11 +46,12 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography variant='h7' className='text-right'>
+    <div className='text-right'>
+    <Typography variant='h7' >
       <Refresh/> 
       <Sort/>
-       Today: April 29
     </Typography>
+    </div>
     <Typography variant='h7'>
       Welcome , Master 
     </Typography>

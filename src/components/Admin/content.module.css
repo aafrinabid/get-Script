@@ -30,3 +30,14 @@
     display: grid;
     grid-template-columns: 80% 20%;
 }
+
+.refresh{
+    text-align: end;
+}
+
+.border{
+    height: 2px;
+    background-color: rgb(131, 131, 131);
+    width: 90%;
+    margin: 0 50px;
+}
