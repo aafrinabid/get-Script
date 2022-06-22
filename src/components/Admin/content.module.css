@@ -21,3 +21,12 @@
 
 
 }
+
+.adminTitle{
+    margin-left:20px;
+    text-align: left;
+    color: white;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}

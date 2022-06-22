@@ -9,10 +9,12 @@ import PostChart from './chart/postChart';
 
 function Cards() {
   return (
-        // <div>
+        // <div className={classes.fullcontainer}>
+		
+
 		<div className={`bg-inherit ${classes.container}` }>
-		<Card className={`${classes.totusers} h-3/4 text-white bg-black `}>
-		<CardContent className={`${classes.cardcontent} h-full`}>
+		<Card className={` h-5/6  text-white bg-inherit w-50 `}>
+		<CardContent className={`${classes.cardcontent} ${classes.totusers} h-full`}>
       <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
         Total Users
       </Typography>
@@ -30,77 +32,19 @@ function Cards() {
       <Button size="small">Learn More</Button>
     </CardActions> */}
   </Card>
-  <Card className={`${classes.newusers} h-3/4 text-white bg-black row-span-2`}>
-
-  <CardContent className={`${classes.cardcontent} h-full`}>
-      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
-        Total Users
-      </Typography>
-      <Typography variant="h4" component="div" className='row-span-2 col-span-2'>
-	  <Countup start={0} end={10000} duration={1.5} separator="," />
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        
-      </Typography>
-      <Typography variant="body2" className='col-span-2'>
-        since last year
-      </Typography>
-    </CardContent>
-    {/* <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions> */}
-  </Card>
-  <Card className={`${classes.noposts} h-3/4 text-white bg-black row-span-2`}>
-
-  <CardContent className={`${classes.cardcontent} h-full`}>
-      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
-        Total Users
-      </Typography>
-      <Typography variant="h4" component="div" className='row-span-2 col-span-2'>
-	  <Countup start={0} end={10000} duration={1.5} separator="," />
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        
-      </Typography>
-      <Typography variant="body2" className='col-span-2'>
-        since last year
-      </Typography>
-    </CardContent>
-    {/* <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions> */}
-  </Card>
-  <Card className={`${classes.newposts} h-3/4 text-white bg-black row-span-2`}>
-
-  <CardContent className={`${classes.cardcontent} h-full`}>
-      <Typography sx={{ fontSize: 10 }} color="text.secondary" className='col-span-2' gutterBottom>
-        Total Users
-      </Typography>
-      <Typography variant="h4" component="div" className='row-span-2 col-span-2'>
-	  <Countup start={0} end={10000} duration={1.5} separator="," />
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        
-      </Typography>
-      <Typography variant="body2" className='col-span-2'>
-        since last year
-      </Typography>
-    </CardContent>
-    {/* <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions> */}
-  </Card>
-
+ 
 
 			
 	{/* </div> */}
-    <div className= {`h-full ${classes.userscharts} `}>
+    {/* <div className= {`h-full ${classes.userscharts} `}>
         <Chart />
 		</div>
 		<div className= {`h-full ${classes.Postcharts}`}>
 		<PostChart />
     </div>
-   </div>
+   </div> */}
+       </div>
+
   )
 }
 

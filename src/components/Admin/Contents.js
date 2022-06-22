@@ -5,6 +5,8 @@ import Options from './Options';
 import { Switch,Route ,Redirect,useLocation} from 'react-router-dom';
 import PostCards from './PostCard';
 import { useSelector } from 'react-redux';
+import { Box, Card, Typography } from '@material-ui/core';
+import { Refresh, Sort } from '@material-ui/icons';
 
 
 function Contents() {
@@ -14,11 +16,46 @@ function Contents() {
   <div className={optionSeen?classes.contents:classes.clickcontents}>
         <Options/>
 <Switch>
+  
   <Route path='/AdminPanel' exact>
+    <div>
+  <div className={classes.adminTitle}>
+    <Typography variant='h6'>
+      Admin DashBoard
+    </Typography>
+    <Typography variant='h7'>
+      <Refresh/> 
+      <Sort/>
+      {/* <Card>
+        Today: April 29
+      </Card> */}
+    </Typography>
+    <Typography variant='h7'>
+      Welcome you master 
+    </Typography>
+
+    </div>
 <Cards />
+</div>
 </Route>
   <Route path='/AdminPanel/Posts'>
+  <div>
+  <div className={classes.adminTitle}>
+    <Typography variant='h6'>
+      Admin DashBoard
+    </Typography>
+    <Typography variant='h7' className='text-right'>
+      <Refresh/> 
+      <Sort/>
+       Today: April 29
+    </Typography>
+    <Typography variant='h7'>
+      Welcome , Master 
+    </Typography>
+
+    </div>
    <PostCards />
+   </div>
   </Route>
 
 </Switch>
