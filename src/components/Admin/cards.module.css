@@ -4,18 +4,24 @@
 	grid-gap: 10px;
 	margin-top:50px;
 	padding-left: 15px;
-    height: 150px;
+    /* height: 10px; */
+}
+.totusers{
+	grid-row: 1 /span 2;
 }
 
-.charts{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-	width: 100%;
-	grid-gap: 10px;
+.userscharts{
+    grid-row: 1 /span 2;
+	grid-column: 1/span 2;
+}
+
+.Postcharts{
+	grid-row: 3 /span 2;
+	grid-column: 3/span 2;
 }
 
 .card {
-	background: #333333 !important;
+	background: #060b45 !important;
 	color: #ffffff !important;
 	margin: 0 2% !important;
 }
@@ -31,6 +37,12 @@
 
 .deaths {
 	border-bottom: 10px solid rgba(150, 0, 0, 0.3);
+}
+.cardcontent{
+	display: grid;
+	grid-template-columns: 60% 40%;
+	justify-content: left;
+	align-items: flex-start;
 }
 
 @media only screen and (max-width: 770px) {

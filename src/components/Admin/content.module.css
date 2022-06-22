@@ -3,6 +3,7 @@
     grid-template-columns: 15% 85%;
     width: 100%;
     background-color: rgb(12, 22, 33);
+    height: 100vh;
 
     color:white;
 
@@ -12,6 +13,7 @@
     grid-template-columns:0% 100%;
     width: 100%;
     background-color: rgb(12, 22, 33);
+    height: 100vh;
 
 
 
