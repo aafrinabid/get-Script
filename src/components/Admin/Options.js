@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core'
-import { Dashboard,EmojiPeopleOutlined,Note } from '@material-ui/icons';
+import { AddCircleOutline, Dashboard,EmojiPeopleOutlined,Note } from '@material-ui/icons';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import classes from './Option.module.css';
@@ -38,6 +38,17 @@ function Options() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             <Note/> Posts
+          </Typography>
+          </Link>
+          </div>
+          <div className='p-5 pt-2'>
+       <Link to='/AdminPanel/Requests'>  <Typography
+            variant="h7"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            <AddCircleOutline /> Request Handler
           </Typography>
           </Link>
           </div>

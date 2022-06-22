@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,6 +16,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { UiAction } from '../../assets/store/UiSlice';
 import { useDispatch } from 'react-redux';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Check from '@mui/icons-material/Check';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -135,10 +141,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-          onClick={notHandleClick}
-          onClick={notHandleClick}
         <IconButton size="large" aria-label="show 4 new mails" color="inherit" 
-          onClick={notHandleClick}
           >
           <Badge badgeContent={4} color="error">
             <MailIcon />
@@ -151,7 +154,7 @@ export default function PrimarySearchAppBar() {
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
-          onClick={notHandleClick}
+          // onClick={notHandleClick}
         >
           {/* <Badge badgeContent={17} color="error"> */}
             <NotificationsIcon />
@@ -172,9 +175,46 @@ export default function PrimarySearchAppBar() {
                 open={notopen}
                 onClose={notHandleClose}
               >
-                <MenuItem onClick={notHandleClose}>Nolan requested for Producer Access</MenuItem>
+                {/* <MenuItem className='bg-black' onClick={notHandleClose}>Nolan requested for Producer Access </MenuItem>
                 <MenuItem onClick={notHandleClose}>Rafi requested for Producer Access</MenuItem>
-                <MenuItem onClick={notHandleClose}>Kamal requested for Producer Access </MenuItem>
+                <MenuItem onClick={notHandleClose}>Kamal requested for Producer Access </MenuItem> */}
+                 <Paper sx={{ width: 320,backgroundColor:'black',color:'white' ,height:240}}>
+      <MenuList dense>
+        <MenuItem>
+          <ListItemText >
+          <Typography variant="inherit" noWrap>Rafi tharoor babybabu requested for Producer Access</Typography></ListItemText>
+        </MenuItem>
+        <Divider/>
+        <MenuItem>
+          <ListItemText >molan requested for Producer Access</ListItemText>
+        </MenuItem>
+        <Divider/>
+        <MenuItem>
+          <ListItemText >saucer requested for Producer Access</ListItemText>
+        </MenuItem>
+        <Divider/>
+        <MenuItem>
+          <ListItemText >
+           best andersom e requested for Producer Access
+          </ListItemText>
+        </MenuItem>
+           <Divider/>
+        {/* <Divider /> */}
+        <MenuItem>
+          <ListItemText >lul jasi requested for Producer Access</ListItemText>
+        </MenuItem>
+        <Divider/>
+        <MenuItem>
+          <ListItemText >jojar requested for Producer Access</ListItemText>
+        </MenuItem>
+        <Divider/>
+        {/* <Divider /> */}
+        <MenuItem>
+          <ListItemText >Rafi requested for Producer Access</ListItemText>
+        </MenuItem>
+        <Divider/>
+      </MenuList>
+    </Paper>
 
               </Menu>
 
