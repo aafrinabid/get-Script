@@ -13,20 +13,20 @@ const Chart = () => {
 				  label: 'Script-Writer',
 				  data: [65, 59, 80, 81, 56, 55, 40],
 				  fill: false,
-				  borderColor: 'rgb(75, 192, 192)',
+				  borderColor: 'rgb(69,126,213)',
 				  tension: 0.1
 				},
 				{
 				  label: 'Producer',
 				  data: [105, 29, 83, 3, 36, 95, 4],
 				  fill: false,
-				  borderColor: 'rgb(175, 102, 192)',
+				  borderColor: 'rgb(255,153,1)',
 				  tension: 0.1
 				}]
 			  }} />
 				
 	);
-	return <Card className={classes.chartcards}> {line}</Card>;
+	return <Card className='h-full' style={{backgroundColor:'#162533'}} > {line}</Card>;
 };
 
 export default Chart;

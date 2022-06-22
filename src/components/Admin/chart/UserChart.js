@@ -6,7 +6,7 @@ const UserChart = () => {
     const labels=['Producers','Script-Writters']
 
 	const bar = (
-		<Pie
+		<Doughnut
 			data={  {
                 labels: [
                   'Script-Writters',
@@ -16,15 +16,23 @@ const UserChart = () => {
                   label: 'Users',
                   data: [8000,2000],
                   backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
+                    'rgb(70,131,218)',
+                    'rgb(255,153,1)',
+                  ], borderColor:[
+                    'rgb(70,131,218,0.4)',
+                    'rgba(255,153,1,0.4)',
+
                   ],
-                  hoverOffset: 4
+                  hoverOffset: 4,
+                  // cutoutPercentage: 80
+                 
                 }]
+              }} options={{
+                cutoutPercentage: 80,
               }} />
 				
 	);
-	return <Card className='bg-black'> {bar}</Card>;
+	return <Card className='h-full'style={{backgroundColor:'#162533'}}> {bar}</Card>;
 };
 
 export default UserChart;

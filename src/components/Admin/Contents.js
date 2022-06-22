@@ -46,17 +46,20 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <div className='text-right'>
-    <Typography variant='h7' >
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
       <Refresh/> 
       <Sort/>
+      {/* <Card>
+        Today: April 29
+      </Card> */}
     </Typography>
-    </div>
     <Typography variant='h7'>
-      Welcome , Master 
+      Welcome you master 
     </Typography>
 
     </div>
+    <div className={classes.border}></div>
+  
    <PostCards />
    </div>
   </Route>

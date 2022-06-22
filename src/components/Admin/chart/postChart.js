@@ -13,13 +13,13 @@ const PostChart = () => {
 				  label: 'posts',
 				  data: [100, 30, 180, 81, 96, 85, 200],
 				  fill: false,
-				  borderColor: 'rgb(75, 92, 192)',
+				  borderColor: 'rgb(112,118,124)',
 				  tension: 0.1
 				}]
 			  }} />
 				
 	);
-	return <Card className={classes.chartcards}> {line}</Card>;
+	return <Card className='h-full' style={{backgroundColor:'#162533'}}> {line}</Card>;
 };
 
 export default PostChart;
