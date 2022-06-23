@@ -70,8 +70,13 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.companyName}</TableCell>
         <TableCell align="right">{row.producerAssociationId}</TableCell>
+        {props.state?(<TableCell align="right"><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle/></IconButton></TableCell>):
+        <React.Fragment>
         <TableCell align="right"> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle/></IconButton> </TableCell>
         <TableCell align="right"><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle/></IconButton></TableCell>
+        </React.Fragment>
+        }
+        
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -136,7 +141,7 @@ function Row(props) {
 //   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 // ];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(props) {
     const producers=useSelector(state=>state.ProducerHandler.producers)
   return (
     <TableContainer component={Paper}>
@@ -147,13 +152,18 @@ export default function CollapsibleTable() {
             <TableCell>Name</TableCell>
             <TableCell align="right">Company Name</TableCell>
             <TableCell align="right">Producer Association Id</TableCell>
-            <TableCell align="right">.</TableCell>
-            <TableCell align="right">.</TableCell>
+          { props.state?(<TableCell align="right"></TableCell>):(
+  <React.Fragment>
+<TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+            </React.Fragment>
+          )
+          }  
           </TableRow>
         </TableHead>
         <TableBody>
-          {producers.filter(producer=>producer.accepted===false).map((producer) => (
-            <Row key={producer.name} row={producer} />
+          {producers.filter(producer=>producer.accepted===props.state).map((producer) => (
+            <Row key={producer.name} row={producer} state={props.state}/>
           ))}
         </TableBody>
       </Table>
