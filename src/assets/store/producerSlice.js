@@ -79,7 +79,7 @@ const ProducerSlice=createSlice({
     },
     reducers:{
         addProducers(state,action){
-            const existingProducerIndex=state.producers.findIndex((producer)=>producer.id===action.payload.id)
+            const existingProducerIndex=state.producers.findIndex((producer)=>producer.id===action.payload)
             const existingProducer=state.producers[existingProducerIndex]
             const UpdatedProducer={
                 ...existingProducer,
