@@ -31,7 +31,7 @@ function createData(name,companyName,producerAssociationId,accepted,Details,id) 
 function Row(props) {
     const dispatch=useDispatch();
   const { row } = props;
-  console.log(row)
+  console.log(row.Details.country)
   const [open, setOpen] = React.useState(false);
   const addRequest=dispatch(ProducerActions.addProducers(row.id));
   const removeUser=dispatch(ProducerActions.rejectProducers(row.id));
