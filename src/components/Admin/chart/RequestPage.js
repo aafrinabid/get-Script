@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useDispatch,useSelector } from 'react-redux';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
+import { ProducerActions } from '../../../assets/store/producerSlice';
 
 // function createData(name, calories, fat, carbs, protein, price) {
 //   return {
@@ -42,7 +43,16 @@ import { AddCircle, RemoveCircle } from '@material-ui/icons';
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const dispatch=useDispatch();
+  const addProducer=id=>{
+    console.log('happening at add')
 
+    dispatch(ProducerActions.addProducers(id))
+  }
+    const removeProducer=id=>{
+        console.log('happening')
+        dispatch(ProducerActions.rejectProducers(id))
+    }
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -60,8 +70,8 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.companyName}</TableCell>
         <TableCell align="right">{row.producerAssociationId}</TableCell>
-        <TableCell align="right"> <IconButton><AddCircle/></IconButton> </TableCell>
-        <TableCell align="right"><IconButton><RemoveCircle/></IconButton></TableCell>
+        <TableCell align="right"> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle/></IconButton> </TableCell>
+        <TableCell align="right"><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle/></IconButton></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -127,7 +137,6 @@ function Row(props) {
 // ];
 
 export default function CollapsibleTable() {
-    const dispatch=useDispatch();
     const producers=useSelector(state=>state.ProducerHandler.producers)
   return (
     <TableContainer component={Paper}>
