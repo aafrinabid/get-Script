@@ -61,7 +61,7 @@ const producers=[ {
     name:'walter',
     companyName:'dickney',
     producerAssociationId:633452,
-    accepted:false,
+    accepted:true,
     Details:{
         experience:10,
         numberOfProduced:88,

@@ -135,15 +135,15 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Company Name</TableCell>
+            <TableCell align="right">Producer Association Id</TableCell>
+            <TableCell align="right">.</TableCell>
+            <TableCell align="right">.</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {producers.map((producer) => (
+          {producers.filter(producer=>producer.accepted===false).map((producer) => (
             <Row key={producer.name} row={producer} />
           ))}
         </TableBody>
