@@ -66,7 +66,7 @@ function Contents() {
    </div>
   </Route>
   <Route path='/AdminPanel/Requests'>
-  <div>
+  <div className='bg-inherit'>
   <div className={classes.adminTitle}>
     <Typography variant='h6'>
       Producers Request
@@ -84,7 +84,9 @@ function Contents() {
 
     </div>
     <div className={classes.border}></div>
-  <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)'}}>
+   <h1 className='text-xl text-white m-4 mb-1'>Pending Requests</h1>
+
+  <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)',margin:'100px',marginTop:'5px'}}>
    <CollapsibleTable state={false}/>
    <h1 className='text-xl text-white m-4'> Registered Producers</h1>
   <CollapsibleTable state={true} /> 
