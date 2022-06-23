@@ -26,14 +26,14 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       Welcome you master 
     </Typography>
 
@@ -48,14 +48,14 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       Welcome you master 
     </Typography>
 
@@ -71,14 +71,14 @@ function Contents() {
     <Typography variant='h6'>
       Producers Request
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       waiting for your confirmation sir
     </Typography>
 

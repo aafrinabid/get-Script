@@ -13,28 +13,35 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useSelector, useDispatch } from 'react-redux';
-import { AddBoxSharp, RemoveSharp } from '@material-ui/icons';
-import { ProducerActions } from '../../../assets/store/producerSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { AddCircle, RemoveCircle } from '@material-ui/icons';
 
-function createData(name,companyName,producerAssociationId,accepted,Details,id) {
-  return {
-    id,
-    name,
-    companyName,
-    producerAssociationId,
-    accepted,
-    Details,
-  };
-}
+// function createData(name, calories, fat, carbs, protein, price) {
+//   return {
+//     name,
+//     calories,
+//     fat,
+//     carbs,
+//     protein,
+//     price,
+//     history: [
+//       {
+//         date: '2020-01-05',
+//         customerId: '11091700',
+//         amount: 3,
+//       },
+//       {
+//         date: '2020-01-02',
+//         customerId: 'Anonymous',
+//         amount: 1,
+//       },
+//     ],
+//   };
+// }
 
 function Row(props) {
-    const dispatch=useDispatch();
   const { row } = props;
-  console.log(row.Details.country)
   const [open, setOpen] = React.useState(false);
-  const addRequest=dispatch(ProducerActions.addProducers(row.id));
-  const removeUser=dispatch(ProducerActions.rejectProducers(row.id));
 
   return (
     <React.Fragment>
@@ -53,21 +60,8 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.companyName}</TableCell>
         <TableCell align="right">{row.producerAssociationId}</TableCell>
-        <TableCell align="right">
-            <IconButton
-            // aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          > <AddBoxSharp className='cursor-pointer' /> </IconButton>
-          </TableCell>
-        <TableCell align="right">
-        <IconButton
-            // aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          > <RemoveSharp className='cursor-pointer' /> 
-          </IconButton> 
-          </TableCell>
+        <TableCell align="right"> <IconButton><AddCircle/></IconButton> </TableCell>
+        <TableCell align="right"><IconButton><RemoveCircle/></IconButton></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -80,13 +74,12 @@ function Row(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Experience</TableCell>
-                    <TableCell>No. of Produced Films</TableCell>
+                    <TableCell>No. of Film Produced</TableCell>
                     <TableCell align="right">Address</TableCell>
                     <TableCell align="right">Country</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {row.history.map((historyRow) => ( */}
                     <TableRow >
                       <TableCell component="th" scope="row">
                         {row.Details.experience}
@@ -97,7 +90,6 @@ function Row(props) {
                         {row.Details.country}
                       </TableCell>
                     </TableRow>
-                {/* //   ))} */}
                 </TableBody>
               </Table>
             </Box>
@@ -110,56 +102,53 @@ function Row(props) {
 
 // Row.propTypes = {
 //   row: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     companyName: PropTypes.string.isRequired,
-//     producerAssociationId: PropTypes.number.isRequired,
-//     Details: PropTypes.objectOf(
+//     calories: PropTypes.number.isRequired,
+//     carbs: PropTypes.number.isRequired,
+//     fat: PropTypes.number.isRequired,
+//     history: PropTypes.arrayOf(
 //       PropTypes.shape({
-//         experience: PropTypes.number.isRequired,
-//         numberOfProduced: PropTypes.string.isRequired,
-//         address: PropTypes.string.isRequired,
+//         amount: PropTypes.number.isRequired,
+//         customerId: PropTypes.string.isRequired,
+//         date: PropTypes.string.isRequired,
 //       }),
 //     ).isRequired,
-//     country: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     protein: PropTypes.number.isRequired,
 //   }).isRequired,
 // };
 
-  
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
+//   createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
+//   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+// ];
 
 export default function CollapsibleTable() {
-const producers=useSelector(state=>state.ProducerHandler.producers)
-console.log(producers)
-// const rows = producers.map((producer)=> createData(producer.id,producer.name, producer.companyName,producer.producerAssociationId,producer.accepted,producer.Details))
-// console.log(rows);
+    const dispatch=useDispatch();
+    const producers=useSelector(state=>state.ProducerHandler.producers)
   return (
-    <div className='bg-inherit h-screen'>
-    <TableContainer component={Paper} className='bg-gray-500 text-white'>
+    <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Company</TableCell>
-            <TableCell align="right">Association Id</TableCell>
-            <TableCell align="right">.</TableCell>
-            <TableCell align="right">.</TableCell>
+            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody className='text-white'>
-          {producers.filter(row=>row.accepted===false).map((row) => (
-            <>
-            {console.log(row)}
-            <Row key={row.id} row={row} />
-            </>
+        <TableBody>
+          {producers.map((producer) => (
+            <Row key={producer.name} row={producer} />
           ))}
-          {/* {producers.filter(row=>row.accepted===true).map((row) => (
-            <Row key={row.id} row={row} />
-          ))} */}
-
-         
         </TableBody>
       </Table>
     </TableContainer>
-    </div>
   );
 }
+
