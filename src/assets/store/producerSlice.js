@@ -70,7 +70,38 @@ const producers=[ {
 
     }
 
-},]
+},
+{ 
+    id:6,
+    name:'best andison',
+    companyName:'andi and sons ',
+    producerAssociationId:949932,
+    accepted:false,
+    Details:{
+        experience:2,
+        numberOfProduced:8,
+        address:'andi and sons,kanadikal, kerala',
+        country:'India'
+
+    },
+
+},{ 
+    id:7,
+    name:'renjthat',
+    companyName:'raju lend me money ',
+    producerAssociationId:943332,
+    accepted:false,
+    Details:{
+        experience:3,
+        numberOfProduced:2,
+        address:'raju lenderer, kerala',
+        country:'India'
+
+    },
+
+}
+
+]
 
 const ProducerSlice=createSlice({
     name:'ProducerHandler',
