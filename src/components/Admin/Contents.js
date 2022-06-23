@@ -26,14 +26,14 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       Welcome you master 
     </Typography>
 
@@ -48,14 +48,14 @@ function Contents() {
     <Typography variant='h6'>
       Admin DashBoard
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       Welcome you master 
     </Typography>
 
@@ -66,27 +66,31 @@ function Contents() {
    </div>
   </Route>
   <Route path='/AdminPanel/Requests'>
-  <div>
+  <div className='bg-inherit'>
   <div className={classes.adminTitle}>
     <Typography variant='h6'>
       Producers Request
     </Typography>
-    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h6'>
       <Refresh/> 
       <Sort/>
       {/* <Card>
         Today: April 29
       </Card> */}
     </Typography>
-    <Typography variant='h7'>
+    <Typography variant='h6'>
       waiting for your confirmation sir
     </Typography>
 
     </div>
     <div className={classes.border}></div>
-  <div className='p-10 h-screen'>
-   <CollapsibleTable />
-   </div>
+   <h1 className='text-xl text-white m-4 mb-1'>Pending Requests</h1>
+
+  <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)',margin:'200px',marginTop:'5px'}}>
+   <CollapsibleTable state={false}/>
+   <h1 className='text-xl text-white m-4'> Registered Producers</h1>
+  <CollapsibleTable state={true} /> 
+  </div>
    </div>
   </Route>
 

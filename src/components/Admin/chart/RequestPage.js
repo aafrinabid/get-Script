@@ -13,29 +13,46 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useSelector, useDispatch } from 'react-redux';
-import { AddBoxSharp, RemoveSharp } from '@material-ui/icons';
+import { useDispatch,useSelector } from 'react-redux';
+import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import { ProducerActions } from '../../../assets/store/producerSlice';
 
-function createData(name,companyName,producerAssociationId,accepted,Details,id) {
-  return {
-    id,
-    name,
-    companyName,
-    producerAssociationId,
-    accepted,
-    Details,
-  };
-}
+// function createData(name, calories, fat, carbs, protein, price) {
+//   return {
+//     name,
+//     calories,
+//     fat,
+//     carbs,
+//     protein,
+//     price,
+//     history: [
+//       {
+//         date: '2020-01-05',
+//         customerId: '11091700',
+//         amount: 3,
+//       },
+//       {
+//         date: '2020-01-02',
+//         customerId: 'Anonymous',
+//         amount: 1,
+//       },
+//     ],
+//   };
+// }
 
 function Row(props) {
-    const dispatch=useDispatch();
   const { row } = props;
-  console.log(row.Details.country)
   const [open, setOpen] = React.useState(false);
-  const addRequest=dispatch(ProducerActions.addProducers(row.id));
-  const removeUser=dispatch(ProducerActions.rejectProducers(row.id));
+  const dispatch=useDispatch();
+  const addProducer=id=>{
+    console.log('happening at add')
 
+    dispatch(ProducerActions.addProducers(id))
+  }
+    const removeProducer=id=>{
+        console.log('happening')
+        dispatch(ProducerActions.rejectProducers(id))
+    }
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -43,61 +60,52 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            // onClick={() => setOpen(!open)}
+            onMouseEnter={()=>setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? <KeyboardArrowUpIcon className='text-white'/> : <KeyboardArrowDownIcon className='text-white'/>}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell className='text-white' component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.companyName}</TableCell>
-        <TableCell align="right">{row.producerAssociationId}</TableCell>
-        <TableCell align="right">
-            <IconButton
-            // aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          > <AddBoxSharp className='cursor-pointer' /> </IconButton>
-          </TableCell>
-        <TableCell align="right">
-        <IconButton
-            // aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          > <RemoveSharp className='cursor-pointer' /> 
-          </IconButton> 
-          </TableCell>
+        <TableCell align="right" className='text-white'>{row.companyName}</TableCell>
+        <TableCell align="right" className='text-white'>{row.producerAssociationId}</TableCell>
+        {props.state?(<TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>):
+        <React.Fragment>
+        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle className='text-white'/></IconButton> </TableCell>
+        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
+        </React.Fragment>
+        }
+        
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography variant="h6" gutterBottom component="div" className='text-white'>
                 Details
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Experience</TableCell>
-                    <TableCell>No. of Produced Films</TableCell>
-                    <TableCell align="right">Address</TableCell>
-                    <TableCell align="right">Country</TableCell>
+                    <TableCell className='text-white'>Experience</TableCell>
+                    <TableCell className='text-white'>No. of Film Produced</TableCell>
+                    <TableCell align="right" className='text-white'>Address</TableCell>
+                    <TableCell align="right" className='text-white'>Country</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {row.history.map((historyRow) => ( */}
                     <TableRow >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" className='text-white'>
                         {row.Details.experience}
                       </TableCell>
-                      <TableCell>{row.Details.numberOfProduced}</TableCell>
-                      <TableCell align="right">{row.Details.address}</TableCell>
-                      <TableCell align="right">
+                      <TableCell className='text-white'>{row.Details.numberOfProduced}</TableCell>
+                      <TableCell align="right" className='text-white'>{row.Details.address}</TableCell>
+                      <TableCell align="right" className='text-white'>
                         {row.Details.country}
                       </TableCell>
                     </TableRow>
-                {/* //   ))} */}
                 </TableBody>
               </Table>
             </Box>
@@ -110,56 +118,57 @@ function Row(props) {
 
 // Row.propTypes = {
 //   row: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     companyName: PropTypes.string.isRequired,
-//     producerAssociationId: PropTypes.number.isRequired,
-//     Details: PropTypes.objectOf(
+//     calories: PropTypes.number.isRequired,
+//     carbs: PropTypes.number.isRequired,
+//     fat: PropTypes.number.isRequired,
+//     history: PropTypes.arrayOf(
 //       PropTypes.shape({
-//         experience: PropTypes.number.isRequired,
-//         numberOfProduced: PropTypes.string.isRequired,
-//         address: PropTypes.string.isRequired,
+//         amount: PropTypes.number.isRequired,
+//         customerId: PropTypes.string.isRequired,
+//         date: PropTypes.string.isRequired,
 //       }),
 //     ).isRequired,
-//     country: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     protein: PropTypes.number.isRequired,
 //   }).isRequired,
 // };
 
-  
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
+//   createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
+//   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+// ];
 
-export default function CollapsibleTable() {
-const producers=useSelector(state=>state.ProducerHandler.producers)
-console.log(producers)
-// const rows = producers.map((producer)=> createData(producer.id,producer.name, producer.companyName,producer.producerAssociationId,producer.accepted,producer.Details))
-// console.log(rows);
+export default function CollapsibleTable(props) {
+    const producers=useSelector(state=>state.ProducerHandler.producers)
   return (
-    <div className='bg-inherit h-screen'>
-    <TableContainer component={Paper} className='bg-gray-500 text-white'>
-      <Table aria-label="collapsible table">
+    <TableContainer component={Paper} sx={{backgroundColor:'inherit',color:'white'}}>
+      <Table aria-label="collapsible table" sx={{backgroundColor:'rgb(34,49,68)',color:'white'}}>
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Company</TableCell>
-            <TableCell align="right">Association Id</TableCell>
-            <TableCell align="right">.</TableCell>
-            <TableCell align="right">.</TableCell>
+            <TableCell className='text-white'>Name</TableCell>
+            <TableCell align="right" className='text-white'>Company Name</TableCell>
+            <TableCell align="right" className='text-white'>Producer Association Id</TableCell>
+          { props.state?(<TableCell align="right" className='text-white'></TableCell>):(
+  <React.Fragment>
+<TableCell align="right" className='text-white'></TableCell>
+            <TableCell align="right" className='text-white'></TableCell>
+            </React.Fragment>
+          )
+          }  
           </TableRow>
         </TableHead>
-        <TableBody className='text-white'>
-          {producers.filter(row=>row.accepted===false).map((row) => (
-            <>
-            {console.log(row)}
-            <Row key={row.id} row={row} />
-            </>
+        <TableBody>
+          {producers.filter(producer=>producer.accepted===props.state).map((producer) => (
+            <Row key={producer.name} row={producer} state={props.state}/>
           ))}
-          {/* {producers.filter(row=>row.accepted===true).map((row) => (
-            <Row key={row.id} row={row} />
-          ))} */}
-
-         
         </TableBody>
       </Table>
     </TableContainer>
-    </div>
   );
 }
+
