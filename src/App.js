@@ -41,7 +41,7 @@ function App() {
   return (
     <div className="App">
      
-{pathname==='/AdminPanel' || pathname==='/AdminPanel/Posts' ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') ?'':<Navbar colorChange={colorChange}/>}
       
       <Switch>
         <Route path='/' exact>

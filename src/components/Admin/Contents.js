@@ -7,6 +7,8 @@ import PostCards from './PostCard';
 import { useSelector } from 'react-redux';
 import { Box, Card, Typography } from '@material-ui/core';
 import { Refresh, Sort } from '@material-ui/icons';
+import { RequestPage } from '@mui/icons-material';
+import CollapsibleTable from './chart/RequestPage';
 
 
 function Contents() {
@@ -61,6 +63,30 @@ function Contents() {
     <div className={classes.border}></div>
   
    <PostCards />
+   </div>
+  </Route>
+  <Route path='/AdminPanel/Requests'>
+  <div>
+  <div className={classes.adminTitle}>
+    <Typography variant='h6'>
+      Producers Request
+    </Typography>
+    <Typography inputProps={{ style: {textAlign: 'right'} }} align={'right'} variant='h7'>
+      <Refresh/> 
+      <Sort/>
+      {/* <Card>
+        Today: April 29
+      </Card> */}
+    </Typography>
+    <Typography variant='h7'>
+      waiting for your confirmation sir
+    </Typography>
+
+    </div>
+    <div className={classes.border}></div>
+  <div className='p-10 h-screen'>
+   <CollapsibleTable />
+   </div>
    </div>
   </Route>
 
