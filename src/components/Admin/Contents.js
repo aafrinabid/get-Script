@@ -86,7 +86,7 @@ function Contents() {
     <div className={classes.border}></div>
    <h1 className='text-xl text-white m-4 mb-1'>Pending Requests</h1>
 
-  <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)',margin:'100px',marginTop:'5px'}}>
+  <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)',margin:'200px',marginTop:'5px'}}>
    <CollapsibleTable state={false}/>
    <h1 className='text-xl text-white m-4'> Registered Producers</h1>
   <CollapsibleTable state={true} /> 

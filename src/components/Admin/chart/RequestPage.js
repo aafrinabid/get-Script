@@ -60,20 +60,21 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            // onClick={() => setOpen(!open)}
+            onMouseEnter={()=>setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? <KeyboardArrowUpIcon className='text-white'/> : <KeyboardArrowDownIcon className='text-white'/>}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell className='text-white' component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.companyName}</TableCell>
-        <TableCell align="right">{row.producerAssociationId}</TableCell>
-        {props.state?(<TableCell align="right"><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle/></IconButton></TableCell>):
+        <TableCell align="right" className='text-white'>{row.companyName}</TableCell>
+        <TableCell align="right" className='text-white'>{row.producerAssociationId}</TableCell>
+        {props.state?(<TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>):
         <React.Fragment>
-        <TableCell align="right"> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle/></IconButton> </TableCell>
-        <TableCell align="right"><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle/></IconButton></TableCell>
+        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle className='text-white'/></IconButton> </TableCell>
+        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
         </React.Fragment>
         }
         
@@ -82,26 +83,26 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography variant="h6" gutterBottom component="div" className='text-white'>
                 Details
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Experience</TableCell>
-                    <TableCell>No. of Film Produced</TableCell>
-                    <TableCell align="right">Address</TableCell>
-                    <TableCell align="right">Country</TableCell>
+                    <TableCell className='text-white'>Experience</TableCell>
+                    <TableCell className='text-white'>No. of Film Produced</TableCell>
+                    <TableCell align="right" className='text-white'>Address</TableCell>
+                    <TableCell align="right" className='text-white'>Country</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" className='text-white'>
                         {row.Details.experience}
                       </TableCell>
-                      <TableCell>{row.Details.numberOfProduced}</TableCell>
-                      <TableCell align="right">{row.Details.address}</TableCell>
-                      <TableCell align="right">
+                      <TableCell className='text-white'>{row.Details.numberOfProduced}</TableCell>
+                      <TableCell align="right" className='text-white'>{row.Details.address}</TableCell>
+                      <TableCell align="right" className='text-white'>
                         {row.Details.country}
                       </TableCell>
                     </TableRow>
@@ -144,18 +145,18 @@ function Row(props) {
 export default function CollapsibleTable(props) {
     const producers=useSelector(state=>state.ProducerHandler.producers)
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+    <TableContainer component={Paper} sx={{backgroundColor:'inherit',color:'white'}}>
+      <Table aria-label="collapsible table" sx={{backgroundColor:'rgb(34,49,68)',color:'white'}}>
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Company Name</TableCell>
-            <TableCell align="right">Producer Association Id</TableCell>
-          { props.state?(<TableCell align="right"></TableCell>):(
+            <TableCell className='text-white'>Name</TableCell>
+            <TableCell align="right" className='text-white'>Company Name</TableCell>
+            <TableCell align="right" className='text-white'>Producer Association Id</TableCell>
+          { props.state?(<TableCell align="right" className='text-white'></TableCell>):(
   <React.Fragment>
-<TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
+<TableCell align="right" className='text-white'></TableCell>
+            <TableCell align="right" className='text-white'></TableCell>
             </React.Fragment>
           )
           }  
