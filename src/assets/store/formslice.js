@@ -60,15 +60,29 @@ const formHandleSlice=createSlice({
             })
         },
         submitFormHandler(state){
+            console.log('happening at submitHandler')
+            state.activeStepState=0
             const data= Object.keys(state.userData)
+            console.log(data)
             data.forEach(key=>{
+                console.log(typeof state['userData'][key],key)
                 if(typeof state['userData'][key]==='string'){
+                    
+                    state['userData'][key]=''
+                }
+                if(typeof state['userData'][key]==='number'){
+                    
                     state['userData'][key]=''
                 }
                 if(typeof state['userData'][key]==='object'){
+                    if(key==='genres'){
+                        console.log(key,'dkdjkd')
+                       return state['userData'][key]=Array()
+              }
                     const objdata= Object.keys(state['userData'][key])
+                    console.log(objdata,'crazy boys')
                     objdata.forEach(key=>{
-                        if(typeof state['userData']['table']==='string'){
+                        if(typeof state['userData']['table'][key]==='string'){
                             state['userData']['table'][key]=''
                         }
                     })
