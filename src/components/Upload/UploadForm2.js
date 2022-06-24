@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
 import React,{useRef,useState} from 'react';
@@ -44,11 +44,29 @@ const genres=['Action Genre',
        };
 
        function UploadForm2(props) {
-        const pitch=['The origin','Human Hook','Character','Desires','Obstacles','Highlights','Open Road']
+        const tableData=useSelector(state=>state.formHandler.userData['table'])
+        const tablekey=Object.keys(tableData)
+        console.log(tablekey);
+        console.log(tableData)
+        const pitch=[
+          'The origin',
+          'Human Hook',
+          'Character',
+          'Desires',
+          'Obstacles',
+          'Highlights',
+          'Open Road']
         const classes=useStyles()
         const dispatch=useDispatch()
         const nextPageHandler=()=>dispatch(formAction.nextStepHandler())
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
+        // const onChangeHandler=(event)=>{
+        //   console.log('changing it');
+        //   const value=event.target.value;
+        //   const name=event.target.name;
+        //   dispatch(formAction.inputChangeHandler(name,value))
+
+        // }
 
   return (
     <div className='flex justify-center h-screen '>
@@ -60,9 +78,10 @@ const genres=['Action Genre',
         
         {pitch.map((e,i)=>(
             <div key={i}  className={clas.tablecontent}>
+              {console.log(tableData[tablekey[i]])}
             <h1 className='border-gray-300  border-transparent text-center'>{i+1}</h1>
             <h1 className='border-gray-300  border-transparent text-center'>{e}</h1>
-            <TextField className={`border-white-300 text-white ${clas.description} text-left`} name={e} inputProps={{ className: classes.input }}></TextField>
+            <TextField className={`border-white-300 text-white ${clas.description} text-left`} name={tablekey[i]} value={tableData[tablekey[i]]} inputProps={{ className: classes.input }} ></TextField>
            </div>
         ))}
     </div>

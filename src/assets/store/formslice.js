@@ -38,16 +38,17 @@ const formHandleSlice=createSlice({
             state.activeStepState=0
         },
         inputChangeHandler(state,action){
+            console.log(action.payload)
             const data= Object.keys(state.userData)
             data.forEach(key=>{
                 if(key===action.payload.name){
-                    state.userData[key]===action.payload.value
+                    state['userData'][key]=action.payload.value
                 }
-                if(typeof state.userData[key]==='object'){
-                    const objdata= Object.keys(state.userData[key])
+                if(typeof state['userData'][key]==='object'){
+                    const objdata= Object.keys(state['userData'][key])
                     objdata.forEach(key=>{
                         if(key===action.payload.name){
-                            state.userData['table'][key]=action.payload.value
+                            state['userData']['table'][key]=action.payload.value
                         }
                     })
                 }
@@ -56,14 +57,14 @@ const formHandleSlice=createSlice({
         submitFormHandler(state){
             const data= Object.keys(state.userData)
             data.forEach(key=>{
-                if(typeof state.userData[key]==='string'){
-                    state.userData[key]===''
+                if(typeof state['userData'][key]==='string'){
+                    state['userData'][key]=''
                 }
-                if(typeof state.userData[key]==='object'){
-                    const objdata= Object.keys(state.userData[key])
+                if(typeof state['userData'][key]==='object'){
+                    const objdata= Object.keys(state['userData'][key])
                     objdata.forEach(key=>{
-                        if(typeof state.userData['table']==='string'){
-                            state.userData['table'][key]=''
+                        if(typeof state['userData']['table']==='string'){
+                            state['userData']['table'][key]=''
                         }
                     })
                 }
