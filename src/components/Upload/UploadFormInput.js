@@ -40,7 +40,7 @@ const genres=['Action Genre',
            height:'550px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '150%',
+           backgroundSize: '163%',
            backgroundRepeat: 'no-repeat',
        };
 
@@ -76,7 +76,7 @@ function UploadFormInput() {
         );
       };
   return (
-    <div className='flex justify-center h-screen bg-zinc-700'>
+    <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent  >
         <Grid container spacing={2} >

@@ -51,7 +51,7 @@ const genres=['Action Genre',
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
 
   return (
-    <div className='flex justify-center h-screen bg-zinc-700'>
+    <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent  >
 

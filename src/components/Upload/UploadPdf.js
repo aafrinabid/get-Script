@@ -40,7 +40,7 @@ const genres=['Action Genre',
            height:'550px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '150%',
+           backgroundSize: '165%',
            backgroundRepeat: 'no-repeat',
        };
 
@@ -57,7 +57,7 @@ const genres=['Action Genre',
         }
 
   return (
-    <div className='flex justify-center h-screen bg-zinc-700'>
+    <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent  >
 <DropzoneArea onChange={fileHandler.bind(this)} filesLimit={1} dropzoneClass='bg-inherit border-2 border-white' maxFileSize={5000000}  acceptedFiles={['.pdf', ]} className={clas.uploadArea}/>

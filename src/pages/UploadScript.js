@@ -4,7 +4,7 @@ import UploadMainForm from '../components/Upload/UploadMainForm';
 import {Typography} from '@mui/material'
 function UploadScript() {
   return (
-    <div className='h-screen w-full bg-inherit block bg-zinc-700 pt-12'>
+    <div className='h-screen w-full bg-inherit block pt-12'>
       {console.log('in uploadd page')}
       {/* <Typography gutterBottom variant='h3' align='center'>
             Upload Form
