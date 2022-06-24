@@ -1,5 +1,5 @@
 import UploadForm from './UploadForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
 import React,{useRef,useState} from 'react';
@@ -45,26 +45,22 @@ const genres=['Action Genre',
        };
 
 function UploadFormInput() {
+  const [genre,setGenre]=useState([])
+  const formData=useSelector(state=>state.formHandler['userData'])
+  const formkey=Object.keys(formData)
+  console.log(formkey)
     const classes=useStyles();
-    const scriptTitle= useRef();
-    const [Entertainment,setEntertainment]= useState('');
-    const [genre,setGenre]=useState([]);
     const dispatch=useDispatch();
    const nextPageHandler=()=>{
     dispatch(formAction.nextStepHandler())
    }
-    const [type,setType]=useState('');
 
-
-    console.log(scriptTitle)
-
-    const handleChange=(e)=>{
-        setEntertainment(e.target.value)
-    }
-    const handleChangeType=(e)=>{
-      console.log(e.target)
-        setType(e.target.value)
-    }
+   const changeHandler=(e)=>{
+    const {value}=e.target
+    const {name}=e.target
+    dispatch(formAction.inputChangeHandler({name,value}))
+   
+  }
 
     const handleChangeGenre = (event) => {
         const {
@@ -73,7 +69,17 @@ function UploadFormInput() {
         setGenre(
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
-        );
+        )
+        console.log(genre);
+        const {name}=event.target
+        value=genre
+
+    
+    dispatch(formAction.inputChangeHandler({name,value}))
+
+
+        
+        ;
       };
   return (
     <div className='flex justify-center h-screen '>
@@ -83,7 +89,7 @@ function UploadFormInput() {
             <Grid xs={12} item className='text-white'>
               <InputLabel className='w-full text-white' id='demo-simple-select-label'>Script Title</InputLabel>
 
-                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white' inputRef={scriptTitle} style={{color:'white'}} >
+                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white'  style={{color:'white'}} name={formkey[0]} value={formData[formkey[0]]} onChange={changeHandler}>
 
                 </TextField>
 
@@ -91,11 +97,12 @@ function UploadFormInput() {
             <Grid xs={12} sm={12}  item>
               <InputLabel className='w-full text-white' id='demo-simple-select-label'>Entertainment Type</InputLabel>
               <Select
+              name={formkey[1]}
+               value={formData[formkey[1]]}
               className='w-1/2 mt-3 text-white border-white border-2'
              labelId="demo-simple-select-label"
              id="demo-simple-select"
-             value={Entertainment}
-             onChange={handleChange}
+             onChange={changeHandler}
            >
             <MenuItem value={10}>Movie</MenuItem>
             <MenuItem value={20}>TV Series</MenuItem>
@@ -104,14 +111,14 @@ function UploadFormInput() {
                 
             </Grid>
             <Grid xs={12} sm={12}  item>
-              <InputLabel className='w-full text-white' id='demo-simple-select-label'>Entertainment Type</InputLabel>
+              <InputLabel className='w-full text-white' id='demo-simple-select-label'>Script Type</InputLabel>
               <Select
               className='w-1/2 mt-3 text-white border-white border-2'
              labelId="demo-simple-select-label"
              id="demo-simple-select"
-             value={type}
-             onChange={handleChangeType}
-             name='entertainmentType'
+             name={formkey[2]} 
+             value={formData[formkey[2]]}
+             onChange={changeHandler}
            >
             <MenuItem value={10} >Movie Concept</MenuItem>
             <MenuItem value={20}>Series Pilot Episode</MenuItem>
@@ -130,8 +137,9 @@ function UploadFormInput() {
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
-          value={genre}
-          onChange={handleChangeGenre}
+          name={formkey[3]}
+           value={formData[formkey[3]]}
+           onChange={changeHandler}
         >
           {genres.map((genre) => (
             <MenuItem

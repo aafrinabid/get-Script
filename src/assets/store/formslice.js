@@ -11,7 +11,7 @@ const formHandleSlice=createSlice({
             titleName:'',
             entertainmentType:'',
             scriptType:'',
-            genres:'',
+            genres:Array(),
             table:{
                 theOrigin:'',
                 humanHook:'',
@@ -42,6 +42,11 @@ const formHandleSlice=createSlice({
             const data= Object.keys(state.userData)
             data.forEach(key=>{
                 if(key===action.payload.name){
+                    if(key==='genres'){
+                        console.log(state);
+                        console.log(action.payload)
+                        return state['userData'][key]=action.payload.value
+              }
                     state['userData'][key]=action.payload.value
                 }
                 if(typeof state['userData'][key]==='object'){
