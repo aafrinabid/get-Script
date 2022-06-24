@@ -6,12 +6,21 @@ import StepLabel from '@mui/material/StepLabel'
 import Typography from '@mui/material/Typography'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { makeStyles } from "@material-ui/core/styles";
 
 import UploadFormInput from './UploadFormInput'
 import UploadForm2 from './UploadForm2'
 import UplpoadPdf from './UploadPdf'
 import UploadPdf from './UploadPdf'
 // Step titles
+
+const useStyles = makeStyles({
+  input: {
+    color: "white",
+  }
+});
+
+
 const labels = ['First Step', 'Second Step', 'Confirmation']
 const handleSteps = (step) => {
   switch (step) {
@@ -27,6 +36,8 @@ const handleSteps = (step) => {
 }
 
 function UploadMainForm() {
+
+  const clas=useStyles()
     const history= useHistory()
     const activeStep=useSelector((state)=>state.formHandler.activeStepState)
   return (
@@ -43,10 +54,10 @@ function UploadMainForm() {
               Multi Step Form
             </Typography>
           </Box> */}
-          <Stepper activeStep={activeStep} sx={{ py: 3 }} alternativeLabel className='pb-6'>
+          <Stepper activeStep={activeStep} sx={{ py: 3,color:'white' }} alternativeLabel className='pb-6'>
             {labels.map((label) => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel sx={{color:'white'}} className={clas.input}><h1 className='text-white'>{label}</h1> </StepLabel>
               </Step>
             ))}
           </Stepper>
