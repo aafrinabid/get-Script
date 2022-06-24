@@ -60,13 +60,13 @@ const genres=['Action Genre',
         const dispatch=useDispatch()
         const nextPageHandler=()=>dispatch(formAction.nextStepHandler())
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
-        // const onChangeHandler=(event)=>{
-        //   console.log('changing it');
-        //   const value=event.target.value;
-        //   const name=event.target.name;
-        //   dispatch(formAction.inputChangeHandler(name,value))
+        const onChangeHandler=(event)=>{
+          console.log(event.target.value);
+          const value=event.target.value;
+          const name=event.target.name;
+          dispatch(formAction.inputChangeHandler({name,value}))
 
-        // }
+        }
 
   return (
     <div className='flex justify-center h-screen '>
@@ -81,7 +81,7 @@ const genres=['Action Genre',
               {console.log(tableData[tablekey[i]])}
             <h1 className='border-gray-300  border-transparent text-center'>{i+1}</h1>
             <h1 className='border-gray-300  border-transparent text-center'>{e}</h1>
-            <TextField className={`border-white-300 text-white ${clas.description} text-left`} name={tablekey[i]} value={tableData[tablekey[i]]} inputProps={{ className: classes.input }} ></TextField>
+            <TextField className={`border-white-300 text-white ${clas.description} text-left`} name={tablekey[i]} value={tableData[tablekey[i]]} inputProps={{ className: classes.input }} onChange={onChangeHandler}></TextField>
            </div>
         ))}
     </div>

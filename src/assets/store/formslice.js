@@ -38,7 +38,7 @@ const formHandleSlice=createSlice({
             state.activeStepState=0
         },
         inputChangeHandler(state,action){
-            console.log(action.payload)
+            console.log(action)
             const data= Object.keys(state.userData)
             data.forEach(key=>{
                 if(key===action.payload.name){
