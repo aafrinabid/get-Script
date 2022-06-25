@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,6 +30,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [loginUser,setLoginUser]=useState(true)
+  const handleLogin=()=>{
+    setLoginUser(prevstate=>!prevstate)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,6 +56,11 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
+           <Typography variant='body2' onClick={handleLogin} className='cursor-pointer'>
+                
+                  {loginUser? "Are you a producer? sign in here...":"Are you a Script-writer? sign in here..."}
+                
+              </Typography>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -61,10 +72,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
