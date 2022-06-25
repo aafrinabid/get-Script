@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import { useEffect, useState } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
+import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
   return (
     <div className="App">
      
-{pathname.startsWith('/Admin') ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi') ?'':<Navbar colorChange={colorChange}/>}
       
       <Switch>
         <Route path='/' exact>
@@ -51,7 +52,11 @@ function App() {
           <ScriptDetails />
         </Route>
       <Route path='/login'>
+        <div className='signin'>
+          <BackgroundIamge />
         <SignIn />
+
+        </div>
       </Route>
       <Route path='/sign-up'>
         <SignUp />
