@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState,useRef } from 'react';
+import { useState,useRef,useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -37,9 +37,17 @@ const theme = createTheme();
 
 export default function SignIn() {
   const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} inputRef={ref}  variant="filled" {...props} />;
   });
   const history=useHistory();
+  const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  useEffect(()=>{
+    if(loginStatus){
+    history.push('/')  
+    }
+
+  }
+  ,[history,loginStatus])
   const [open, setOpen] = React.useState(false);
   const [loginUser,setLoginUser]=useState(true);
   const [isLogin,setIsLogin]=useState(true);
@@ -48,7 +56,7 @@ export default function SignIn() {
   const usernameRef=useRef();
   const emailRef=useRef();
   const passwordRef =useRef();
-  const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  console.log(loginStatus)
   let url
   if(isLogin){
     if(loginUser){
@@ -93,6 +101,8 @@ export default function SignIn() {
     const enteredEmail=!isLogin ? emailRef.current.value:'';
     const enteredUsername=usernameRef.current.value;
     const enteredPassword=passwordRef.current.value;
+    console.log(enteredEmail,enteredUsername,enteredPassword)
+    console.log(url)
      axios.post(url,
       {
         username:enteredUsername,
@@ -102,17 +112,20 @@ export default function SignIn() {
         password:enteredPassword
 
       }).then((res)=>{
+        console.log(res.data)
         if(res.ok){
           console.log('cool')
         }
         dispatch(authActions.loginHandler(res.data))
-        if(loginStatus){
+        console.log(loginStatus)
+        if(res.data['auth']){
           history.push('/')
         }
 
       }).catch((err)=>{
+        console.log(err)
         setOpen(true)
-        appBar(err.message)
+        appBar('not authorised')
       })
   };
 
@@ -147,7 +160,7 @@ export default function SignIn() {
            <TextField
                   autoComplete="given-name"
                   name="firstName"
-                  ref={firstnameRef}
+                  inputRef={firstnameRef} 
                   required
                   fullWidth
                   id="firstName"
@@ -164,7 +177,7 @@ export default function SignIn() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  ref={lastnameRef}
+                  inputRef={lastnameRef} 
                 />
              }
           {!isLogin &&
@@ -176,7 +189,7 @@ export default function SignIn() {
           label="Email Address"
           name="email"
           autoComplete="email"
-          ref={emailRef}
+          inputRef={emailRef} 
         />
 
           }
@@ -192,7 +205,7 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
-              ref={usernameRef}
+              inputRef={usernameRef} 
             />
             <TextField
               margin="normal"
@@ -202,7 +215,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              ref={passwordRef}
+              inputRef={passwordRef} 
               autoComplete="current-password"
             />
            {isLogin &&

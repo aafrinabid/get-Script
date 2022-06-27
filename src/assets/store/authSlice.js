@@ -13,7 +13,9 @@ const authSlice=createSlice({
             data=action.payload
             console.log(data)
             if(data.auth){
-                state.isLoggedIn=true;
+                console.log(data.auth)
+                state.isLoggedIn=!state.isLoggedIn;
+                console.log(state.isLoggedIn)
                 state.role=data.role
                 localStorage.setItem('token',data.token)
 

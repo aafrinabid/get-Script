@@ -1,5 +1,5 @@
 import './App.css';
-import { Switch,Route ,Redirect,useLocation} from 'react-router-dom';
+import { Switch,Route ,Redirect,useLocation, useHistory} from 'react-router-dom';
 import Navbar from './components/UI/NavBar'
 import SignIn from './pages/AuthenticationPage';
 import SignUp from './pages/SignUp';
@@ -10,9 +10,19 @@ import { useEffect, useState } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
+import { useSelector } from 'react-redux';
 
 
 function App() {
+  const history=useHistory()
+  const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  useEffect(()=>{
+    if(loginStatus){
+    history.push('/')  
+    }
+
+  }
+  ,[])
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
     console.log('happening guys')
