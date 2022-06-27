@@ -41,8 +41,9 @@ export default function SignIn() {
   });
   const history=useHistory();
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  const confirmationStatus=useSelector(state=>state.authHandler.status)
   useEffect(()=>{
-    if(loginStatus){
+    if(loginStatus && confirmationStatus==='approved'){
     history.push('/')  
     }
 
@@ -118,7 +119,7 @@ export default function SignIn() {
         }
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
-        if(res.data['auth']){
+        if(res.data['auth'] && res.data['status']==='approved'){
           history.push('/')
         }
 
