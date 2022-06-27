@@ -31,8 +31,13 @@ const theme = createTheme();
 
 export default function SignIn() {
   const [loginUser,setLoginUser]=useState(true)
+  const [isLogin,setIsLogin]=useState(true)
   const handleLogin=()=>{
     setLoginUser(prevstate=>!prevstate)
+  }
+
+  const handleSignUp=()=>{
+    setIsLogin(prevstate=>!prevstate)
   }
 
   const handleSubmit = (event) => {
@@ -57,15 +62,17 @@ export default function SignIn() {
           }}
         >
            <Typography variant='body2' onClick={handleLogin} className='cursor-pointer'>
-                
-                  {loginUser? "Are you a producer? sign in here...":"Are you a Script-writer? sign in here..."}
+                   {isLogin?`${loginUser?'Are you a producer? Sign in here ...':'Are you a Script-writer? sign in here...'}`:`${loginUser?'Are you a producer sign up here...':'Are you a Scriptwriter sign up here...'}` }
+
+
+                  {/* //  { loginUser? "Are you a producer? sign in here...":"Are you a Script-writer? sign in here..."} */}
                 
               </Typography>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+           { isLogin?'Sign in':'Sign Up'}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -99,7 +106,7 @@ export default function SignIn() {
               color='secondary'
               sx={{ mt: 3, mb: 2 ,backgroundColor:'black'}}
             >
-              Sign In
+             {isLogin?'Sign In':'Sign Up'} 
             </Button>
             <Grid container>
               <Grid item xs>
@@ -108,8 +115,8 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link  variant="body2" onClick={handleSignUp}>
+                  {isLogin?"Don't have an account? Sign Up":'Already have an account ? Sign in here.. '}
                 </Link>
               </Grid>
             </Grid>
