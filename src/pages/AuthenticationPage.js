@@ -4,6 +4,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {Link, useHistory} from 'react-router-dom'
@@ -34,6 +36,9 @@ import { authActions } from '../assets/store/authSlice';
 const theme = createTheme();
 
 export default function SignIn() {
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   const history=useHistory();
   const [open, setOpen] = React.useState(false);
   const [loginUser,setLoginUser]=useState(true);
