@@ -24,13 +24,15 @@ const authSlice=createSlice({
             else{
                 state.isLoggedIn=false
             }
+        },
+        logoutHandler(state){
+            console.log('happening')
+            state.isLoggedIn=false;
+            localStorage.removeItem('token')
+            state.role=0
         }
-    },
-    logoutHandler(state){
-        state.isLoggedIn=false;
-        localStorage.removeItem('token')
-        state.role=0
     }
+    
 
 })
 
