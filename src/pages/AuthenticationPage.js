@@ -36,9 +36,24 @@ import { authActions } from '../assets/store/authSlice';
 const theme = createTheme();
 
 export default function SignIn() {
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} inputRef={ref}  variant="filled" {...props} />;
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
   });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = () => {
+    console.log('snack bar evde');
+    setState({ open: true, ...state });
+    console.log(state);
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   const history=useHistory();
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
   const confirmationStatus=useSelector(state=>state.authHandler.status)
@@ -49,7 +64,6 @@ export default function SignIn() {
 
   }
   ,[history,loginStatus])
-  const [open, setOpen] = React.useState(false);
   const [loginUser,setLoginUser]=useState(true);
   const [isLogin,setIsLogin]=useState(true);
   const firstnameRef=useRef();
@@ -75,9 +89,9 @@ export default function SignIn() {
     }
   }
 
- const handleClose=()=>{
-  setOpen(false)
- }
+//  const handleClose=()=>{
+//   setOpen(false)
+//  }
   const handleLogin=()=>{
     setLoginUser(prevstate=>!prevstate)
   }
@@ -87,13 +101,15 @@ export default function SignIn() {
   }
   const dispatch= useDispatch()
 
-  const appBar=(message)=>{
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
-  }
+//   const appBar=(m)=>{
+//      <Snackbar
+//   anchorOrigin={{ vertical, horizontal }}
+//   open={open}
+//   onClose={handleClose}
+//   message={m}
+//   key={vertical + horizontal}
+// />
+//   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -121,12 +137,24 @@ export default function SignIn() {
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
           history.push('/')
-        }
+        }if(!res.data['auth']){
+          console.log('not auth')
+          handleClick()
+          // appBar('you are not authorised')
+        }if(res.data['status']==='pending')(
+          <>
+          {console.log('not approved')}
+         {handleClick()} 
+          
+        </>
+        )
+          
+          
+        
 
       }).catch((err)=>{
         console.log(err)
-        setOpen(true)
-        appBar('not authorised')
+        
       })
   };
 
@@ -142,6 +170,13 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
+          <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleClose}
+          message='not approved waiting for presidents confirmation'
+          key={vertical + horizontal}
+        />
            <Typography variant='body2' onClick={handleLogin} className='cursor-pointer'>
                    {isLogin?`${loginUser?'Are you a producer? Sign in here ...':'Are you a Script-writer? sign in here...'}`:`${loginUser?'Are you a producer sign up here...':'Are you a Scriptwriter sign up here...'}` }
 

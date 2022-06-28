@@ -87,9 +87,9 @@ function Contents() {
    <h1 className='text-xl text-white m-4 mb-1'>Pending Requests</h1>
 
   <div className='p-10 h-screen ' style={{backgroundColor:'rgb(12,22,33)',margin:'200px',marginTop:'5px'}}>
-   <CollapsibleTable state={false}/>
+   <CollapsibleTable state='pending'/>
    <h1 className='text-xl text-white m-4'> Registered Producers</h1>
-  <CollapsibleTable state={true} /> 
+  <CollapsibleTable state='approved' /> 
   </div>
    </div>
   </Route>
