@@ -82,7 +82,7 @@ export default function SignIn() {
 
   }else{
     if(loginUser){
-    url='http://localhost:4000/registerScriptWriter'
+    url='http://localhost:4000/registerScriptwriter'
     }else{
 
       url='http://localhost:4000/registerProducer'
