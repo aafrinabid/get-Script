@@ -43,16 +43,33 @@ import axios from 'axios';
 
 function Row(props) {
   const { row } = props;
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const dispatch=useDispatch();
   const addProducer=id=>{
     console.log('happening at add')
+    axios.post('http://localhost:4000/approved',{
+      id:id
+    }).then((res)=>{
+      if(res.data.status){
+        console.log('in dispatch add')
+        dispatch(ProducerActions.addProducers(id))
+      }
 
-    dispatch(ProducerActions.addProducers(id))
+    })
   }
    const removeProducer=id=>{
-        console.log('happening')
-        dispatch(ProducerActions.rejectProducers(id))
+        console.log('happening at other end')
+        axios.post('http://localhost:4000/reject',{
+          id:id
+        }).then((res)=>{
+          if(res.data.deleted){
+            console.log(res.data.deleted,'deleting happening')
+            dispatch(ProducerActions.rejectProducers(id))
+            
+          }
+        }).catch((e)=>{
+          console.log(e.message)
+        })
     }
   return (
     <React.Fragment>
@@ -61,8 +78,8 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            // onClick={() => setOpen(!open)}
-            onMouseEnter={()=>setOpen(!open)}
+            onClick={() => setOpen(!open)}
+            // onMouseEnter={()=>setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon className='text-white'/> : <KeyboardArrowDownIcon className='text-white'/>}
           </IconButton>
@@ -154,7 +171,9 @@ export default function CollapsibleTable(props) {
       console.log(isLoading)
 
       axios.get(url).then(res=>{
-        // const arr=res.data
+        const arr=res.data.result
+        const ar=[...res.data.result]
+        console.log(ar)
         dispatch(ProducerActions.setProducers({data:res['data']['result']}))
         console.log(res.data.result)
         setIsLoading(false)
