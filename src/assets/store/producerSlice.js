@@ -106,15 +106,20 @@ const producers=[ {
 const ProducerSlice=createSlice({
     name:'ProducerHandler',
     initialState:{
-     producers:producers
+     producers:Array()
     },
     reducers:{
+        setProducers(state,action){
+            console.log(action.payload.length)
+            state.producers=[...action.payload.data]
+            console.log(state.producers)
+        },
         addProducers(state,action){
-            const existingProducerIndex=state.producers.findIndex((producer)=>producer.id===action.payload)
+            const existingProducerIndex=state.producers.findIndex((producer)=>producer.producer_id===action.payload)
             const existingProducer=state.producers[existingProducerIndex]
             const UpdatedProducer={
                 ...existingProducer,
-                accepted:true
+                status:'approved'
             }
             let updatedProducers=[...state.producers]
             updatedProducers[existingProducerIndex]=UpdatedProducer
@@ -123,7 +128,7 @@ const ProducerSlice=createSlice({
 
         },
         rejectProducers(state,action){
-         let updatedProducers=state.producers.filter(producer=>producer.id!==action.payload)
+         let updatedProducers=state.producers.filter(producer=>producer.producer_id!==action.payload)
          state.producers=updatedProducers
         }
     }

@@ -16,6 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useDispatch,useSelector } from 'react-redux';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import { ProducerActions } from '../../../assets/store/producerSlice';
+import axios from 'axios';
 
 // function createData(name, calories, fat, carbs, protein, price) {
 //   return {
@@ -46,12 +47,29 @@ function Row(props) {
   const dispatch=useDispatch();
   const addProducer=id=>{
     console.log('happening at add')
+    axios.post('http://localhost:4000/approved',{
+      id:id
+    }).then((res)=>{
+      if(res.data.status){
+        console.log('in dispatch add')
+        dispatch(ProducerActions.addProducers(id))
+      }
 
-    dispatch(ProducerActions.addProducers(id))
+    })
   }
-    const removeProducer=id=>{
-        console.log('happening')
-        dispatch(ProducerActions.rejectProducers(id))
+   const removeProducer=id=>{
+        console.log('happening at other end')
+        axios.post('http://localhost:4000/reject',{
+          id:id
+        }).then((res)=>{
+          if(res.data.deleted){
+            console.log(res.data.deleted,'deleting happening')
+            dispatch(ProducerActions.rejectProducers(id))
+            
+          }
+        }).catch((e)=>{
+          console.log(e.message)
+        })
     }
   return (
     <React.Fragment>
@@ -60,21 +78,21 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            // onClick={() => setOpen(!open)}
-            onMouseEnter={()=>setOpen(!open)}
+            onClick={() => setOpen(!open)}
+            // onMouseEnter={()=>setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon className='text-white'/> : <KeyboardArrowDownIcon className='text-white'/>}
           </IconButton>
         </TableCell>
         <TableCell className='text-white' component="th" scope="row">
-          {row.name}
+          {row.firstname}
         </TableCell>
-        <TableCell align="right" className='text-white'>{row.companyName}</TableCell>
-        <TableCell align="right" className='text-white'>{row.producerAssociationId}</TableCell>
-        {props.state?(<TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>):
+        <TableCell align="right" className='text-white'>CRAZY 4 production</TableCell>
+        <TableCell align="right" className='text-white'>8899112</TableCell>
+        {props.state==='approved'?(<TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.producer_id)}><RemoveCircle className='text-white'/></IconButton></TableCell>):
         <React.Fragment>
-        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle className='text-white'/></IconButton> </TableCell>
-        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
+        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.producer_id)}><AddCircle className='text-white'/></IconButton> </TableCell>
+        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.producer_id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
         </React.Fragment>
         }
         
@@ -98,12 +116,12 @@ function Row(props) {
                 <TableBody>
                     <TableRow >
                       <TableCell component="th" scope="row" className='text-white'>
-                        {row.Details.experience}
+                        10
                       </TableCell>
-                      <TableCell className='text-white'>{row.Details.numberOfProduced}</TableCell>
-                      <TableCell align="right" className='text-white'>{row.Details.address}</TableCell>
+                      <TableCell className='text-white'>8 </TableCell>
+                      <TableCell align="right" className='text-white'> dickney,kanadikal, kerala</TableCell>
                       <TableCell align="right" className='text-white'>
-                        {row.Details.country}
+                        India
                       </TableCell>
                     </TableRow>
                 </TableBody>
@@ -143,9 +161,37 @@ function Row(props) {
 // ];
 
 export default function CollapsibleTable(props) {
+  const [isLoading,setIsLoading]=React.useState(false)
+  const dispatch=useDispatch();
+
+  let url='http://localhost:4000/fetchProducers'
+  React.useEffect(
+    ()=>{
+      setIsLoading(true)
+      console.log(isLoading)
+
+      axios.get(url).then(res=>{
+        const arr=res.data.result
+        const ar=[...res.data.result]
+        console.log(ar)
+        dispatch(ProducerActions.setProducers({data:res['data']['result']}))
+        console.log(res.data.result)
+        setIsLoading(false)
+            }).catch((e)=>{
+       console.log(e)
+      setIsLoading(false)
+       
+
+            })
+
+  },[dispatch])
     const producers=useSelector(state=>state.ProducerHandler.producers)
+    console.log(producers)
+    
   return (
-    <TableContainer component={Paper} sx={{backgroundColor:'inherit',color:'white'}}>
+    <>
+    {isLoading && <h1 className='text-white'>loading.........</h1>}  
+    {!isLoading &&  <TableContainer component={Paper} sx={{backgroundColor:'inherit',color:'white'}}>
       <Table aria-label="collapsible table" sx={{backgroundColor:'rgb(34,49,68)',color:'white'}}>
         <TableHead>
           <TableRow>
@@ -163,12 +209,16 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {producers.filter(producer=>producer.accepted===props.state).map((producer) => (
-            <Row key={producer.name} row={producer} state={props.state}/>
+          {console.log(producers[0])}
+          {producers.filter(producer=>producer.status===props.state).map((producer) => (
+            <Row key={producer.username} row={producer} state={props.state}/>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+          }
+          </>
+
   );
 }
 
