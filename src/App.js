@@ -10,19 +10,37 @@ import { useEffect, useState } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch} from 'react-redux';
+import axios from 'axios';
+import { authActions } from './assets/store/authSlice';
 
 
 function App() {
+  const dispatch=useDispatch()
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
-  useEffect(()=>{
-    if(loginStatus){
-    history.push('/')  
+  const userRole=useSelector(state=>state.authHandler.role)
+  console.log(loginStatus);
+  useEffect(
+    ()=>{
+      console.log('app.js hype')
+      axios.get('http://localhost:4000/isAuth',{
+        headers:{
+          'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+        }
+      }).then(res=>{
+        console.log('checking auth')
+        dispatch(authActions.loginHandler(res.data))
+        console.log(res.data);
+        if(res.data['auth'] && res.data['status']){
+          history.replace('/')
+        }
+      }).catch((e)=>{
+        console.log('kili');
+        console.log(e.message)
+      })
     }
-
-  }
-  ,[])
+    ,[dispatch,history]) 
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
     console.log('happening guys')
@@ -51,33 +69,42 @@ function App() {
 
   return (
     <div className="App">
-     
+  {loginStatus && <>     
 {pathname.startsWith('/Admin') || pathname.startsWith('/logi') ?'':<Navbar colorChange={colorChange}/>}
-      
+</>    
+}
       <Switch>
-        <Route path='/' exact>
+      {loginStatus &&   <Route path='/' exact>
       <Browse />
         </Route>
-        <Route path='/details'>
+}
+        {loginStatus &&   <Route path='/details'>
           <ScriptDetails />
         </Route>
-      <Route path='/login'>
+}
+     {!loginStatus && <Route path='/login'>
         <div className='signin'>
           <BackgroundIamge />
         <SignIn />
 
         </div>
       </Route>
-      <Route path='/sign-up'>
+      }
+
+      {/* <Route path='/sign-up'>
         <SignUp />
-      </Route>
-      <Route path='/profile'>
+      </Route> */}
+
+      {loginStatus && <Route path='/profile'>
         <Profile />
-      </Route>
-      <Route path='/UploadScript'>
+      </Route>}
+
+      {loginStatus && userRole===1 && <Route path='/UploadScript'>
         {/* <h1>hiiiii</h1> */}
         <UploadScript />
       </Route>
+      }
+
       <Route path='/AdminPanel'>
         <AdminPanel />
       </Route>

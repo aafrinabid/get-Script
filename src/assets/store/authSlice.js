@@ -13,15 +13,15 @@ const authSlice=createSlice({
             data=action.payload
             console.log(data)
             if(data.auth){
-                console.log(data.auth)
-                state.isLoggedIn=!state.isLoggedIn;
-                console.log(state.isLoggedIn)
-                state.role=data.role
-                state.status=data.status
-                localStorage.setItem('token',data.token)
-
-            }
-            else{
+            if(data.status=='approved'){
+                    console.log(data.auth)
+                    state.isLoggedIn=true;
+                    console.log(state.isLoggedIn)
+                    state.role=data.role
+                    state.status=data.status
+                    localStorage.setItem('token',data.token)
+    }
+            } else{
                 state.isLoggedIn=false
             }
         },

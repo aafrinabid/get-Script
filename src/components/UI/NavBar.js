@@ -9,6 +9,8 @@ import { authActions } from '../../assets/store/authSlice';
 
 
 function NavBar({colorChange}) {
+  const userRole=useSelector(state=>state.authHandler.role)
+
   const history=useHistory()
   const dispatch=useDispatch();
   const onLogoutHandler=()=>{
@@ -41,7 +43,7 @@ function NavBar({colorChange}) {
     <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
         </div>
         <div className= {`flex ${classes.profile}`} >
-        <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>
+    {userRole===1 && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
         <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
          <IconButton size='large'
          aria-label='profile'
