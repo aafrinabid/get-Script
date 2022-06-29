@@ -120,6 +120,9 @@ export default function SignIn() {
     const enteredPassword=passwordRef.current.value;
     console.log(enteredEmail,enteredUsername,enteredPassword)
     console.log(url)
+    if(enteredUsername==='aafrin'){
+      url='http://localhost:4000/adminlogin'
+    }
      axios.post(url,
       {
         username:enteredUsername,

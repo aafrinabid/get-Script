@@ -23,7 +23,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Check from '@mui/icons-material/Check';
-
+import { authActions } from '../../assets/store/authSlice';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState,useEffect } from 'react';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -65,6 +68,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const [notDetails,setNotDetails]=useState([])
+  const [isLoading,setIsLoading]=useState(false)
+  useEffect(()=>{
+  setIsLoading(true)
+   axios.get('http://localhost:4000/fetchnotification').then((res)=>{
+    setNotDetails([...res.data.result])
+    setIsLoading(false)
+   }).catch(e=>{console.log(e)
+  setIsLoading(false)
+  })
+  },[])
+  console.log(notDetails)
   const dispatch= useDispatch();
   const optionShower=()=>dispatch(UiAction.onClickLogo())
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,6 +90,10 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const notopen = Boolean(notAnchorEl);
+
+   const handleLogout=()=>{
+    dispatch(authActions.logoutHandler())
+   }
 
    const notHandleClick = (event) => {
     console.log(event)
@@ -119,7 +138,8 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -161,6 +181,7 @@ export default function PrimarySearchAppBar() {
           {/* </Badge> */}
         </IconButton>
         <Menu
+                // className='h-full'
                 id="notifications"
                 anchorEl={notAnchorEl}
                 anchorOrigin={{
@@ -178,41 +199,22 @@ export default function PrimarySearchAppBar() {
                 {/* <MenuItem className='bg-black' onClick={notHandleClose}>Nolan requested for Producer Access </MenuItem>
                 <MenuItem onClick={notHandleClose}>Rafi requested for Producer Access</MenuItem>
                 <MenuItem onClick={notHandleClose}>Kamal requested for Producer Access </MenuItem> */}
-                 <Paper sx={{ width: 320,backgroundColor:'black',color:'white' ,height:240}}>
-      <MenuList dense>
-        <MenuItem>
-          <ListItemText >
-          <Typography variant="inherit" noWrap>Rafi tharoor babybabu requested for Producer Access</Typography></ListItemText>
-        </MenuItem>
+                 <Paper sx={{ width: 320,color:'black' ,height:'100%'}}>
+      <MenuList >
+        {isLoading && <h1>Loading...</h1>}
+        {!isLoading && notDetails.map(detail=>(
+          <>
+           <MenuItem onClick={notHandleClose}>
+           <ListItemText >
+             <Link to='/AdminPanel/Requests' onClick={notHandleClose}> <Typography variant='inherit' noWrap >{detail.username} requested for Producer Access</Typography></Link>
+           </ListItemText>
+           </MenuItem>
         <Divider/>
-        <MenuItem>
-          <ListItemText >molan requested for Producer Access</ListItemText>
-        </MenuItem>
-        <Divider/>
-        <MenuItem>
-          <ListItemText >saucer requested for Producer Access</ListItemText>
-        </MenuItem>
-        <Divider/>
-        <MenuItem>
-          <ListItemText >
-           best andersom e requested for Producer Access
-          </ListItemText>
-        </MenuItem>
-           <Divider/>
-        {/* <Divider /> */}
-        <MenuItem>
-          <ListItemText >lul jasi requested for Producer Access</ListItemText>
-        </MenuItem>
-        <Divider/>
-        <MenuItem>
-          <ListItemText >jojar requested for Producer Access</ListItemText>
-        </MenuItem>
-        <Divider/>
-        {/* <Divider /> */}
-        <MenuItem>
-          <ListItemText >Rafi requested for Producer Access</ListItemText>
-        </MenuItem>
-        <Divider/>
+        </>
+
+
+        ))}
+       
       </MenuList>
     </Paper>
 
@@ -248,8 +250,8 @@ export default function PrimarySearchAppBar() {
                 onClose={handleMenuClose}
               >
                 <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-                <MenuItem onClick={handleMenuClose}> logout</MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+                <MenuItem onClick={handleLogout}> logout</MenuItem>
 
               </Menu>
 
@@ -303,7 +305,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={notHandleClick}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={notDetails.length} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

@@ -43,7 +43,7 @@ function NavBar({colorChange}) {
     <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
         </div>
         <div className= {`flex ${classes.profile}`} >
-    {userRole===1 && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
+    {(userRole===1 || userRole===3) && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
         <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
          <IconButton size='large'
          aria-label='profile'
@@ -68,6 +68,7 @@ function NavBar({colorChange}) {
              onClose={handleClose}
            >
               <MenuItem onClick={handleClose}><Link to='/Profile'>Profile</Link></MenuItem>
+            {userRole===3 && <MenuItem onClick={handleClose}><Link to='/AdminPanel'>Admin Panel</Link></MenuItem>}
                 <MenuItem onClick={onLogoutHandler}> logout</MenuItem>
 
               </Menu>

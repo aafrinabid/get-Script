@@ -20,7 +20,7 @@ function App() {
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
   const userRole=useSelector(state=>state.authHandler.role)
-  console.log(loginStatus);
+  console.log(loginStatus,userRole);
   useEffect(
     ()=>{
       console.log('app.js hype')
@@ -32,9 +32,9 @@ function App() {
         console.log('checking auth')
         dispatch(authActions.loginHandler(res.data))
         console.log(res.data);
-        if(res.data['auth'] && res.data['status']){
-          history.replace('/')
-        }
+        // if(res.data['auth'] && res.data['status']){
+        //   history.replace('/')
+        // }
       }).catch((e)=>{
         console.log('kili');
         console.log(e.message)
@@ -99,17 +99,23 @@ function App() {
         <Profile />
       </Route>}
 
-      {loginStatus && userRole===1 && <Route path='/UploadScript'>
-        {/* <h1>hiiiii</h1> */}
+      {loginStatus && (userRole===1 || userRole===3) && <Route path='/UploadScript'>
+        {console.log(userRole,'upload in script')}
         <UploadScript />
       </Route>
       }
 
-      <Route path='/AdminPanel'>
-        <AdminPanel />
-      </Route>
+{loginStatus && userRole===3 && 
+ <Route path='/AdminPanel'>
+  {console.log('what the fuck happended')}
+ <AdminPanel />
+</Route>
+}     
       <Route path='*'>
-        <Redirect to='/'/>
+
+        {loginStatus && <Redirect to='/'/>}
+        {console.log(loginStatus)}
+        {!loginStatus && <Redirect to='/login'/> }
       </Route>
       </Switch>
 
