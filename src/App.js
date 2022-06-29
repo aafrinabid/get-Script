@@ -20,7 +20,7 @@ function App() {
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
   const userRole=useSelector(state=>state.authHandler.role)
-  console.log(loginStatus);
+  console.log(loginStatus,userRole);
   useEffect(
     ()=>{
       console.log('app.js hype')
@@ -99,18 +99,24 @@ function App() {
         <Profile />
       </Route>}
 
-      {loginStatus && userRole===1 && <Route path='/UploadScript'>
+      {loginStatus && userRole===1 && userRole===3 && <Route path='/UploadScript'>
         {/* <h1>hiiiii</h1> */}
         <UploadScript />
       </Route>
       }
 
-      <Route path='/AdminPanel'>
-        <AdminPanel />
-      </Route>
-      <Route path='*'>
-        <Redirect to='/'/>
-      </Route>
+{loginStatus && userRole===3 && 
+ <Route path='/AdminPanel'>
+  {console.log('what the fuck happended')}
+ <AdminPanel />
+</Route>
+}     
+      {/* <Route path='*'>
+
+        {loginStatus && <Redirect to='/'/>}
+        {console.log(loginStatus)}
+        {!loginStatus && <Redirect to='/login'/> }
+      </Route> */}
       </Switch>
 
       

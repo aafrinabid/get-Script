@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Doughnut,Pie } from 'react-chartjs-2';
 import classes from './chart.module.css';
 import { Card } from '@mui/material';
-const UserChart = () => {
+const UserChart = (props) => {
     const labels=['Producers','Script-Writters']
 
 	const bar = (
@@ -14,7 +14,7 @@ const UserChart = () => {
                 ],
                 datasets: [{
                   label: 'Users',
-                  data: [8000,2000],
+                  data: [props.scriptwriters,props.producers],
                   backgroundColor: [
                     'rgb(70,131,218)',
                     'rgb(255,153,1)',
