@@ -23,6 +23,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Check from '@mui/icons-material/Check';
+import { authActions } from '../../assets/store/authSlice';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -76,6 +78,10 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const notopen = Boolean(notAnchorEl);
 
+   const handleLogout=()=>{
+    dispatch(authActions.logoutHandler())
+   }
+
    const notHandleClick = (event) => {
     console.log(event)
     setNotAnchorEl(event.currentTarget);
@@ -119,7 +125,8 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -248,8 +255,8 @@ export default function PrimarySearchAppBar() {
                 onClose={handleMenuClose}
               >
                 <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-                <MenuItem onClick={handleMenuClose}> logout</MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+                <MenuItem onClick={handleLogout}> logout</MenuItem>
 
               </Menu>
 

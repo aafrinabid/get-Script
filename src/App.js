@@ -32,9 +32,9 @@ function App() {
         console.log('checking auth')
         dispatch(authActions.loginHandler(res.data))
         console.log(res.data);
-        if(res.data['auth'] && res.data['status']){
-          history.replace('/')
-        }
+        // if(res.data['auth'] && res.data['status']){
+        //   history.replace('/')
+        // }
       }).catch((e)=>{
         console.log('kili');
         console.log(e.message)
@@ -99,8 +99,8 @@ function App() {
         <Profile />
       </Route>}
 
-      {loginStatus && userRole===1 && userRole===3 && <Route path='/UploadScript'>
-        {/* <h1>hiiiii</h1> */}
+      {loginStatus && (userRole===1 || userRole===3) && <Route path='/UploadScript'>
+        {console.log(userRole,'upload in script')}
         <UploadScript />
       </Route>
       }
@@ -111,12 +111,12 @@ function App() {
  <AdminPanel />
 </Route>
 }     
-      {/* <Route path='*'>
+      <Route path='*'>
 
         {loginStatus && <Redirect to='/'/>}
         {console.log(loginStatus)}
         {!loginStatus && <Redirect to='/login'/> }
-      </Route> */}
+      </Route>
       </Switch>
 
       
