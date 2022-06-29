@@ -7,6 +7,7 @@ import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import { formAction } from '../../assets/store/formslice';
 import { DropzoneArea } from 'material-ui-dropzone';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -46,10 +47,18 @@ const genres=['Action Genre',
 
        function UploadPdf(props) {
         const classes=useStyles()
+        const history=useHistory()
         const [files,setFiles]=useState('')
         const dispatch=useDispatch()
-        const nextPageHandler=()=>dispatch(formAction.nextStepHandler())
+        const nextPageHandler=()=>{
+          dispatch(formAction.nextStepHandler())
+          dispatch(formAction.submitFormHandler())
+          history.push('/')
+          
+
+        }
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
+
 
         const fileHandler=(file)=>{
             setFiles(file)
@@ -60,7 +69,7 @@ const genres=['Action Genre',
     <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent  >
-<DropzoneArea onChange={fileHandler.bind(this)} filesLimit={1} dropzoneClass='bg-inherit border-2 border-white' maxFileSize={5000000}  acceptedFiles={['.pdf', ]} className={clas.uploadArea}/>
+<DropzoneArea onChange={fileHandler.bind(this)} filesLimit={1} name='pdf' dropzoneClass='bg-inherit border-2 border-white' maxFileSize={5000000}  acceptedFiles={['.pdf', ]} className={clas.uploadArea}/>
   
    
     <div  className={` ${clas.nextPage}`}>
