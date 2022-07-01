@@ -113,9 +113,9 @@ function App() {
 }     
       <Route path='*'>
 
-        {loginStatus && <Redirect to='/'/>}
+        {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}
         {console.log(loginStatus)}
-        {!loginStatus && <Redirect to='/login'/> }
+        // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>
       </Switch>
 
