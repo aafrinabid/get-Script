@@ -8,13 +8,18 @@ import { deepPurple } from '@mui/material/colors';
 import { formAction } from '../../assets/store/formslice';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useHistory } from 'react-router-dom';
+import FileUpload from "react-material-file-upload";
+import { margin } from '@mui/system';
 
 
 
 const useStyles = makeStyles({
     input: {
       color: "white",
-      border:"2px solid white"
+      width:'100%',
+      gridRow:'1 /span 2',
+      // margin:'10px',
+      // border:"2px solid white"
     }
   });
 
@@ -46,9 +51,14 @@ const genres=['Action Genre',
        };
 
        function UploadPdf(props) {
+        const [files,setFiles] = useState([])
+        const [image,setImage] = useState([])
+        const [poster,setPoster] = useState([])
+        const [video,setVideo] = useState([])
+
         const classes=useStyles()
         const history=useHistory()
-        const [files,setFiles]=useState('')
+        // const [files,setFiles]=useState('')
         const dispatch=useDispatch()
         const nextPageHandler=()=>{
           dispatch(formAction.nextStepHandler())
@@ -60,16 +70,41 @@ const genres=['Action Genre',
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
 
 
-        const fileHandler=(file)=>{
-            setFiles(file)
-            console.log(files)
-        }
+        // const fileHandler=(file)=>{
+        //     setFiles(file)
+        //     console.log(files)
+        // }
 
   return (
     <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
-    <CardContent  >
-<DropzoneArea onChange={fileHandler.bind(this)} filesLimit={1} name='pdf' dropzoneClass='bg-inherit border-2 border-white' maxFileSize={5000000}  acceptedFiles={['.pdf', ]} className={clas.uploadArea}/>
+    <CardContent>
+      <div className='grid grid-cols-1 '>
+<InputLabel className='w-full text-white my-3' id='demo-simple-select-label'>Script Description</InputLabel>
+{/* <div className='row-span-3 w-full'> */}
+<TextField 
+inputProps={{ className: classes.input }}
+// sx={{color:'white'}}
+ id='outlined-multiline-static'
+//  label="Multiline"
+ multiline
+ maxRows={4}
+ className='row-span-3'
+
+//  value={value}
+//  onChange={handleChange}
+/>
+{/* </div> */}
+</div>
+      <div className='flex py-9 pb-16'>
+      <FileUpload value={files} onChange={setFiles} title={'Upload your pdf file here!!'} />
+      <FileUpload value={poster} onChange={setPoster} title={'Upload your Script Poster'} />
+      <FileUpload value={image} onChange={setImage} title={'Upload your Script image'} />
+      <FileUpload value={video} onChange={setVideo} title={'Upload your Script video'} />
+
+
+</div>
+
   
    
     <div  className={` ${clas.nextPage}`}>
