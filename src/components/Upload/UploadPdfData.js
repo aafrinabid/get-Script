@@ -60,7 +60,7 @@ const handleOnDrop=async(files,rejectedFiles)=>{
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         {!isValid?
-        !isError && !isValid?<p>Drag 'n' drop some files here, or click to select files</p>:<p className='text-red-600'>{errorMsg}</p>:''}
+        !isError && !isValid?<p>Drag 'n' drop some your {props.name} here, or click to select the {props.name}</p>:<p className='text-red-600'>{errorMsg}</p>:''}
         
        {!isError && isValid?<p className='text-green-500'>selected file has been added</p>:''}
       </div>

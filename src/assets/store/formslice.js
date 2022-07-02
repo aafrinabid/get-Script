@@ -12,6 +12,7 @@ const formHandleSlice=createSlice({
             entertainmentType:'',
             scriptType:'',
             genres:Array(),
+            description:'',
             table:{
                 theOrigin:'',
                 humanHook:'',
@@ -21,7 +22,6 @@ const formHandleSlice=createSlice({
                 highlights:'',
                 openRoad:''
             },
-            description:'',
             pdf:'',
             poster:'',
             miniPoster:'',

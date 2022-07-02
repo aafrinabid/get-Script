@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
 import React,{useRef,useState} from 'react';
@@ -20,6 +20,7 @@ import UploadData from './UploadPdfData';
 
 
 const useStyles = makeStyles({
+  
     input: {
       color: "white",
       width:'100%',
@@ -57,15 +58,27 @@ const genres=['Action Genre',
        };
 
        function UploadPdf() {
+        const formData=useSelector(state=>state.formHandler['userData'])
+        const formkey=Object.keys(formData)
+        const dispatch=useDispatch();
+        const classes=useStyles()
+        const history=useHistory()
+        
+     
+        const changeHandler=(e)=>{
+          console.log('happening')
+         const {value}=e.target
+         const {name}=e.target
+         console.log(value)
+         dispatch(formAction.inputChangeHandler({name,value}))
+        }
         // const [files,setFiles] = useState([])
         // const [image,setImage] = useState([])
         // const [poster,setPoster] = useState([])
         // const [video,setVideo] = useState([])
      
-        const classes=useStyles()
-        const history=useHistory()
+       
         // const [files,setFiles]=useState('')
-        const dispatch=useDispatch()
         const nextPageHandler=()=>{
           dispatch(formAction.nextStepHandler())
           dispatch(formAction.submitFormHandler())
@@ -90,7 +103,7 @@ const genres=['Action Genre',
   <Card className='w-1/2 text-white'style={divImage}>
     <CardContent>
       <div className='grid grid-cols-1 '>
-<InputLabel className='w-full text-white my-3' id='demo-simple-select-label'>Script Description</InputLabel>
+<InputLabel className='w-full text-white my-3' id='demo-simple-select-label' >Script Description</InputLabel>
 {/* <div className='row-span-3 w-full'> */}
 <TextField 
 inputProps={{ className: classes.input }}
@@ -100,16 +113,23 @@ inputProps={{ className: classes.input }}
  multiline
  maxRows={4}
  className='row-span-3'
+ name={formkey[4]}
+ value={formData[formkey[4]]}
+ onChange={changeHandler}
+
 
 //  value={value}
 //  onChange={handleChange}
-/>
+>
+  </TextField>
+  {/* <TextField  placeholder='' inputProps={{ className: classes.input }}  multiline   id='outlined-multiline-static'  variant='outlined' className='w-1/2 row-span-3 text-white'  style={{color:'white'}} name={formkey[4]} value={formData[formkey[4]]} onChange={changeHandler} /> */}
+
 {/* </div> */}
 </div>
       <div className=' flex py-9 pb-16'>
-    <UploadData dataSize={10000000} type= {['application/pdf']} />
-    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} />
-    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} />
+    <UploadData dataSize={10000000} type= {['application/pdf']} name='script' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='poster' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='mini poster'/>
 
 
 
