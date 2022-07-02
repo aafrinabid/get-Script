@@ -10,6 +10,12 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { useHistory } from 'react-router-dom';
 import FileUpload from "react-material-file-upload";
 import { margin } from '@mui/system';
+import Upload from 'rc-upload';
+import { Line } from "rc-progress";
+import Dropzone from 'react-dropzone'
+import UploadData from './UploadPdfData';
+
+
 
 
 
@@ -50,12 +56,12 @@ const genres=['Action Genre',
            backgroundRepeat: 'no-repeat',
        };
 
-       function UploadPdf(props) {
-        const [files,setFiles] = useState([])
-        const [image,setImage] = useState([])
-        const [poster,setPoster] = useState([])
-        const [video,setVideo] = useState([])
-
+       function UploadPdf() {
+        // const [files,setFiles] = useState([])
+        // const [image,setImage] = useState([])
+        // const [poster,setPoster] = useState([])
+        // const [video,setVideo] = useState([])
+     
         const classes=useStyles()
         const history=useHistory()
         // const [files,setFiles]=useState('')
@@ -68,7 +74,11 @@ const genres=['Action Genre',
 
         }
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
+        const dropzoneRef = useRef()
 
+
+
+        // dropzoneRef.open()
 
         // const fileHandler=(file)=>{
         //     setFiles(file)
@@ -96,11 +106,17 @@ inputProps={{ className: classes.input }}
 />
 {/* </div> */}
 </div>
-      <div className='flex py-9 pb-16'>
-      <FileUpload value={files} onChange={setFiles} title={'Upload your pdf file here!!'} />
+      <div className=' flex py-9 pb-16'>
+    <UploadData dataSize={10000000} type= {['application/pdf']} />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} />
+
+
+
+      {/* <FileUpload value={files} onChange={setFiles} title={'Upload your pdf file here!!'} />
       <FileUpload value={poster} onChange={setPoster} title={'Upload your Script Poster'} />
       <FileUpload value={image} onChange={setImage} title={'Upload your Script image'} />
-      <FileUpload value={video} onChange={setVideo} title={'Upload your Script video'} />
+      <FileUpload value={video} onChange={setVideo} title={'Upload your Script video'} /> */}
 
 
 </div>
