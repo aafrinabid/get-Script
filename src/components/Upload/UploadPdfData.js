@@ -63,17 +63,24 @@ const handleOnDrop=async(files,rejectedFiles)=>{
     }
 }
 const onUpload =()=>{
-    dispatch(formAction.uploadHandler({name:props.ext}))
-    // const formData=new FormData();
-    // formData.append('file',file)
+    const formData=new FormData();
+    formData.append('file',file)
     
-    // axios.post('/uploadscript',formData,{
-    //     headers:{
-    //         'Content-Type':'multipart/form-data'
-    //     }
-    // }).then((res)=>{
-    //     dispa
-    // })
+    axios.post('http://localhost:4000/uploadscript',formData,{
+  headers:{
+    'Content-Type':'multipart/form-data'
+  }
+ }).then((res)=>{
+        const url=res.data.url
+        dispatch(formAction.mediaHandler({name:props.ext,value:url}))
+        dispatch(formAction.uploadHandler({name:props.ext}))
+
+    }).catch(e=>{
+        setIsValid(false)
+        setIsError(true)
+        console.log(e)
+        setErrorMsg('server issue')
+    })
     
 
 }
