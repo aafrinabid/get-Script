@@ -1,13 +1,19 @@
 import React,{useState} from 'react';
 import Dropzone from 'react-dropzone'
+import {Button} from '@mui/material';
+import axios from 'axios';
+import { useDispatch ,useSelector} from 'react-redux';
+import { formAction } from '../../assets/store/formslice';
 
 
 function UploadData(props) {
+    const dispatch=useDispatch()
+    const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
     const [isError,setIsError]=useState(false)
     const [errorMsg,setErrorMsg]=useState('')
     const [isValid,setIsValid]=useState(false)
     const [file,setFile]=useState(null)
-    console.log(props)
+    // const [isUploaded,setIsUploaded]=useState(false)
 const handleOnDrop=async(files,rejectedFiles)=>{
     console.log(files)
     console.log(rejectedFiles)
@@ -24,6 +30,17 @@ const handleOnDrop=async(files,rejectedFiles)=>{
         const currentFile=files[0]
         const currentFileType=currentFile.type
         const currentFileSize=currentFile.maxSize
+        console.log(props.type)
+        if(props.type.length===1){
+            console.log('here')
+            if(currentFileType!==props.type[0]){
+                setIsError(true)
+                setIsValid(false)
+                return setErrorMsg('file is not of the recommended type')
+                
+               
+            }
+        }
         if(props.type.length>1){
             if(currentFileType!==props.type[0]&&currentFileType!==props.type[1]&&currentFileType!==props.type[2]){
          console.log(currentFileType)
@@ -31,13 +48,7 @@ const handleOnDrop=async(files,rejectedFiles)=>{
          setIsValid(false)
          return setErrorMsg('file is not of the recommended type')
         }
-        if(props.type.length===1){
-            if(currentFileType!==props.type[0]){
-                setIsError(true)
-                setIsValid(false)
-                return setErrorMsg('file is not of the recomended type')
-            }
-        }
+       
 
         }
         if(currentFileSize>props.dataSize){
@@ -51,8 +62,25 @@ const handleOnDrop=async(files,rejectedFiles)=>{
         
     }
 }
+const onUpload =()=>{
+    dispatch(formAction.uploadHandler({name:props.ext}))
+    // const formData=new FormData();
+    // formData.append('file',file)
+    
+    // axios.post('/uploadscript',formData,{
+    //     headers:{
+    //         'Content-Type':'multipart/form-data'
+    //     }
+    // }).then((res)=>{
+    //     dispa
+    // })
+    
+
+}
 
   return (
+    <>
+ {isUploaded?'cooool':
     <section className="container">
   <Dropzone onDrop={handleOnDrop}  multiple={false} accept={props.type} maxSize={props.dataSize}>
   {({getRootProps, getInputProps}) => (
@@ -60,16 +88,25 @@ const handleOnDrop=async(files,rejectedFiles)=>{
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         {!isValid?
-        !isError && !isValid?<p>Drag 'n' drop some your {props.name} here, or click to select the {props.name}</p>:<p className='text-red-600'>{errorMsg}</p>:''}
+        !isError && !isValid?<p className='cursor-pointer'>Drag 'n' drop some your {props.name} here, or click to select the {props.name}</p>:<p className='text-red-600'>{errorMsg}</p>:''}
         
-       {!isError && isValid?<p className='text-green-500'>selected file has been added</p>:''}
+       {!isError && isValid?<p className='text-green-500 cursor-pointer'>selected file has been added</p>:''}
       </div>
+    
     </section>
   )}
   </Dropzone>
   {file && isValid?<h1>{file.name} added</h1>:''}
+  <div>
 
-    </section>
+{isValid?<Button variant="contained" component="span" onClick={onUpload}>
+Upload
+</Button>:''}
+</div>
+
+</section>
+}
+</>
   );
 }
 

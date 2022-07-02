@@ -25,7 +25,13 @@ const formHandleSlice=createSlice({
             pdf:'',
             poster:'',
             miniPoster:'',
-            video:''
+            video:'',
+            isUploaded:{
+                pdf:false,
+                poster:false,
+                miniPoster:false,
+                video:false
+            }
             
         }
     },
@@ -64,6 +70,30 @@ const formHandleSlice=createSlice({
                 }
             })
         },
+        mediaHandler(state,action){
+       if (action.payload.name==='pdf'){
+        state['userData']['pdf']=action.payload.value
+       }
+       if (action.payload.name==='poster'){
+        state['userData']['poster']=action.payload.value
+       } 
+       if (action.payload.name==='miniPoster'){
+        state['userData']['miniPoster']=action.payload.value
+       }
+       if (action.payload.name==='video'){
+       state['userData']['video']=action.payload.value
+       }
+    },
+    uploadHandler(state,action){
+       const data= state['userData']['isUploaded']
+       const key=Object.keys(data)
+       key.forEach(k=>{
+        if(k===action.payload.name){
+            state['userData']['isUploaded'][k]=true
+        }
+       })
+    
+    },
         submitFormHandler(state){
             console.log('happening at submitHandler')
             state.activeStepState=0

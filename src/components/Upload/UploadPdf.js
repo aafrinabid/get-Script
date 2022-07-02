@@ -19,6 +19,7 @@ import UploadData from './UploadPdfData';
 
 
 
+
 const useStyles = makeStyles({
   
     input: {
@@ -127,9 +128,11 @@ inputProps={{ className: classes.input }}
 {/* </div> */}
 </div>
       <div className=' flex py-9 pb-16'>
-    <UploadData dataSize={10000000} type= {['application/pdf']} name='script' />
-    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='poster' />
-    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='mini poster'/>
+    <UploadData dataSize={10000000} type= {['application/pdf']} name='script' ext='pdf' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='poster' ext='poster' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='mini poster' ext='miniPoster'/>
+    {/* <Input accept="image/*" id="contained-button-file" multiple type="file" /> */}
+ 
 
 
 
