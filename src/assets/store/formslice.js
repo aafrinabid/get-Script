@@ -21,7 +21,12 @@ const formHandleSlice=createSlice({
                 highlights:'',
                 openRoad:''
             },
-            pdf:''
+            description:'',
+            pdf:'',
+            poster:'',
+            miniPoster:'',
+            video:''
+            
         }
     },
     reducers:{
