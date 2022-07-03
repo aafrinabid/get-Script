@@ -7,6 +7,7 @@ import clas from './UploadFormInput.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import { formAction } from '../../assets/store/formslice';
+// import { useState } from 'react';
 
 
 
@@ -89,7 +90,7 @@ function UploadFormInput() {
             <Grid xs={12} item className='text-white'>
               <InputLabel className='w-full text-white' id='demo-simple-select-label'>Script Title</InputLabel>
 
-                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white'  style={{color:'white'}} name={formkey[0]} value={formData[formkey[0]]} onChange={changeHandler}>
+                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white'  style={{color:'white'}} name={formkey[0]} value={formData[formkey[0]]} onChange={changeHandler} required>
 
                 </TextField>
 
@@ -103,6 +104,7 @@ function UploadFormInput() {
              labelId="demo-simple-select-label"
              id="demo-simple-select"
              onChange={changeHandler}
+             required
            >
             <MenuItem value={10}>Movie</MenuItem>
             <MenuItem value={20}>TV Series</MenuItem>
@@ -119,6 +121,7 @@ function UploadFormInput() {
              name={formkey[2]} 
              value={formData[formkey[2]]}
              onChange={changeHandler}
+             required
            >
             <MenuItem value={10} >Movie Concept</MenuItem>
             <MenuItem value={20}>Series Pilot Episode</MenuItem>
@@ -140,6 +143,7 @@ function UploadFormInput() {
           name={formkey[3]}
            value={formData[formkey[3]]}
            onChange={changeHandler}
+           required
         >
           {genres.map((genre) => (
             <MenuItem
