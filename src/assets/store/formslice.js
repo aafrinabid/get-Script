@@ -158,6 +158,14 @@ const formHandleSlice=createSlice({
                         console.log(key,'dkdjkd')
                        return state['userData'][key]=Array()
               }
+              if(key==='isUploaded'){
+                console.log('in',key,'oooooooo')
+                const objdata=Object.keys(state['userData'][key]);
+                objdata.forEach(k=>{
+
+                    state['userData']['isUploaded'][k]=false
+                })
+              }
                     const objdata= Object.keys(state['userData'][key])
                     console.log(objdata,'crazy boys')
                     objdata.forEach(key=>{
@@ -167,6 +175,7 @@ const formHandleSlice=createSlice({
                     })
                 }
             })
+
         }
         
     }

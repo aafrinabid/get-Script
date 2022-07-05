@@ -14,6 +14,7 @@ import Upload from 'rc-upload';
 import { Line } from "rc-progress";
 import Dropzone from 'react-dropzone'
 import UploadData from './UploadPdfData';
+import axios from 'axios';
 
 
 
@@ -59,6 +60,7 @@ const genres=['Action Genre',
        };
 
        function UploadPdf() {
+        const data=useSelector(state=>state.formHandler['userData'])
         const formState=useSelector(state=>state.formHandler['formValidator']['uploadPage'])
         const formData=useSelector(state=>state.formHandler['userData'])
         const formkey=Object.keys(formData)
@@ -87,6 +89,11 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         const nextPageHandler=()=>{
           dispatch(formAction.nextStepHandler())
           dispatch(formAction.submitFormHandler())
+          
+          console.log(data)
+          axios.post('http://localhost:4000/scriptupload',{
+
+          })
           history.push('/')
           
 
