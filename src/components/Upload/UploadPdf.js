@@ -88,14 +88,14 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         // const [files,setFiles]=useState('')
         const nextPageHandler=()=>{
          
-          
+          console.log('happpening')
           
           axios.post('http://localhost:4000/scriptupload',data, {headers:{
             'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
           }
         }).then(res=>{
           if(res.data.uploaded){
-            dispatch(formAction.nextStepHandler())
+            // dispatch(formAction.nextStepHandler())
             dispatch(formAction.submitFormHandler())
             history.push('/')
           }else{
