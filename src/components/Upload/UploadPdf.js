@@ -90,12 +90,22 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
          
           
           
-          axios.post('http://localhost:4000/scriptupload',{
-data
-          })
-          dispatch(formAction.nextStepHandler())
-          dispatch(formAction.submitFormHandler())
-          history.push('/')
+          axios.post('http://localhost:4000/scriptupload',data, {headers:{
+            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+          }
+        }).then(res=>{
+          if(res.data.uploaded){
+            dispatch(formAction.nextStepHandler())
+            dispatch(formAction.submitFormHandler())
+            history.push('/')
+          }else{
+            throw new Error('some issue at our end please try again after some time')
+          }
+          
+        }).catch(e=>{
+          console.log(e)
+        })
+         
           
           
 
@@ -174,7 +184,7 @@ inputProps={{ className: classes.input }}
           variant="contained"
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
-          onClick={nextPageHandler}
+          onClick={nextPageHandler()}
           disabled={formState?false:true}
         >
           Submit the script
