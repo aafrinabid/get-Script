@@ -1,5 +1,5 @@
 import { Create } from "@material-ui/icons";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { type } from "@testing-library/user-event/dist/type";
 
 
@@ -11,7 +11,7 @@ const formHandleSlice=createSlice({
             titleName:'',
             entertainmentType:'',
             scriptType:'',
-            genres:Array(),
+            genres:[],
             description:'',
             table:{
                 theOrigin:'',
@@ -61,9 +61,11 @@ const formHandleSlice=createSlice({
             data.forEach(key=>{
                 if(key===action.payload.name){
                     if(key==='genres'){
+                        console.log('happpenign all again')
                         console.log(state);
-                        console.log(action.payload)
-                        return state['userData'][key]=action.payload.value
+                        console.log(action.payload.value)
+                        console.log(current(state.userData.genres).length)
+                        return state['userData'][key]=[...action.payload.value]
               }
                     state['userData'][key]=action.payload.value
                 }
@@ -102,7 +104,17 @@ const formHandleSlice=createSlice({
     
     }, formavalidator(state,action){
         if(action.payload.name==='scriptInfo'){
-            if(state.userData['titleName'].length>0 && state.userData['scriptType'].length>0&& state.userData['entertainmentType']&&state.userData['genres'].length>0){
+            console.log('inside redux')
+
+        const data ={...state['userData']}
+        console.log(data.titleName.length)
+        console.log(data.scriptType.length)
+        console.log(data.entertainmentType.length)
+        console.log(data.genres.length)
+
+
+            if(state.userData['titleName'].length>0 && state.userData['scriptType']>0&& state.userData['entertainmentType']>0 &&current(state['userData']['genres']).length>0){
+            console.log('inisde validation')
                 state['formValidator']['scriptInfo']=true
             }
             if(action.payload.name==='pitchTable'){
