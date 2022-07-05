@@ -2,11 +2,13 @@ import UploadForm from './UploadForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
-import React,{useRef,useState} from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import clas from './UploadFormInput.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import { formAction } from '../../assets/store/formslice';
+
+// import { useState } from 'react';
 
 
 
@@ -45,25 +47,33 @@ const genres=['Action Genre',
        };
 
 function UploadFormInput() {
+  const dispatch=useDispatch();
+  const formState=useSelector(state=>state.formHandler['formValidator']['scriptInfo'])
+  const g=useSelector(state=>state.formHandler['userData']['genres'])
+  console.log(g)
+  console.log(formState)
+  const changeHandler=(e)=>{
+   const {value}=e.target
+   const {name}=e.target
+   dispatch(formAction.inputChangeHandler({name,value}))
+  
+ }
+  useEffect(()=>{
+    dispatch(formAction.formavalidator({name:'scriptInfo'})) 
+
+  },[dispatch,formState,changeHandler])
   const [genre,setGenre]=useState([])
   const formData=useSelector(state=>state.formHandler['userData'])
   const formkey=Object.keys(formData)
   console.log(formkey)
     const classes=useStyles();
-    const dispatch=useDispatch();
    const nextPageHandler=()=>{
     dispatch(formAction.nextStepHandler())
    }
 
-   const changeHandler=(e)=>{
-    const {value}=e.target
-    const {name}=e.target
-    dispatch(formAction.inputChangeHandler({name,value}))
-   
-  }
 
     const handleChangeGenre = (event) => {
-        const {
+        let {
           target: { value },
         } = event;
         setGenre(
@@ -89,7 +99,7 @@ function UploadFormInput() {
             <Grid xs={12} item className='text-white'>
               <InputLabel className='w-full text-white' id='demo-simple-select-label'>Script Title</InputLabel>
 
-                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white'  style={{color:'white'}} name={formkey[0]} value={formData[formkey[0]]} onChange={changeHandler}>
+                <TextField  placeholder='Enter Titile Name' inputProps={{ className: classes.input }}  variant='outlined' className='w-1/2 text-white'  style={{color:'white'}} name={formkey[0]} value={formData[formkey[0]]} onChange={changeHandler} required>
 
                 </TextField>
 
@@ -103,6 +113,7 @@ function UploadFormInput() {
              labelId="demo-simple-select-label"
              id="demo-simple-select"
              onChange={changeHandler}
+             required
            >
             <MenuItem value={10}>Movie</MenuItem>
             <MenuItem value={20}>TV Series</MenuItem>
@@ -119,6 +130,7 @@ function UploadFormInput() {
              name={formkey[2]} 
              value={formData[formkey[2]]}
              onChange={changeHandler}
+             required
            >
             <MenuItem value={10} >Movie Concept</MenuItem>
             <MenuItem value={20}>Series Pilot Episode</MenuItem>
@@ -140,6 +152,7 @@ function UploadFormInput() {
           name={formkey[3]}
            value={formData[formkey[3]]}
            onChange={changeHandler}
+           required
         >
           {genres.map((genre) => (
             <MenuItem
@@ -159,6 +172,8 @@ function UploadFormInput() {
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
           onClick={nextPageHandler}
+          // {formState?'':'disabled'}
+          disabled={formState?false:true}
         >
           Next
         </Button>

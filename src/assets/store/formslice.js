@@ -1,5 +1,5 @@
 import { Create } from "@material-ui/icons";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { type } from "@testing-library/user-event/dist/type";
 
 
@@ -11,7 +11,8 @@ const formHandleSlice=createSlice({
             titleName:'',
             entertainmentType:'',
             scriptType:'',
-            genres:Array(),
+            genres:[],
+            description:'',
             table:{
                 theOrigin:'',
                 humanHook:'',
@@ -21,7 +22,24 @@ const formHandleSlice=createSlice({
                 highlights:'',
                 openRoad:''
             },
-            pdf:''
+            pdf:'',
+            poster:'',
+            miniPoster:'',
+            video:'',
+            isUploaded:{
+                pdf:false,
+                poster:false,
+                miniPoster:false,
+                video:false
+            }
+            
+        },
+        formValidator:{
+            scriptInfo:false,
+            pitchTable:false,
+            uploadPage:false
+            
+
         }
     },
     reducers:{
@@ -43,9 +61,11 @@ const formHandleSlice=createSlice({
             data.forEach(key=>{
                 if(key===action.payload.name){
                     if(key==='genres'){
+                        console.log('happpenign all again')
                         console.log(state);
-                        console.log(action.payload)
-                        return state['userData'][key]=action.payload.value
+                        console.log(action.payload.value)
+                        console.log(current(state.userData.genres).length)
+                        return state['userData'][key]=[...action.payload.value]
               }
                     state['userData'][key]=action.payload.value
                 }
@@ -59,6 +79,65 @@ const formHandleSlice=createSlice({
                 }
             })
         },
+        mediaHandler(state,action){
+       if (action.payload.name==='pdf'){
+        state['userData']['pdf']=action.payload.value
+       }
+       if (action.payload.name==='poster'){
+        state['userData']['poster']=action.payload.value
+       } 
+       if (action.payload.name==='miniPoster'){
+        state['userData']['miniPoster']=action.payload.value
+       }
+       if (action.payload.name==='video'){
+       state['userData']['video']=action.payload.value
+       }
+    },
+    uploadHandler(state,action){
+       const data= state['userData']['isUploaded']
+       const key=Object.keys(data)
+       key.forEach(k=>{
+        if(k===action.payload.name){
+            state['userData']['isUploaded'][k]=true
+        }
+       })
+    
+    }, formavalidator(state,action){
+        if(action.payload.name==='scriptInfo'){
+            console.log('inside redux')
+
+        const data ={...state['userData']}
+        console.log(data.titleName.length)
+        console.log(data.scriptType.length)
+        console.log(data.entertainmentType.length)
+        console.log(data.genres.length)
+
+
+            if(state.userData['titleName'].length>0 && state.userData['scriptType']>0&& state.userData['entertainmentType']>0 &&current(state['userData']['genres']).length>0){
+            console.log('inisde validation')
+                state['formValidator']['scriptInfo']=true
+            }else{
+                state['formValidator']['scriptInfo']=false
+            }
+        }
+            if(action.payload.name==='pitchTable'){
+                if(state['userData']['table']['theOrigin'].length>0 && state['userData']['table']['Desires'].length>0 && state['userData']['table']['humanHook'].length>0 && state['userData']['table']['obstacles'].length>0 && state['userData']['table']['highlights'].length>0 && state['userData']['table']['openRoad'].length>0 ){
+                    state['formValidator']['pitchTable']=true
+                }else{
+                    state['formValidator']['pitchTable']=false
+                }
+            }
+            if(action.payload.name==='uploadPage'){
+                console.log(current(state['userData']['isUploaded']))
+                if(state['userData']['description'].length>0 && state['userData']['isUploaded']['miniPoster']===true && state['userData']['isUploaded']['pdf']===true && state['userData']['isUploaded']['poster']===true){
+                    state['formValidator']['uploadPage']=true
+                }else{
+                    state['formValidator']['uploadPage']=false
+                }
+            }
+        
+
+    },
         submitFormHandler(state){
             console.log('happening at submitHandler')
             state.activeStepState=0
@@ -79,6 +158,14 @@ const formHandleSlice=createSlice({
                         console.log(key,'dkdjkd')
                        return state['userData'][key]=Array()
               }
+              if(key==='isUploaded'){
+                console.log('in',key,'oooooooo')
+                const objdata=Object.keys(state['userData'][key]);
+                objdata.forEach(k=>{
+
+                    state['userData']['isUploaded'][k]=false
+                })
+              }
                     const objdata= Object.keys(state['userData'][key])
                     console.log(objdata,'crazy boys')
                     objdata.forEach(key=>{
@@ -88,6 +175,7 @@ const formHandleSlice=createSlice({
                     })
                 }
             })
+
         }
         
     }

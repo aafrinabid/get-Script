@@ -1,20 +1,34 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
-import React,{useRef,useState} from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import clas from './UploadPdf.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import { formAction } from '../../assets/store/formslice';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useHistory } from 'react-router-dom';
+import FileUpload from "react-material-file-upload";
+import { margin } from '@mui/system';
+import Upload from 'rc-upload';
+import { Line } from "rc-progress";
+import Dropzone from 'react-dropzone'
+import UploadData from './UploadPdfData';
+import axios from 'axios';
+
+
+
 
 
 
 const useStyles = makeStyles({
+  
     input: {
       color: "white",
-      border:"2px solid white"
+      width:'100%',
+      gridRow:'1 /span 2',
+      // margin:'10px',
+      // border:"2px solid white"
     }
   });
 
@@ -45,31 +59,114 @@ const genres=['Action Genre',
            backgroundRepeat: 'no-repeat',
        };
 
-       function UploadPdf(props) {
+       function UploadPdf() {
+        const data=useSelector(state=>state.formHandler['userData'])
+        const formState=useSelector(state=>state.formHandler['formValidator']['uploadPage'])
+        const formData=useSelector(state=>state.formHandler['userData'])
+        const formkey=Object.keys(formData)
+        const dispatch=useDispatch();
+        const changeHandler=(e)=>{
+          console.log('happening')
+         const {value}=e.target
+         const {name}=e.target
+         console.log(value)
+         dispatch(formAction.inputChangeHandler({name,value}))
+        }
+        useEffect(()=>{
+dispatch(formAction.formavalidator({name:'uploadPage'}))
+        },[dispatch,changeHandler,UploadData])
         const classes=useStyles()
         const history=useHistory()
-        const [files,setFiles]=useState('')
-        const dispatch=useDispatch()
+        
+     
+        // const [files,setFiles] = useState([])
+        // const [image,setImage] = useState([])
+        // const [poster,setPoster] = useState([])
+        // const [video,setVideo] = useState([])
+     
+       
+        // const [files,setFiles]=useState('')
         const nextPageHandler=()=>{
-          dispatch(formAction.nextStepHandler())
-          dispatch(formAction.submitFormHandler())
-          history.push('/')
+         
+          
+          
+          axios.post('http://localhost:4000/scriptupload',data, {headers:{
+            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+          }
+        }).then(res=>{
+          if(res.data.uploaded){
+            dispatch(formAction.nextStepHandler())
+            dispatch(formAction.submitFormHandler())
+            history.push('/')
+          }else{
+            throw new Error('some issue at our end please try again after some time')
+          }
+          
+        }).catch(e=>{
+          console.log(e)
+        })
+         
+          
           
 
         }
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
+        const dropzoneRef = useRef()
 
 
-        const fileHandler=(file)=>{
-            setFiles(file)
-            console.log(files)
-        }
+
+        // dropzoneRef.open()
+
+        // const fileHandler=(file)=>{
+        //     setFiles(file)
+        //     console.log(files)
+        // }
 
   return (
     <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
-    <CardContent  >
-<DropzoneArea onChange={fileHandler.bind(this)} filesLimit={1} name='pdf' dropzoneClass='bg-inherit border-2 border-white' maxFileSize={5000000}  acceptedFiles={['.pdf', ]} className={clas.uploadArea}/>
+    <CardContent>
+      <div className='grid grid-cols-1 '>
+<InputLabel className='w-full text-white my-3' id='demo-simple-select-label' >Script Description</InputLabel>
+{/* <div className='row-span-3 w-full'> */}
+<TextField 
+inputProps={{ className: classes.input }}
+// sx={{color:'white'}}
+ id='outlined-multiline-static'
+//  label="Multiline"
+ multiline
+ maxRows={4}
+ className='row-span-3'
+ name={formkey[4]}
+ value={formData[formkey[4]]}
+ onChange={changeHandler}
+
+
+//  value={value}
+//  onChange={handleChange}
+>
+  </TextField>
+  {/* <TextField  placeholder='' inputProps={{ className: classes.input }}  multiline   id='outlined-multiline-static'  variant='outlined' className='w-1/2 row-span-3 text-white'  style={{color:'white'}} name={formkey[4]} value={formData[formkey[4]]} onChange={changeHandler} /> */}
+
+{/* </div> */}
+</div>
+      <div className=' flex py-9 pb-16'>
+    <UploadData dataSize={10000000} type= {['application/pdf']} name='script' ext='pdf' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='poster' ext='poster' />
+    <UploadData dataSize={10000000} type= {['image/png','image/jpeg','image/jpg']} name='mini poster' ext='miniPoster'/>
+    {/* <Input accept="image/*" id="contained-button-file" multiple type="file" /> */}
+ 
+
+
+
+      {/* <FileUpload value={files} onChange={setFiles} title={'Upload your pdf file here!!'} />
+      <FileUpload value={poster} onChange={setPoster} title={'Upload your Script Poster'} />
+      <FileUpload value={image} onChange={setImage} title={'Upload your Script image'} />
+      <FileUpload value={video} onChange={setVideo} title={'Upload your Script video'} /> */}
+
+
+</div>
+
   
    
     <div  className={` ${clas.nextPage}`}>
@@ -87,9 +184,10 @@ const genres=['Action Genre',
           variant="contained"
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
-          onClick={nextPageHandler}
+          onClick={nextPageHandler()}
+          disabled={formState?false:true}
         >
-          Next
+          Submit the script
         </Button>
       </div>
   
