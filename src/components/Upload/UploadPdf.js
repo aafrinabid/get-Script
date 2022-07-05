@@ -87,14 +87,16 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
        
         // const [files,setFiles]=useState('')
         const nextPageHandler=()=>{
+         
+          
+          
+          axios.post('http://localhost:4000/scriptupload',{
+data
+          })
           dispatch(formAction.nextStepHandler())
           dispatch(formAction.submitFormHandler())
-          
-          console.log(data)
-          axios.post('http://localhost:4000/scriptupload',{
-
-          })
           history.push('/')
+          
           
 
         }
