@@ -116,18 +116,25 @@ const formHandleSlice=createSlice({
             if(state.userData['titleName'].length>0 && state.userData['scriptType']>0&& state.userData['entertainmentType']>0 &&current(state['userData']['genres']).length>0){
             console.log('inisde validation')
                 state['formValidator']['scriptInfo']=true
+            }else{
+                state['formValidator']['scriptInfo']=false
             }
+        }
             if(action.payload.name==='pitchTable'){
                 if(state['userData']['table']['theOrigin'].length>0 && state['userData']['table']['Desires'].length>0 && state['userData']['table']['humanHook'].length>0 && state['userData']['table']['obstacles'].length>0 && state['userData']['table']['highlights'].length>0 && state['userData']['table']['openRoad'].length>0 ){
                     state['formValidator']['pitchTable']=true
+                }else{
+                    state['formValidator']['pitchTable']=false
                 }
             }
             if(action.payload.name==='uploadPage'){
                 if(state['userData']['description'].length>0 && state['userData']['isUploaded']['miniPoster']===true && state['userData']['isUploaded']['pdf']===true && state['userData']['isUploaded']['poster']===true){
                     state['formValidator']['uploadPage']=true
+                }else{
+                    state['formValidator']['uploadPage']=false
                 }
             }
-        }
+        
 
     },
         submitFormHandler(state){

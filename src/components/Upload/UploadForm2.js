@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
-import React,{useRef,useState} from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import clas from './UploadForm2.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
@@ -44,6 +44,20 @@ const genres=['Action Genre',
        };
 
        function UploadForm2(props) {
+         const dispatch=useDispatch()
+         const onChangeHandler=(event)=>{
+           console.log(event.target.value);
+           const value=event.target.value;
+           const name=event.target.name;
+           dispatch(formAction.inputChangeHandler({name,value}))
+     
+         }
+      const formState=useSelector(state=>state.formHandler.formValidator['pitchTable'])
+      useEffect(()=>{
+    dispatch(formAction.formavalidator({name:'pitchTable'}))
+      },[formState,onChangeHandler])
+
+
         const tableData=useSelector(state=>state.formHandler.userData['table'])
         const tablekey=Object.keys(tableData)
         console.log(tablekey);
@@ -57,16 +71,8 @@ const genres=['Action Genre',
           'Highlights',
           'Open Road']
         const classes=useStyles()
-        const dispatch=useDispatch()
         const nextPageHandler=()=>dispatch(formAction.nextStepHandler())
         const backPageHandler=()=>dispatch(formAction.backStepHandler())
-        const onChangeHandler=(event)=>{
-          console.log(event.target.value);
-          const value=event.target.value;
-          const name=event.target.name;
-          dispatch(formAction.inputChangeHandler({name,value}))
-
-        }
 
   return (
     <div className='flex justify-center h-screen '>
@@ -101,6 +107,7 @@ const genres=['Action Genre',
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
           onClick={nextPageHandler}
+          disabled={formState?false:true}
         >
           Next
         </Button>

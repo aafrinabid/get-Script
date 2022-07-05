@@ -172,6 +172,8 @@ function UploadFormInput() {
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
           onClick={nextPageHandler}
+          // {formState?'':'disabled'}
+          disabled={formState?false:true}
         >
           Next
         </Button>
