@@ -90,21 +90,21 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
          
           
           
-          axios.post('http://localhost:4000/scriptupload',data, {headers:{
-            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
-          }
-        }).then(res=>{
-          if(res.data.uploaded){
-            dispatch(formAction.nextStepHandler())
-            dispatch(formAction.submitFormHandler())
-            history.push('/')
-          }else{
-            throw new Error('some issue at our end please try again after some time')
-          }
+        //   axios.post('http://localhost:4000/scriptupload',data, {headers:{
+        //     'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+        //   }
+        // }).then(res=>{
+        //   if(res.data.uploaded){
+        //     dispatch(formAction.nextStepHandler())
+        //     dispatch(formAction.submitFormHandler())
+        //     history.push('/')
+        //   }else{
+        //     throw new Error('some issue at our end please try again after some time')
+        //   }
           
-        }).catch(e=>{
-          console.log(e)
-        })
+        // }).catch(e=>{
+        //   console.log(e)
+        // })
          
           
           
