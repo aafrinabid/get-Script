@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Dropzone from 'react-dropzone'
 import {Button} from '@mui/material';
 import axios from 'axios';
@@ -9,6 +9,9 @@ import { formAction } from '../../assets/store/formslice';
 function UploadData(props) {
     const dispatch=useDispatch()
     const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
+    useEffect(()=>{
+dispatch(formAction.formavalidator({name:'uploadPage'}))
+    },[isUploaded,dispatch])
     const [isError,setIsError]=useState(false)
     const [errorMsg,setErrorMsg]=useState('')
     const [isValid,setIsValid]=useState(false)

@@ -1,7 +1,7 @@
 import { useDispatch,useSelector } from 'react-redux';
 import { Card, Select, TextField,CardContent,Grid, MenuItem,Box,Button} from '@mui/material'
 import { makeStyles } from "@material-ui/core/styles";
-import React,{useRef,useState} from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import clas from './UploadPdf.module.css';
 import {FormControl,InputLabel,OutlinedInput} from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
@@ -59,13 +59,10 @@ const genres=['Action Genre',
        };
 
        function UploadPdf() {
+        const formState=useSelector(state=>state.formHandler['formValidator']['uploadPage'])
         const formData=useSelector(state=>state.formHandler['userData'])
         const formkey=Object.keys(formData)
         const dispatch=useDispatch();
-        const classes=useStyles()
-        const history=useHistory()
-        
-     
         const changeHandler=(e)=>{
           console.log('happening')
          const {value}=e.target
@@ -73,6 +70,13 @@ const genres=['Action Genre',
          console.log(value)
          dispatch(formAction.inputChangeHandler({name,value}))
         }
+        useEffect(()=>{
+dispatch(formAction.formavalidator({name:'uploadPage'}))
+        },[dispatch,changeHandler,UploadData])
+        const classes=useStyles()
+        const history=useHistory()
+        
+     
         // const [files,setFiles] = useState([])
         // const [image,setImage] = useState([])
         // const [poster,setPoster] = useState([])
@@ -162,8 +166,9 @@ inputProps={{ className: classes.input }}
           sx={{ mt: 3, ml: 1 }}
           color="secondary"
           onClick={nextPageHandler}
+          disabled={formState?false:true}
         >
-          Next
+          Submit the script
         </Button>
       </div>
   

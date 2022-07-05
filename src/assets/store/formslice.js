@@ -128,6 +128,7 @@ const formHandleSlice=createSlice({
                 }
             }
             if(action.payload.name==='uploadPage'){
+                console.log(current(state['userData']['isUploaded']))
                 if(state['userData']['description'].length>0 && state['userData']['isUploaded']['miniPoster']===true && state['userData']['isUploaded']['pdf']===true && state['userData']['isUploaded']['poster']===true){
                     state['formValidator']['uploadPage']=true
                 }else{
