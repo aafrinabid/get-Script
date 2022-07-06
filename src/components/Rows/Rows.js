@@ -34,10 +34,10 @@ function Rows(props) {
     const divImage =  {
     
       backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
-         height:'100px',
+         height:'110px',
       //    marginTop:'-70px',
       //    fontSize:'50px',
-        //  backgroundSize: '100%',
+         backgroundSize: '100%',
          backgroundRepeat: 'no-repeat',
      };
      return divImage

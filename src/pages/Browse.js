@@ -22,6 +22,12 @@ function Browse() {
         <Banner  />
         <Rows screenper={6} genre='Science Fiction Genre' />
         <Rows screenper={6} genre='Comedy Genre' />
+        <Rows screenper={6} genre='Fantasy Genre' />
+        <Rows screenper={6} genre='Action Genre' />
+        <Rows screenper={6} genre='Thriller Genre' />
+
+
+        
 
         {/* <Rows screenper={6} />
         <Rows screenper={6}/>
