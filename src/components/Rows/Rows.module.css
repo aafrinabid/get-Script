@@ -18,7 +18,7 @@ padding: 30px 0;
 
 .poster{
     display: grid;
-    background-image: url('https://wallpaperaccess.com/full/1268822.jpg');
+    /* background-image: url('https://wallpaperaccess.com/full/1268822.jpg'); */
     height: 100px;
     justify-content: center;
     align-items: center;
