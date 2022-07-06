@@ -54,11 +54,11 @@ function ScriptDetail() {
         <ScriptInfo detail={detail}/>
         <div className={classes.tablediv}>
            {!seenTable && <Button variant='text' className='text-4xl font-bold text-white p-7' onClick={clickHandler}>Show Pitch</Button>} 
-        {seenTable &&<ScriptTable clickHandler={clickHandler}/>}
+        {seenTable &&<ScriptTable detail={detail} clickHandler={clickHandler}/>}
         </div>
         <div className='bg-inherit'>
        {!seenScript && <Button variant='contained' className='bg-black text-white my-3' onClick={scriptClickHandler}>Script Preview</Button>} 
-        {seenScript && <ScriptPdf className='pt-4' scriptHandler={scriptClickHandler}/>}
+        {seenScript && <ScriptPdf detail={detail} className='pt-4' scriptHandler={scriptClickHandler}/>}
         </div> 
         <div className={classes.suggestrows}>
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
