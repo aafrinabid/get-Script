@@ -78,7 +78,7 @@ function App() {
       <Browse />
         </Route>
 }
-        {loginStatus &&   <Route path='/details'>
+        {loginStatus &&   <Route path='/details/:scriptId'>
           <ScriptDetails />
         </Route>
 }
