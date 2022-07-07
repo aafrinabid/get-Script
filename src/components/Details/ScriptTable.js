@@ -7,6 +7,8 @@ import { Box } from '@mui/system';
 
 function ScriptTable(props) {
     const pitch=['The origin','Human Hook','Character','Desires','Obstacles','Highlights','Open Road']
+    const pitcDetail=[props.detail.the_origin, props.detail.human_hook,props.detail.character,props.detail.desires,props.detail.obstacles,props.detail.highlights,props.detail.open_road ]
+    // pitch.map(p=>)
   return (
       <Modal 
       disableEnforceFocus
@@ -24,7 +26,7 @@ function ScriptTable(props) {
             <div key={i}  className={Classes.tablecontent}>
             <h1 className='border-gray-300  border-transparent text-center'>{i+1}</h1>
             <h1 className='border-gray-300  border-transparent text-center'>{e}</h1>
-            <h1 className={`border-gray-300 border-transparent ${Classes.description} text-left`}>Vince was talking to his mother but later he saw that its his mother that was hurt so i was never wrong lorem ipsam</h1>
+            <h1 className={`border-gray-300 border-transparent ${Classes.description} text-left`}>{pitcDetail[i]}</h1>
            </div>
         ))}
 

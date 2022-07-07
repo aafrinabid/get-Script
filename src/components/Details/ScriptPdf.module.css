@@ -1,4 +1,4 @@
-.pdf{
+/* .pdf{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,8 +6,23 @@
     width: 50%;
     margin: 0 350px;
     color: white;
+} */
+.pdf{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 350px;
+    color: white;
 }
 
+.scroll{
+    height: 100vh;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+}
 
 .controlpanel{
     display: grid;

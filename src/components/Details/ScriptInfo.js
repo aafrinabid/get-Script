@@ -5,8 +5,11 @@ import {AddBoxRounded} from '@mui/icons-material'
 import { Button } from '@mui/material';
 import { DoneRounded } from '@material-ui/icons';
 import { CloudDownloadRounded } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-function ScripInfo() {
+function ScripInfo(props) {
+  const [genres,setGenres]=useState([props.detail.genres])
+  const genre=genres.toString()
   const [saved,setSaved]=useState(false);
   const saveClick=()=>{
       setSaved((prevState)=>!prevState)
@@ -15,11 +18,11 @@ function ScripInfo() {
   return (
     <div className={`${classes.content} text-white p-10`}>
       <div className={classes.scriptmajor}>
-     <h1 className='text-xl font-bold text-left'>The Cosmos</h1>
+     <h1 className='text-xl font-bold text-left'>{props.detail.script_title}</h1>
      <div className='flex'>
-      <img className={classes.miniposter} src="https://images.alphacoders.com/530/530505.jpg"/>
+      <img className={classes.miniposter} src={props.detail.script_mini_poster}/>
       <div className={classes.button}>
-      <Fab   id={classes.download} className='m-4 text-l p-7 justify-center items-center' ><CloudDownloadRounded/></Fab>
+      <Fab   id={classes.download} className='m-4 text-l p-7 justify-center items-center' ><a href={props.detail.script_pdf_url}> <CloudDownloadRounded/></a></Fab>
          
          <Fab color="primary" aria-label="add" onClick={saveClick} id={classes.savebutton}>
           {!saved && <AddBoxRounded  />}   
@@ -29,11 +32,11 @@ function ScripInfo() {
       </div>
      </div>
      <div className={classes.details}>
-     <h2 className='text-l font-normal pr-5 text-left col-span-2'>When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.</h2>
-     <h2 className='text-l font-normal text-left'>Genres :Military, Science Fiction, Astronomy</h2>
+     <h2 className='text-l font-normal pr-5 text-left col-span-2'>{props.detail.description}</h2>
+     <h2 className='text-l font-normal text-left'>Genres :{genre}</h2>
      <h2 className='text-l font-normal text-left'>Language: English </h2>
-     <h2 className='text -l font-normal text-left'>Type: Series Concept</h2>
-     <h2 className='text-l font-normal text-left'>Uploaded by: Babu Raj </h2>
+     <h2 className='text -l font-normal text-left'>Type: {props.detail.script_type}</h2>
+     <h2 className='text-l font-normal text-left'>Uploaded by: {props.detail.username} </h2>
 
      </div>
     </div>

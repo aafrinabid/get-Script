@@ -9,6 +9,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/l
 function ScriptPdf(props) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+  const url =props.detail.script_pdf_url
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -17,6 +18,7 @@ function ScriptPdf(props) {
 
   return (
     <Modal
+    className='h-screen'
     open={props.scriptHandler}
     onClose={props.scriptHandler}
     aria-labelledby="parent-modal-title"
@@ -25,10 +27,11 @@ function ScriptPdf(props) {
 
       
 
-    <div className={`bg-inherit ${classes.pdf}`} >
+    <div className={`bg-inherit h-screen w-full ${classes.pdf}`} >
     <ControlPanel numpages={numPages} pageNumber={pageNumber} setPageNumber={setPageNumber} className={className} scriptHandler={props.scriptHandler}/>
-      <Document file="/assets/pdf/my_resume.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
+    {console.log('whereeeeee')}
+      <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
+        <Page pageNumber={pageNumber} className={classes.scroll}  />
       </Document>
     </div>
     </Modal>
