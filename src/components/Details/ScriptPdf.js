@@ -31,7 +31,7 @@ function ScriptPdf(props) {
     <ControlPanel numpages={numPages} pageNumber={pageNumber} setPageNumber={setPageNumber} className={className} scriptHandler={props.scriptHandler}/>
     {console.log('whereeeeee')}
       <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
+        <Page pageNumber={pageNumber} className={classes.scroll}  />
       </Document>
     </div>
     </Modal>
