@@ -14,21 +14,44 @@ const [isLoading,setIsLoading] = useState(false)
 const [title,setTitle]=useState('')
 
 useEffect(()=>{
-  setIsLoading(true)
-axios.get('http://localhost:4000/bannerscript',{
-  headers:{
-
-  }
-}).then((res)=>{
-
-  setScript(res.data.result)
-  setTitle(res.data.result.script_title)
-  setIsLoading(false)
-
-}).catch(e=>{
-  console.error(e)
-  setIsLoading(false)
-})
+  
+    setIsLoading(true)
+    axios.get('http://localhost:4000/bannerscript',{
+      headers:{
+    
+      }
+    }).then((res)=>{
+    
+      setScript(res.data.result)
+      setTitle(res.data.result.script_title)
+      setIsLoading(false)
+    
+    }).catch(e=>{
+      console.error(e)
+      setIsLoading(false)
+    })
+    
+ 
+  // first();
+  const intervalId=setInterval(()=>{
+    setIsLoading(true)
+    axios.get('http://localhost:4000/bannerscript',{
+      headers:{
+    
+      }
+    }).then((res)=>{
+    
+      setScript(res.data.result)
+      setTitle(res.data.result.script_title)
+      setIsLoading(false)
+    
+    }).catch(e=>{
+      console.error(e)
+      setIsLoading(false)
+    })
+  },10000)
+  return ()=>clearInterval(intervalId)
+ 
 },[])
 
 
@@ -44,6 +67,8 @@ axios.get('http://localhost:4000/bannerscript',{
        backgroundSize: '100%',
        backgroundRepeat: 'no-repeat',
        overflow:'hidden',
+    transition: 'all 1.5s',
+
    };
    const clickHandler=(id)=>{
     history.push(`/details/${id}`)
