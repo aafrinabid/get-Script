@@ -33,7 +33,7 @@ function Browse() {
 
   },[])
   return (
-    <div className='bg-black'>
+    <div className='bg-black transition-all'>
         <Banner  />
         {
           genres.map((genre)=>(
