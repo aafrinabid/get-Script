@@ -21,7 +21,7 @@
 .scroll{
     height: 100vh;
     scroll-behavior: smooth;
-    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .controlpanel{

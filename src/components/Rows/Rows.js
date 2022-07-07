@@ -26,6 +26,7 @@ const genres=['Action Genre',
     'Other Genres',]
 
 function Rows(props) {
+  console.log(props)
 
   const [isLoading,setIsLoading]=useState(false)
   const [scripts,setScripts]=useState([])
@@ -57,7 +58,9 @@ useEffect(()=>{
   setIsLoading(true)
 axios.get('http://localhost:4000/fetchscript',{
   headers:{
-    'genre':props.genre
+    'genre':props.genre,
+    'indetail':props.inDetail,
+    'scriptid':props.scriptId
   }
 }).then((res)=>{
 

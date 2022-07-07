@@ -14,6 +14,10 @@ import axios from 'axios';
 function ScriptDetail() {
     const params=useParams()
     const [detail,setDetail]=useState([]);
+    const [genres,setGenres]=useState([])
+    console.log(genres)
+    console.log(detail.script_id)
+    // const genres=detail.genres
     console.log(detail)
     const [isLoading,setIsLoading]=useState(false)
     const {scriptId}=params
@@ -26,6 +30,7 @@ function ScriptDetail() {
             }
         }).then((res)=>{
             setDetail(res.data.result)
+            setGenres(res.data.result.genres)
             setIsLoading(false)
        
         }).catch(e=>{
@@ -62,7 +67,15 @@ function ScriptDetail() {
         </div> 
         <div className={classes.suggestrows}>
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
-            <Rows screenper='4' />
+            {
+               
+                genres.map(genre=>(
+                    
+
+                    <Rows screenper='4' inDetail={'true'} genre={genre} scriptId={scriptId}/>
+                ))
+
+            }
         </div>
         </>
         }
