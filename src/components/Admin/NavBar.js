@@ -15,7 +15,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { UiAction } from '../../assets/store/UiSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
@@ -70,15 +70,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [notDetails,setNotDetails]=useState([])
   const [isLoading,setIsLoading]=useState(false)
+  const producer=useSelector(state=>state.ProducerHandler.producers)
   useEffect(()=>{
-  setIsLoading(true)
+    setIsLoading(true)
    axios.get('http://localhost:4000/fetchnotification').then((res)=>{
     setNotDetails([...res.data.result])
     setIsLoading(false)
    }).catch(e=>{console.log(e)
   setIsLoading(false)
   })
-  },[])
+  },[producer])
   console.log(notDetails)
   const dispatch= useDispatch();
   const optionShower=()=>dispatch(UiAction.onClickLogo())
