@@ -5,6 +5,7 @@ import {AddBoxRounded} from '@mui/icons-material'
 import { Button } from '@mui/material';
 import { DoneRounded } from '@material-ui/icons';
 import { CloudDownloadRounded } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 function ScripInfo(props) {
   const [genres,setGenres]=useState([props.detail.genres])
@@ -21,7 +22,7 @@ function ScripInfo(props) {
      <div className='flex'>
       <img className={classes.miniposter} src={props.detail.script_mini_poster}/>
       <div className={classes.button}>
-      <Fab   id={classes.download} className='m-4 text-l p-7 justify-center items-center' ><CloudDownloadRounded/></Fab>
+      <Fab   id={classes.download} className='m-4 text-l p-7 justify-center items-center' ><a href={props.detail.script_pdf_url}> <CloudDownloadRounded/></a></Fab>
          
          <Fab color="primary" aria-label="add" onClick={saveClick} id={classes.savebutton}>
           {!saved && <AddBoxRounded  />}   

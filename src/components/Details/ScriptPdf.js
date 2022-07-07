@@ -18,6 +18,7 @@ function ScriptPdf(props) {
 
   return (
     <Modal
+    className='h-screen'
     open={props.scriptHandler}
     onClose={props.scriptHandler}
     aria-labelledby="parent-modal-title"
@@ -26,7 +27,7 @@ function ScriptPdf(props) {
 
       
 
-    <div className={`bg-inherit ${classes.pdf}`} >
+    <div className={`bg-inherit h-screen w-full ${classes.pdf}`} >
     <ControlPanel numpages={numPages} pageNumber={pageNumber} setPageNumber={setPageNumber} className={className} scriptHandler={props.scriptHandler}/>
     {console.log('whereeeeee')}
       <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
