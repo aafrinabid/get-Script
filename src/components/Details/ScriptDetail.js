@@ -38,7 +38,7 @@ function ScriptDetail() {
 
         })
 
-    },[])
+    },[scriptId])
     const [seenTable,setSeenTable]=useState(false);
     const [seenScript,setSeenScript]=useState(false);
 
@@ -72,7 +72,7 @@ function ScriptDetail() {
                 genres.map(genre=>(
                     
 
-                    <Rows screenper='4' inDetail={'true'} genre={genre} scriptId={scriptId}/>
+                    <Rows screenper='5' inDetail={'true'} genre={genre} scriptId={scriptId}/>
                 ))
 
             }
