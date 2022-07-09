@@ -30,6 +30,7 @@ function Rows(props) {
 
   const [isLoading,setIsLoading]=useState(false)
   const [scripts,setScripts]=useState([])
+  const [genre,setGenre]=useState('')
   console.log(scripts)
   const backgroundChanger=(url)=>{
     const divImage =  {
@@ -68,6 +69,7 @@ axios.get('http://localhost:4000/fetchscript',{
   console.log(res.data)
 
   setScripts([...res.data.result])
+ setGenre(res.data.genre)
 setIsLoading(false)
 }).catch((e)=>{
   console.log(e)
@@ -77,7 +79,7 @@ setIsLoading(false)
   return (
 <div className={`${classes.rows} bg-inherit`}>
   <div className={classes.rowtitle}>
-    <h2>{props.genre}</h2>
+    <h2>{genre}</h2>
   </div>
     <Swiper 
     // install Swiper modules
@@ -85,7 +87,7 @@ setIsLoading(false)
     spaceBetween={1}
     slidesPerView={props.screenper}
     navigation
-    pagination={{ clickable: true }}
+    // pagination={{ clickable: true }}
     // scrollbar={{ draggable: true }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}

@@ -8,6 +8,8 @@
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
+    -webkit-transition: all 1.5s ease-in-out;
+transition: all 1.5s ease-in-out
 }
 
 .description{
@@ -27,6 +29,7 @@
     display: grid;
     grid-template-columns:1fr ;
     padding-top: 119px;
+    transition: all 1.5s;
 }
 
 /* .buttons{
