@@ -11,6 +11,7 @@ function ChatContent() {
   const [data,setData]=useState({})
   console.log(recieverid)
   let userId
+  let role
   useEffect(()=>{
     axios.get('/getId',{
       headers:{
@@ -19,6 +20,7 @@ function ChatContent() {
     }).then(res=>{
       console.log(res.data)
       userId=res.data.userId
+      role=res.data.role
     })
   axios.post('http://localhost:4000/getMessages',{
  from:userId,
@@ -31,7 +33,7 @@ function ChatContent() {
   },[recieverid,userId])
   return (
     <div>
-<UserNameContent userId={recieverid}/>
+<UserNameContent userId={recieverid} role={role}/>
 <MessageArea message={data}/>
 <TextArea from={userId} to={recieverid} />
     </div>

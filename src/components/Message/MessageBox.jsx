@@ -3,21 +3,15 @@ import {io} from 'socket.io-client'
 import { useDispatch } from 'react-redux';
 import { messageActions } from '../assets/store/messageSlice';
 
-const socket =io('http://localhost:3001')
+// const socket =io('http://localhost:3001')
 
 
 function MessageBox(props){
   const dispatch= useDispatch();
-  let id
-
-  socket.on('connect',()=>{
-id=socket.id
-console.log(id)
-  })
     console.log(props)
     let style
     let direction
-    if(props.from===1){
+    if(props.from===true){
         style={
             // padding:'5px 0px',
             paddingLeft:'5px',
