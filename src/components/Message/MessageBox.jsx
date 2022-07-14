@@ -1,13 +1,13 @@
 import React from 'react';
 import {io} from 'socket.io-client'
-import { useDispatch } from 'react-redux';
-import { messageActions } from '../assets/store/messageSlice';
+// import { useDispatch } from 'react-redux';
+// import { messageActions } from '../assets/store/messageSlice';
 
 // const socket =io('http://localhost:3001')
 
 
 function MessageBox(props){
-  const dispatch= useDispatch();
+  // const dispatch= useDispatch();
     console.log(props)
     let style
     let direction

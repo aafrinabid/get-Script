@@ -1,14 +1,14 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { useParams } from 'react-router-dom'
 import classes from './UserNameContent.module.css'
-
+import axios from 'axios'
 function UserNameContent(props) {
   const params=useParams();
   const {role}=params
   const [data,setData]=useState('')
   useEffect(()=>{
-axios.post('/userDetails',{
+axios.post('/http://localhost:4000userDetails',{
   id:props.userId,
   role:role
 }).then((res)=>{

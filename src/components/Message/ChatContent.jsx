@@ -13,7 +13,7 @@ function ChatContent() {
   let userId
   let role
   useEffect(()=>{
-    axios.get('/getId',{
+    axios.get('http://localhost:4000/getId',{
       headers:{
         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
       }
@@ -33,7 +33,7 @@ function ChatContent() {
   },[recieverid,userId])
   return (
     <div>
-<UserNameContent userId={recieverid} role={role}/>
+<UserNameContent userId={recieverid} />
 <MessageArea message={data}/>
 <TextArea from={userId} to={recieverid} />
     </div>

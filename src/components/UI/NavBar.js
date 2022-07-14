@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import classes from './NavBar.module.css';
-import { Book, Notifications,AddBoxSharp } from '@material-ui/icons';
+import { Book, Notifications,AddBoxSharp,ChatRounded } from '@material-ui/icons';
 import { Avatar, Fab, IconButton, Menu, MenuItem } from '@mui/material';
 import {Link, useHistory} from 'react-router-dom';
 import { color } from '@mui/system';
 import { useDispatch ,useSelector} from 'react-redux';
 import { authActions } from '../../assets/store/authSlice';
-
+import axios from 'axios'
 
 function NavBar({colorChange}) {
+  const [id,setId]=useState('')
+  const [role,setRole]=useState('')
+
+  useEffect(()=>{
+ axios.get('http://localhost:4000/getId',{
+  headers:{
+    'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+  }
+  }).then((res)=>{
+    setId(res.data.userId)
+    setRole(res.data.role)
+
+  })
+  },[])
   const userRole=useSelector(state=>state.authHandler.role)
 
   const history=useHistory()
@@ -44,7 +58,9 @@ function NavBar({colorChange}) {
         </div>
         <div className= {`flex ${classes.profile}`} >
     {(userRole===1 || userRole===3) && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
+        <Link to='/chat/t'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><ChatRounded /></h1> </Link>
         <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
+
          <IconButton size='large'
          aria-label='profile'
          color='inherit'
@@ -67,7 +83,7 @@ function NavBar({colorChange}) {
              open={open}
              onClose={handleClose}
            >
-              <MenuItem onClick={handleClose}><Link to='/Profile'>Profile</Link></MenuItem>
+              <MenuItem onClick={handleClose}><Link to={`/Profile/${id}/${role}`}>Profile</Link></MenuItem>
             {userRole===3 && <MenuItem onClick={handleClose}><Link to='/AdminPanel'>Admin Panel</Link></MenuItem>}
                 <MenuItem onClick={onLogoutHandler}> logout</MenuItem>
 

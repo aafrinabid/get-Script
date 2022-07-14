@@ -2,7 +2,6 @@ import { data } from 'autoprefixer'
 import axios from 'axios'
 import React from 'react'
 import { useEffect,useState } from 'react'
-import ChatList from './ChatList'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
 
@@ -13,7 +12,7 @@ function ChatUser() {
   
   useEffect(()=>{
     
-      axios.get('/getId',{
+      axios.get('http://localhost:4000/getId',{
         headers:{
           'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
         }
@@ -22,7 +21,7 @@ function ChatUser() {
         userId=res.data.userId
         role=res.data.role
       })
-  axios.post('/messagedetail',{
+  axios.post('http://localhost:4000/messagedetail',{
     userid:userId
   }).then((res)=>{
     setDatas([...res.data.result])

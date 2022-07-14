@@ -13,7 +13,7 @@ import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
 import { useSelector,useDispatch} from 'react-redux';
 import axios from 'axios';
 import { authActions } from './assets/store/authSlice';
-
+import Message from './pages/Message'
 
 function App() {
   const dispatch=useDispatch()
@@ -95,7 +95,7 @@ function App() {
         <SignUp />
       </Route> */}
 
-      {loginStatus && <Route path='/profile'>
+      {loginStatus && <Route path='/profile/:userid/:role'>
         <Profile />
       </Route>}
 

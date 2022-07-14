@@ -1,12 +1,13 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import classes from './UserContainer.module.css'
+import axios from 'axios'
 
 function UserContainer(props) {
   // const params=useParams();
   // const {role}=params
   useEffect(()=>{
-    axios.post('/userDetails',{
+    axios.post('http://localhost:4000/userDetails',{
       id:props.recieverid,
       role:props.role
     }).then((res)=>{

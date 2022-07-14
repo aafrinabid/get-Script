@@ -4,14 +4,14 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
-import {useDispatch} from 'react-redux'
-import { messageActions } from "../assets/store/messageSlice";
+// import {useDispatch} from 'react-redux'
+// import { messageActions } from "../assets/store/messageSlice";
 import { io } from "socket.io-client";
 import axios from "axios";
-const socket=io('http://localhost:3001')  
+// const socket=io('http://localhost:3001')  
 
 function TextArea(props) {
-  const dispatch= useDispatch();
+  // const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const handleEmojiPickerhideShow = () => {
@@ -30,7 +30,7 @@ function TextArea(props) {
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
       //  dispatch(messageActions.addMessage({message:msg,from:1}))
-      axios.post('/addMessage',{
+      axios.post('http://localhost:4000/addMessage',{
         message:msg,
         from:props.from,
         to:props.to
