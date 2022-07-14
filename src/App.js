@@ -110,7 +110,13 @@ function App() {
   {console.log('what the fuck happended')}
  <AdminPanel />
 </Route>
-}     
+}    
+{loginStatus&& 
+ <Route path='/chat/t'>
+  {console.log('message')}
+ <Message />
+</Route>
+} 
       <Route path='*'>
 
         {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}

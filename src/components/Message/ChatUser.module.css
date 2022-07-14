@@ -1,0 +1,12 @@
+.list{
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 600px;
+    overflow-y:scroll;
+    grid-gap: 0px;
+}
+
+
+.username{
+    height: 1px;
+}

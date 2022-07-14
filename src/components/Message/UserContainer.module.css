@@ -1,0 +1,38 @@
+.user{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: 80px;
+    /* grid-gap: px; */
+    border: 0px black solid;
+    background-color: rgb(255,254,254);
+}
+
+.profile{
+    border-radius: 50%;
+    width: 40px;
+    margin-left:30px ;
+    /* margin-right: 10px; */
+ z-index: -1000;
+}
+
+.userText{
+   display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+   text-align: center;
+   /* align-items: center;
+   justify-content: start; */
+   /* height: 100px; */
+   /* margin-bottom: 30px; */
+   /* border: 1px solid black; */
+   height: 10px;
+}
+
+.usernamecont{
+    margin:0px ;
+
+}
+
+.usermessage{
+    margin:0px;
+}
