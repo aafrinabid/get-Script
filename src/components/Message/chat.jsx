@@ -12,7 +12,7 @@ function Chat() {
     <ChatUser/>
     <h1>hiii chat here d</h1>
     <Switch>
-      <Route path='/message/t/:recieverid'>
+      <Route path='/message/t/:recieverid/:role'>
     <ChatComponent/>
     </Route>
     </Switch>
