@@ -4,12 +4,15 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
+import {useParams} from 'react-router-dom'
 
 function ChatUser() {
+  // const params=useParams()
+
+  // const {recieverid}=params
   const [datas,setDatas]=useState([])
-  let userId
     let role
-  
+  // console.log(params)
   useEffect(()=>{
     
       axios.get('http://localhost:4000/getId',{
@@ -18,15 +21,18 @@ function ChatUser() {
         }
       }).then(res=>{
         console.log(res.data)
-        userId=res.data.userId
+        // userId=res.data.userId
         role=res.data.role
+        // const recId=r
+        axios.post('http://localhost:4000/messagedetail',{
+          userid:res.data.userId,
+        }).then((res)=>{
+          console.log(res.data)
+          setDatas([...res.data.result])
+      
+        })
       })
-  axios.post('http://localhost:4000/messagedetail',{
-    userid:userId
-  }).then((res)=>{
-    setDatas([...res.data.result])
-
-  })
+ 
   },[])
   return (
     <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}}>

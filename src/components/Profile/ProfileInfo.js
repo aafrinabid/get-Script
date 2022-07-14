@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import classes from './Profile.module.css'
-import { useParams,useLocation } from 'react-router-dom';
+import { useParams,useLocation ,useHistory} from 'react-router-dom';
 import { Instagram, Facebook , LinkedIn, Twitter ,ChatBubble} from '@mui/icons-material';
 import ScriptPostedCards from '../PostedScriptCards/ScriptPostedCards';
 import { useEffect } from 'react';
@@ -10,6 +10,7 @@ import axios from 'axios';
 
 
 function ProfileInfo() {
+  const history= useHistory();
    const [details,setDetails]=useState({})
    const [name,setName]=useState('')
    
@@ -58,6 +59,7 @@ function ProfileInfo() {
      date
     }
     ).then(res=>{
+      history.push(`/chat/t`)
      
 
     }).catch(e=>{
