@@ -12,7 +12,7 @@ function ChatUser() {
   // const {recieverid}=params
   const [datas,setDatas]=useState([])
     let role
-  // console.log(params)
+  console.log(datas)
   useEffect(()=>{
     
       axios.get('http://localhost:4000/getId',{
@@ -45,7 +45,7 @@ function ChatUser() {
         {
                   datas.map((data)=>(
 
-            <UserContainer userId={data.recieverid} role={data.role}/>
+            <UserContainer key={data.reciever_id} userId={data.reciever_id}/>
           ))
         }
        {/* <UserContainer/>

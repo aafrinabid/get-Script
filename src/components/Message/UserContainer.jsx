@@ -4,18 +4,18 @@ import classes from './UserContainer.module.css'
 import axios from 'axios'
 
 function UserContainer(props) {
+  const [data,setData]=useState({})
   // const params=useParams();
   // const {role}=params
   useEffect(()=>{
     axios.post('http://localhost:4000/userDetails',{
-      id:props.recieverid,
-      role:props.role
+      id:props.userId,
+      role:1
     }).then((res)=>{
       setData(res.data)
     })
-      },[props.recieverid,props.role])
+      },[props.userId])
 
-  const [data,setData]=useState({})
   return (
     <div className={classes.user}>
         <div>
