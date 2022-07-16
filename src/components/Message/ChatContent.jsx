@@ -8,33 +8,35 @@ import { useParams } from 'react-router-dom'
 function ChatContent() {
   const params=useParams()
   const {recieverid}=params
-  const [data,setData]=useState({})
-  console.log(recieverid)
+  const [data,setData]=useState([])
+  console.log(data)
   let userId
   let role
   useEffect(()=>{
-    axios.get('http://localhost:4000/getId',{
+    console.log('what the hell dude its more than i think')
+    axios.get('http://localhost:3500/getId',{
       headers:{
         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
       }
     }).then(res=>{
       console.log(res.data)
-      userId=res.data.userId
+      // userId=res.data.userId
       role=res.data.role
-    })
-  axios.post('http://localhost:4000/getMessages',{
- from:userId,
- to:recieverid
-   }).then(res=>{
-    console.log(res.data)
-    setData(res.data.projectedMessages)
-  })
-
-  },[recieverid,userId])
+      axios.post('http://localhost:3500/getMessages',{
+        from:res.data.userId,
+        to:recieverid
+          }).then(res=>{
+           console.log(res.data)
+           setData([...res.data.projectedMessages])
+         }).catch(e=>console.error(e))
+       
+    }).catch((e)=>console.log(e))
+ 
+  },[])
   return (
     <div>
 <UserNameContent userId={recieverid} />
-<MessageArea message={data}/>
+{/* {data?<MessageArea message={data}/>:''} */}
 <TextArea from={userId} to={recieverid} />
     </div>
   )

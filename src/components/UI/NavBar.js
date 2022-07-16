@@ -13,7 +13,7 @@ function NavBar({colorChange}) {
   const [role,setRole]=useState('')
 
   useEffect(()=>{
- axios.get('http://localhost:4000/getId',{
+ axios.get('http://localhost:3500/getId',{
   headers:{
     'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
   }

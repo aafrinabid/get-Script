@@ -24,7 +24,7 @@ function App() {
   useEffect(
     ()=>{
       console.log('app.js hype')
-      axios.get('http://localhost:4000/isAuth',{
+      axios.get('http://localhost:3500/isAuth',{
         headers:{
           'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
         }

@@ -16,7 +16,7 @@ function Cards() {
 
 
   useEffect(()=>{
-    axios.get('http://localhost:4000/getUserCount').then((res)=>{
+    axios.get('http://localhost:3500/getUserCount').then((res)=>{
       console.log(res.data)
       setProducerCount(res.data.producerCount)  
       setScriptwriterCount(res.data.scriptwriterCount)

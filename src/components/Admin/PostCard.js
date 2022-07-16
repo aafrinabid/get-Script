@@ -19,7 +19,7 @@ function PostCards() {
   const [blockedUsers,setBlockedUsers]=useState(0)
 
   useEffect(()=>{
-    axios.get('http://localhost:4000/getUserCount').then((res)=>{
+    axios.get('http://localhost:3500/getUserCount').then((res)=>{
       console.log(res.data)
       setProducerCount(res.data.producerCount)  
       setScriptwriterCount(res.data.scriptwriterCount)

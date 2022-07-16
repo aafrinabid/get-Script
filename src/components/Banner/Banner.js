@@ -16,7 +16,7 @@ const [title,setTitle]=useState('')
 useEffect(()=>{
   
     setIsLoading(true)
-    axios.get('http://localhost:4000/bannerscript',{
+    axios.get('http://localhost:3500/bannerscript',{
       headers:{
     
       }
@@ -35,7 +35,7 @@ useEffect(()=>{
   // first();
   const intervalId=setInterval(()=>{
     setIsLoading(true)
-    axios.get('http://localhost:4000/bannerscript',{
+    axios.get('http://localhost:3500/bannerscript',{
       headers:{
     
       }

@@ -20,7 +20,7 @@ function ProfileInfo() {
    const {role}=params;
   useEffect(()=>{
     console.log('dddhdhdhdhdh')
-  axios.post('http://localhost:4000/getProfileInfo',{
+  axios.post('http://localhost:3500/getProfileInfo',{
     userid:userid,
     role
   }).then((res)=>{
@@ -45,7 +45,7 @@ function ProfileInfo() {
    };
   //  let [userId,setUserId]=useState()
    const chatHandler=(id)=>{
-    axios.get('http://localhost:4000/getId',{
+    axios.get('http://localhost:3500/getId',{
       headers:{
         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
       }
@@ -53,13 +53,13 @@ function ProfileInfo() {
       console.log(res.data)
  const date=new Date()
 
-    axios.post('http://localhost:4000/messagelist',{
+    axios.post('http://localhost:3500/messagelist',{
      senderId:res.data.userId,
      recieverId:id,
      date
     }
     ).then(res=>{
-      history.push(`/chat/t`)
+      history.push(`/chat/t/${details.scriptwriter_id}/${1}`)
      
 
     }).catch(e=>{

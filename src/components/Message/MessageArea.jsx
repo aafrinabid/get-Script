@@ -1,9 +1,9 @@
 import React from 'react'
 import MessageBox from './MessageBox';
-import { useSelector } from 'react-redux';
 
 
 function MessageArea(props) {
+  console.log(props)
   // const messages=useSelector(state=>state.messageHandler.message)
   // console.log(messages)
   return (

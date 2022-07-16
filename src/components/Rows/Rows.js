@@ -57,7 +57,7 @@ const details=(id)=>{
 
 useEffect(()=>{
   setIsLoading(true)
-axios.get('http://localhost:4000/fetchscript',{
+axios.get('http://localhost:3500/fetchscript',{
   headers:{
     'genre':props.genre,
     'indetail':props.inDetail,

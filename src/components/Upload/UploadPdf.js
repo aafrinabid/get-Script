@@ -90,7 +90,7 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
          
           console.log('happpening')
           
-          axios.post('http://localhost:4000/scriptupload',data, {headers:{
+          axios.post('http://localhost:3500/scriptupload',data, {headers:{
             'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
           }
         }).then(res=>{

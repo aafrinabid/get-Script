@@ -24,7 +24,7 @@ function ScriptDetail() {
     console.log(scriptId)
     useEffect(()=>{
        setIsLoading(true)
-        axios.get('http://localhost:4000/scriptdetails',{
+        axios.get('http://localhost:3500/scriptdetails',{
             headers:{
                 'scriptid':scriptId
             }

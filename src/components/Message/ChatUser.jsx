@@ -4,9 +4,10 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
-import {useParams} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
-function ChatUser() {
+function ChatUser(props) {
+  const history=useHistory();
   // const params=useParams()
 
   // const {recieverid}=params
@@ -14,8 +15,7 @@ function ChatUser() {
     let role
   console.log(datas)
   useEffect(()=>{
-    
-      axios.get('http://localhost:4000/getId',{
+      axios.get('http://localhost:3500/getId',{
         headers:{
           'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
         }
@@ -24,7 +24,7 @@ function ChatUser() {
         // userId=res.data.userId
         role=res.data.role
         // const recId=r
-        axios.post('http://localhost:4000/messagedetail',{
+        axios.post('http://localhost:3500/messagedetail',{
           userid:res.data.userId,
         }).then((res)=>{
           console.log(res.data)
@@ -34,8 +34,9 @@ function ChatUser() {
       })
  
   },[])
+  
   return (
-    <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}}>
+    <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >
         <div style={{border:'1px rgb(237,236,237)'}}>
       <h4 style={{color:'black',textAlign:'center',border:'1px rgb(237,236,237)'}}>username</h4>
       </div>
@@ -45,7 +46,7 @@ function ChatUser() {
         {
                   datas.map((data)=>(
 
-            <UserContainer key={data.reciever_id} userId={data.reciever_id}/>
+            <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen}/>
           ))
         }
        {/* <UserContainer/>

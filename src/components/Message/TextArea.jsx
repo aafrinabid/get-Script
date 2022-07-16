@@ -30,7 +30,7 @@ function TextArea(props) {
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
       //  dispatch(messageActions.addMessage({message:msg,from:1}))
-      axios.post('http://localhost:4000/addMessage',{
+      axios.post('http://localhost:3500/addMessage',{
         message:msg,
         from:props.from,
         to:props.to

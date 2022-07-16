@@ -69,7 +69,7 @@ const onUpload =()=>{
     const formData=new FormData();
     formData.append('file',file)
     
-    axios.post('http://localhost:4000/uploadscript',formData,{
+    axios.post('http://localhost:3500/uploadscript',formData,{
   headers:{
     'Content-Type':'multipart/form-data'
   }
