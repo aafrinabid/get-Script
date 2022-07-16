@@ -11,6 +11,7 @@ import axios from "axios";
 // const socket=io('http://localhost:3001')  
 
 function TextArea(props) {
+  console.log('text',props)
   // const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -34,8 +35,8 @@ function TextArea(props) {
         message:msg,
         from:props.from,
         to:props.to
-      }).then(()=>{
-        
+      }).then((res)=>{
+        console.log(res.data)
         setMsg("");
       }).catch(e=>{
         console.log(e)

@@ -10,7 +10,7 @@ function ChatContent() {
   const {recieverid}=params
   const [data,setData]=useState([])
   console.log(data)
-  let userId
+  const [userId,setUserId]=useState(null)
   let role
   useEffect(()=>{
     console.log('what the hell dude its more than i think')
@@ -20,7 +20,7 @@ function ChatContent() {
       }
     }).then(res=>{
       console.log(res.data)
-      // userId=res.data.userId
+      setUserId(res.data.userId)
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
