@@ -36,7 +36,7 @@ function ScripInfo(props) {
      <h2 className='text-l font-normal text-left'>Genres :{genre}</h2>
      <h2 className='text-l font-normal text-left'>Language: English </h2>
      <h2 className='text -l font-normal text-left'>Type: {props.detail.script_type}</h2>
-     <h2 className='text-l font-normal text-left'>Uploaded by: {props.detail.username} </h2>
+    <Link to={`/Profile/${props.detail.scriptwriter_id}/${1}`}> <h2 className='text-l font-normal text-left'>Uploaded by: {props.detail.username} </h2></Link>
 
      </div>
     </div>

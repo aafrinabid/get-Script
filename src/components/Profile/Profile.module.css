@@ -3,7 +3,7 @@
     font-family: 'Raleway',sans-serif;
     /* position: sticky; */
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 15% 60% 25%;
     background-color: rgb(37, 36, 36);
     color: white;
     /* border-bottom: 5px solid black; */

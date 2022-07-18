@@ -73,7 +73,7 @@ export default function PrimarySearchAppBar() {
   const producer=useSelector(state=>state.ProducerHandler.producers)
   useEffect(()=>{
     setIsLoading(true)
-   axios.get('http://localhost:4000/fetchnotification').then((res)=>{
+   axios.get('http://localhost:3500/fetchnotification').then((res)=>{
     setNotDetails([...res.data.result])
     setIsLoading(false)
    }).catch(e=>{console.log(e)

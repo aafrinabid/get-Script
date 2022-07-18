@@ -47,7 +47,7 @@ function Row(props) {
   const dispatch=useDispatch();
   const addProducer=id=>{
     console.log('happening at add')
-    axios.post('http://localhost:4000/approved',{
+    axios.post('http://localhost:3500/approved',{
       id:id
     }).then((res)=>{
       if(res.data.status){
@@ -59,7 +59,7 @@ function Row(props) {
   }
    const removeProducer=id=>{
         console.log('happening at other end')
-        axios.post('http://localhost:4000/reject',{
+        axios.post('http://localhost:3500/reject',{
           id:id
         }).then((res)=>{
           if(res.data.deleted){
@@ -164,7 +164,7 @@ export default function CollapsibleTable(props) {
   const [isLoading,setIsLoading]=React.useState(false)
   const dispatch=useDispatch();
 
-  let url='http://localhost:4000/fetchProducers'
+  let url='http://localhost:3500/fetchProducers'
   React.useEffect(
     ()=>{
       setIsLoading(true)

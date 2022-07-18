@@ -1,11 +1,33 @@
 import React, { Fragment } from 'react';
 import classes from './Profile.module.css'
-import { useParams,useLocation } from 'react-router-dom';
-import { Instagram, Facebook , LinkedIn, Twitter } from '@mui/icons-material';
+import { useParams,useLocation ,useHistory} from 'react-router-dom';
+import { Instagram, Facebook , LinkedIn, Twitter ,ChatBubble} from '@mui/icons-material';
 import ScriptPostedCards from '../PostedScriptCards/ScriptPostedCards';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+
 
 
 function ProfileInfo() {
+  const history= useHistory();
+   const [details,setDetails]=useState({})
+   const [name,setName]=useState('')
+   
+   console.log(details)
+   const params=useParams();
+   const {userid}=params;
+   const {role}=params;
+  useEffect(()=>{
+    console.log('dddhdhdhdhdh')
+  axios.post('http://localhost:3500/getProfileInfo',{
+    userid:userid,
+    role
+  }).then((res)=>{
+    console.log(res)
+    setDetails(res.data.result)
+  }).catch(e=>console.log(e))
+  },[])
   const location=useLocation()
   // console.log(params)
   const {pathname}=location
@@ -21,12 +43,46 @@ function ProfileInfo() {
        backgroundSize: '100%',
        backgroundRepeat: 'no-repeat',
    };
+  //  let [userId,setUserId]=useState()
+   const chatHandler=(id)=>{
+    axios.get('http://localhost:3500/getId',{
+      headers:{
+        'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+      }
+    }).then((res)=>{
+      console.log(res.data)
+ const date=new Date()
+
+    axios.post('http://localhost:3500/messagelist',{
+     senderId:res.data.userId,
+     recieverId:id,
+     date
+    }
+    ).then(res=>{
+      history.push(`/chat/t/${details.scriptwriter_id}/${1}`)
+     
+
+    }).catch(e=>{
+      console.error(e)
+    })
+    }).catch(e=>{
+      console.log(e)
+    })
+    
+
+    
+
+    
+   }
 
   return (
     <div className={classes.profile}>
     <div className= { `${classes.profilecard} w-full` }style={divImage} >
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
-      <h1 className='text-9xl py-20'>Babu Raj</h1>
+     <div className='p-5  pl-11'>
+      <h1 className='text-9xl px-10 pt-10'>{details.username}</h1>
+      <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.scriptwriter_id)}/>
+      </div>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
         <div className={classes.socials}>
          <h1 className='text-3xl mb-3'> Socials </h1>
@@ -46,7 +102,7 @@ function ProfileInfo() {
       
       </div>
       <div className={`mt-20 pt-11 h-screen w-full bg-inherit ${classes.postedScripts}`} >
-        <h1 className='py-7 text-3xl text-white  font-extrabold'>Posted Scripts</h1>
+        <h1 className='pt-12 text-3xl text-white  font-extrabold' style={{paddingTop:'100px'}}>Posted Scripts</h1>
         <div className='bg-inherit w-full'>
           <ScriptPostedCards />
 

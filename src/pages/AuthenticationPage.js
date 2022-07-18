@@ -75,17 +75,17 @@ export default function SignIn() {
   let url
   if(isLogin){
     if(loginUser){
-    url='http://localhost:4000/loginScriptWriter'
+    url='http://localhost:3500/loginScriptWriter'
       
     }else
-    url='http://localhost:4000/loginProducer'
+    url='http://localhost:3500/loginProducer'
 
   }else{
     if(loginUser){
-    url='http://localhost:4000/registerScriptwriter'
+    url='http://localhost:3500/registerScriptwriter'
     }else{
 
-      url='http://localhost:4000/registerProducer'
+      url='http://localhost:3500/registerProducer'
     }
   }
 
@@ -121,7 +121,7 @@ export default function SignIn() {
     console.log(enteredEmail,enteredUsername,enteredPassword)
     console.log(url)
     if(enteredUsername==='aafrin'){
-      url='http://localhost:4000/adminlogin'
+      url='http://localhost:3500/adminlogin'
     }
      axios.post(url,
       {

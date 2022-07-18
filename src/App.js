@@ -13,7 +13,7 @@ import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
 import { useSelector,useDispatch} from 'react-redux';
 import axios from 'axios';
 import { authActions } from './assets/store/authSlice';
-
+import Message from './pages/Message'
 
 function App() {
   const dispatch=useDispatch()
@@ -24,7 +24,7 @@ function App() {
   useEffect(
     ()=>{
       console.log('app.js hype')
-      axios.get('http://localhost:4000/isAuth',{
+      axios.get('http://localhost:3500/isAuth',{
         headers:{
           'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
         }
@@ -60,7 +60,8 @@ function App() {
  const {pathname}=location
  useEffect(()=>{
   console.log(pathname)
-  if(pathname==="/Profile"){
+  if(pathname.startsWith("/Profile") || pathname.startsWith("/chat")){
+    console.log('########################################*******************************')
    setColorchange(true)
   }else{
     setColorchange(false)
@@ -70,7 +71,7 @@ function App() {
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi') ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange}/>}
 </>    
 }
       <Switch>
@@ -95,7 +96,7 @@ function App() {
         <SignUp />
       </Route> */}
 
-      {loginStatus && <Route path='/profile'>
+      {loginStatus && <Route path='/profile/:userid/:role'>
         <Profile />
       </Route>}
 
@@ -110,7 +111,13 @@ function App() {
   {console.log('what the fuck happended')}
  <AdminPanel />
 </Route>
-}     
+}    
+{loginStatus&& 
+ <Route path='/chat/t'>
+  {console.log('message')}
+ <Message />
+</Route>
+} 
       <Route path='*'>
 
         {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}

@@ -1,0 +1,15 @@
+.upperpart{
+    display: grid;
+    background-color: rgb(255,254,254);
+    grid-template-columns: 10% 90%;
+    border: 1px rgb(255,254,254);
+}
+
+
+.profile{
+    padding-top: 5px;
+      margin-left: 5px;
+      border-radius: 50%;
+        width: 40px;
+        margin-right: 10px;
+    }
