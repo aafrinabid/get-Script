@@ -1,6 +1,7 @@
 .list{
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    /* grid-template-columns: 1fr; */
+    flex-direction:column;
     height: 600px;
     overflow-y:scroll;
     grid-gap: 0px;

@@ -45,6 +45,7 @@ function TextArea(props) {
       }).then((res)=>{
         console.log(res.data)
         setMsg("");
+        props.setData(prev=>[...prev,{fromSelf:true,message:msg}])
       }).catch(e=>{
         console.log(e)
       })

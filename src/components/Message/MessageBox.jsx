@@ -46,9 +46,9 @@ function MessageBox(props){
         
     }
   return (
-    <div style={{display:'flex',justifyContent:direction,padding:'2px 5px'}}>
+    <div ref={props.scrollRef} style={{display:'flex',justifyContent:direction,padding:'2px 5px'}}>
     <div style={style}>
-       <p style={{paddingRight:'5px'}}>{props.message}</p>
+       <p style={{paddingRight:'5px',textAlign:'left'}}>{props.message}</p>
      </div>
      </div>
   )

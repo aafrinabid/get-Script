@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import MessageBox from './MessageBox';
 import axios from 'axios';
 
@@ -6,6 +6,7 @@ import axios from 'axios';
 function MessageArea(props) {
   // const [userId,setUserId]=useState('')
   console.log(props)
+  const scrollRef= useRef()
   const [msgData,setMsgData]=useState([...props.message])
   const [arrivalMessage,setArrivalMessage]=useState(null)
   console.log(arrivalMessage)
@@ -20,11 +21,15 @@ function MessageArea(props) {
       // setUserId(res.data.userId)
     
 
-,[])
+)
 
 useEffect(()=>{
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
 },[arrivalMessage])
+
+useEffect(()=>{
+scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+},[msgData])
   // const messages=useSelector(state=>state.messageHandler.message)
   // console.log(messages)
   return (
@@ -33,7 +38,7 @@ arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
             msgData.map(message=>(
               
 
-              <MessageBox key={Math.random()*10000} message={message.message} from={message.fromSelf} />
+              <MessageBox key={Math.random()*10000} message={message.message} from={message.fromSelf} scrollRef={scrollRef} />
             )
             )
 

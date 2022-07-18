@@ -37,7 +37,7 @@ function ChatComponent() {
     <div className={classes.component}>
 
      {/* <h1>start sending messages to script writer</h1> */}
-     <ChatContent />
+     <ChatContent recieverid={recieverid}/>
     </div>
   )
 }

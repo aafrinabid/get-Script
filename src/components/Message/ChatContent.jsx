@@ -6,10 +6,12 @@ import UserNameContent from './UserNameContent'
 import { useParams } from 'react-router-dom'
 import {io} from 'socket.io-client'
 
-function ChatContent() {
+function ChatContent(props) {
+  console.log(props)
   const socket=useRef();
-  const params=useParams()
-  const {recieverid}=params
+  // const params=useParams()
+  // const {recieverid}=params
+  // const [recieverId,setRecieverId]=useState(recieverid)
   const [data,setData]=useState([])
   let role
   console.log(data)
@@ -53,7 +55,7 @@ function ChatContent() {
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
-        to:recieverid
+        to:props.recieverid
           }).then(res=>{
            console.log(res.data)
            setData([...res.data])
@@ -61,12 +63,12 @@ function ChatContent() {
        
     }).catch((e)=>console.log(e))
  
-  },[recieverid])
+  },[props.recieverid])
   return (
     <div>
-<UserNameContent userId={recieverid} />
+<UserNameContent userId={props.recieverid} />
 {data.length>0?<MessageArea message={data}  socket={socket} userId={userId}/>:''}
-<TextArea from={userId} to={recieverid} socket={socket}/>
+<TextArea from={userId} to={props.recieverid} socket={socket} setData={setData}/>
     </div>
   )
 }
