@@ -1,10 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MessageBox from './MessageBox';
+import axios from 'axios';
 
 
 function MessageArea(props) {
+  // const [userId,setUserId]=useState('')
   console.log(props)
   const [msgData,setMsgData]=useState([...props.message])
+  const [arrivalMessage,setArrivalMessage]=useState(null)
+  console.log(arrivalMessage)
+  useEffect(()=>{
+   if(props.socket.current){
+    props.socket.current.on('recieve-msg',(data)=>{
+      console.log('messageArea',data)
+      setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+   })
+  }
+}
+      // setUserId(res.data.userId)
+    
+
+,[])
+
+useEffect(()=>{
+arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
+},[arrivalMessage])
   // const messages=useSelector(state=>state.messageHandler.message)
   // console.log(messages)
   return (

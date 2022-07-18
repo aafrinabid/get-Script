@@ -12,6 +12,8 @@ import axios from "axios";
 
 function TextArea(props) {
   console.log('text',props)
+  // const socket=io('http://localhost:3001')
+
   // const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -28,6 +30,11 @@ function TextArea(props) {
     const sendChat = (event) => {
       event.preventDefault();
       if (msg.length > 0) {
+        props.socket.current.emit('send-msg',{
+          to:props.to,
+          from:props.from,
+          msg
+        })
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
       //  dispatch(messageActions.addMessage({message:msg,from:1}))

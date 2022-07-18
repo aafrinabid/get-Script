@@ -8,7 +8,7 @@ import {io} from 'socket.io-client'
 
 function MessageBox(props){
   // const dispatch= useDispatch();
-    console.log(props)
+    // console.log(props)
     let style
     let direction
     if(props.from===true){
