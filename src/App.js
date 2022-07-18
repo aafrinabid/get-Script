@@ -60,7 +60,8 @@ function App() {
  const {pathname}=location
  useEffect(()=>{
   console.log(pathname)
-  if(pathname==="/Profile"){
+  if(pathname.startsWith("/Profile") || pathname.startsWith("/chat")){
+    console.log('########################################*******************************')
    setColorchange(true)
   }else{
     setColorchange(false)
@@ -70,7 +71,7 @@ function App() {
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi') ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange}/>}
 </>    
 }
       <Switch>
