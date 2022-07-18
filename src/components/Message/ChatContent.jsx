@@ -27,7 +27,7 @@ function ChatContent() {
         to:recieverid
           }).then(res=>{
            console.log(res.data)
-           setData([...res.data.projectedMessages])
+           setData([...res.data])
          }).catch(e=>console.error(e))
        
     }).catch((e)=>console.log(e))
@@ -36,7 +36,7 @@ function ChatContent() {
   return (
     <div>
 <UserNameContent userId={recieverid} />
-{/* {data?<MessageArea message={data}/>:''} */}
+{data.length>0?<MessageArea message={data}/>:''}
 <TextArea from={userId} to={recieverid} />
     </div>
   )
