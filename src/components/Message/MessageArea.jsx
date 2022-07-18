@@ -1,13 +1,39 @@
 import React, { useEffect, useState,useRef } from 'react'
 import MessageBox from './MessageBox';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 function MessageArea(props) {
+  let role
+  const [msgData,setMsgData]=useState([...props.message])
+   const params=useParams()
+  const {recieverid}=params
+  console.log('gettttting messages',recieverid)
+  useEffect(()=>{
+    console.log('what the hell dude its more than i think')
+    axios.get('http://localhost:3500/getId',{
+      headers:{
+        'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+      }
+    }).then(res=>{
+      console.log(res.data)
+      // setUserId(res.data.userId)
+      role=res.data.role
+      axios.post('http://localhost:3500/getMessages',{
+        from:res.data.userId,
+        to:recieverid
+          }).then(res=>{
+           console.log(res.data)
+           setMsgData([...res.data])
+         }).catch(e=>console.error(e))
+       
+    }).catch((e)=>console.log(e))
+ 
+  },[recieverid])
   // const [userId,setUserId]=useState('')
   console.log(props)
   const scrollRef= useRef()
-  const [msgData,setMsgData]=useState([...props.message])
   const [arrivalMessage,setArrivalMessage]=useState(null)
   console.log(arrivalMessage)
   useEffect(()=>{
