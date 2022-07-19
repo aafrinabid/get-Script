@@ -40,7 +40,10 @@ function MessageArea(props) {
    if(props.socket.current){
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data)
-      setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+      if(data.reciever===recieverid){
+
+        setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+      }
    })
   }
 }
