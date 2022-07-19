@@ -59,7 +59,7 @@ function ProfileInfo() {
      date
     }
     ).then(res=>{
-      history.push(`/chat/t/${details.scriptwriter_id}/${1}`)
+      history.push(`/chat/t/${details.id}/${1}`)
      
 
     }).catch(e=>{
@@ -81,7 +81,7 @@ function ProfileInfo() {
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
      <div className='p-5  pl-11'>
       <h1 className='text-9xl px-10 pt-10'>{details.username}</h1>
-      <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.scriptwriter_id)}/>
+      <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>
       </div>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
         <div className={classes.socials}>
