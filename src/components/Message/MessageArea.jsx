@@ -40,9 +40,13 @@ function MessageArea(props) {
    if(props.socket.current){
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data)
-      if(data.reciever===recieverid){
+      console.log(props.to,'smeeesfge')
+      if(data.reciever===props.to || data.sender===props.to){
 
         setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+      }else{
+        // setArrivalMessage({fromSelf:false,message:data.msg})
+
       }
    })
   }
