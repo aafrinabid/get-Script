@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,9 +7,9 @@ import { StyledEngineProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './assets/store';
-const root=document.getElementById('root');
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-render(
+// const root=document.getElementById('root');
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <StyledEngineProvider injectFirst>
     <BrowserRouter>
   <React.StrictMode>
@@ -18,8 +18,7 @@ render(
     </Provider>
   </React.StrictMode>
   </BrowserRouter>
-  </StyledEngineProvider>,
-  root
+  </StyledEngineProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
