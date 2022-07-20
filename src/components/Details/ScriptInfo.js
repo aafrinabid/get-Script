@@ -8,6 +8,7 @@ import { CloudDownloadRounded } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 function ScripInfo(props) {
+  console.log(props)
   const [genres,setGenres]=useState([props.detail.genres])
   const genre=genres.toString()
   const [saved,setSaved]=useState(false);
