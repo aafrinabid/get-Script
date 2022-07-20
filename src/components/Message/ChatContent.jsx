@@ -9,8 +9,8 @@ import {io} from 'socket.io-client'
 function ChatContent(props) {
   console.log(props)
   const socket=useRef();
-  // const params=useParams()
-  // const {recieverid}=params
+  const params=useParams()
+  const {recieverid}=params
   // const [recieverId,setRecieverId]=useState(recieverid)
   const [data,setData]=useState([])
   let role
@@ -55,15 +55,15 @@ function ChatContent(props) {
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
-        to:props.recieverid
+        to:recieverid
           }).then(res=>{
            console.log(res.data)
-           setData([...res.data])
+           setData([...res.data.projectedMessages])
          }).catch(e=>console.error(e))
        
     }).catch((e)=>console.log(e))
  
-  },[props.recieverid])
+  },[recieverid])
   return (
     <div>
 <UserNameContent userId={props.recieverid} />
