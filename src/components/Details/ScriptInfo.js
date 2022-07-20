@@ -8,6 +8,7 @@ import { CloudDownloadRounded } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 function ScripInfo(props) {
+  console.log(props)
   const [genres,setGenres]=useState([props.detail.genres])
   const genre=genres.toString()
   const [saved,setSaved]=useState(false);
@@ -36,7 +37,7 @@ function ScripInfo(props) {
      <h2 className='text-l font-normal text-left'>Genres :{genre}</h2>
      <h2 className='text-l font-normal text-left'>Language: English </h2>
      <h2 className='text -l font-normal text-left'>Type: {props.detail.script_type}</h2>
-    <Link to={`/Profile/${props.detail.scriptwriter_id}/${1}`}> <h2 className='text-l font-normal text-left'>Uploaded by: {props.detail.username} </h2></Link>
+    <Link to={`/Profile/${props.detail.id}/${1}`}> <h2 className='text-l font-normal text-left'>Uploaded by: {props.detail.username} </h2></Link>
 
      </div>
     </div>

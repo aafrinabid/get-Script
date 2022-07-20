@@ -29,12 +29,14 @@ function ScriptDetail() {
                 'scriptid':scriptId
             }
         }).then((res)=>{
+            console.log(res.data)
             setDetail(res.data.result)
             setGenres(res.data.result.genres)
             setIsLoading(false)
        
         }).catch(e=>{
             setIsLoading(false)
+            console.log(e,'poppppppssssss')
 
         })
 
