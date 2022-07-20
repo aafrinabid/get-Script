@@ -5,14 +5,18 @@ import { useParams } from 'react-router-dom';
 
 
 function MessageArea(props) {
+  console.log(props)
   let role
   const [msgData,setMsgData]=useState([])
    const params=useParams()
   const {recieverid}=params
   const [recieverId,setRecieverId]=useState(null)
+  console.log(recieverId)
   const [userId,setUserId]=useState(null)
   const [trues,setTrues]=useState(null)
-
+ useEffect(()=>{
+  setRecieverId(props.to)
+ },[props.to])
   console.log('gettttting messagehfiehfsdfdkdfs',recieverid)
   useEffect(()=>{
     console.log('singis isk king ')
@@ -30,7 +34,6 @@ function MessageArea(props) {
           }).then(res=>{
            console.log(res.data)
            setMsgData([...res.data.projectedMessages])
-          //  setRecieverId(res.data.to)
            setUserId(res.data.from)
          }).catch(e=>console.error(e))
        
@@ -47,16 +50,18 @@ function MessageArea(props) {
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data)
       console.log(recieverid,'smeeesfge',props.to)
-      setRecieverId(data.reciever)
       if(data.reciever===userId || data.sender===userId){
-       
-          if(data.reciever===recieverid || data.sender===recieverid){
-
-            const isit=data.reciever===recieverid
-            const it=data.sender===recieverid
-            console.log(isit,it)
-          setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
-        }
+          console.log('inside the most the sdfe shit',props.to)
+          if(recieverId){
+            if(data.reciever===recieverId || data.sender===recieverId){
+          
+              const isit=data.reciever===props.to
+              const it=data.sender===props.to
+              console.log(isit,it)
+            setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+          }
+          }
+          
         
         
       }
@@ -71,7 +76,7 @@ function MessageArea(props) {
     });
  }
   }
-},[recieverid,userId,props.socket])
+},[recieverId])
 
 useEffect(()=>{
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
