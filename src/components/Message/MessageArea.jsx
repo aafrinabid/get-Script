@@ -5,13 +5,21 @@ import { useParams } from 'react-router-dom';
 
 
 function MessageArea(props) {
+  console.log(props)
   let role
-  const [msgData,setMsgData]=useState([...props.message])
+  const [msgData,setMsgData]=useState([])
    const params=useParams()
   const {recieverid}=params
-  console.log('gettttting messages',recieverid)
+  const [recieverId,setRecieverId]=useState(null)
+  console.log(recieverId)
+  const [userId,setUserId]=useState(null)
+  const [trues,setTrues]=useState(null)
+ useEffect(()=>{
+  setRecieverId(props.to)
+ },[props.to])
+  console.log('gettttting messagehfiehfsdfdkdfs',recieverid)
   useEffect(()=>{
-    console.log('what the hell dude its more than i think')
+    console.log('singis isk king ')
     axios.get('http://localhost:3500/getId',{
       headers:{
         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
@@ -25,7 +33,8 @@ function MessageArea(props) {
         to:recieverid
           }).then(res=>{
            console.log(res.data)
-           setMsgData([...res.data])
+           setMsgData([...res.data.projectedMessages])
+           setUserId(res.data.from)
          }).catch(e=>console.error(e))
        
     }).catch((e)=>console.log(e))
@@ -37,24 +46,37 @@ function MessageArea(props) {
   const [arrivalMessage,setArrivalMessage]=useState(null)
   console.log(arrivalMessage)
   useEffect(()=>{
-    if(props.socket.current){
-      props.socket.current.on('recieve-msg',(data)=>{
-        console.log('messageArea',data)
-        console.log(props.to,'smeeesfge')
-        if(data.reciever===props.to || data.sender===props.to){
-  
-          setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
-        }else{
-          // setArrivalMessage({fromSelf:false,message:data.msg})
-  
-        }
-     })
-    }
-  }
-      // setUserId(res.data.userId)
-    
+   if(props.socket.current){
+    props.socket.current.on('recieve-msg',(data)=>{
+      console.log('messageArea',data)
+      console.log(recieverid,'smeeesfge',props.to)
+      if(data.reciever===userId || data.sender===userId){
+          console.log('inside the most the sdfe shit',props.to)
+          if(recieverId){
+            if(data.reciever===recieverId || data.sender===recieverId){
+          
+              const isit=data.reciever===props.to
+              const it=data.sender===props.to
+              console.log(isit,it)
+            setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
+          }
+          }
+          
+        
+        
+      }
+      
 
-)
+      
+   })
+
+   return () => {
+    props.socket.current.off("recieve-msg", (callback)=>{
+      console.log(callback)
+    });
+ }
+  }
+},[recieverId])
 
 useEffect(()=>{
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])

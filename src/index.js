@@ -7,6 +7,7 @@ import { StyledEngineProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './assets/store';
+// const root=document.getElementById('root');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StyledEngineProvider injectFirst>

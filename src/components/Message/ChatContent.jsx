@@ -9,9 +9,9 @@ import {io} from 'socket.io-client'
 function ChatContent(props) {
   console.log(props)
   const socket=useRef();
-  // const params=useParams()
-  // const {recieverid}=params
-  // const [recieverId,setRecieverId]=useState(recieverid)
+  const params=useParams()
+  const {recieverid}=params
+  const [recieverId,setRecieverId]=useState(null)
   const [data,setData]=useState([])
   let role
   console.log(data)
@@ -44,31 +44,42 @@ function ChatContent(props) {
 //       setArrivalMessage({fromSelf:userId.toString()===data.from,message:data.msg})
 //    })
   useEffect(()=>{
+    // localStorage.removeItem('params')
     console.log('what the hell dude its more than i think')
     axios.get('http://localhost:3500/getId',{
       headers:{
         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
       }
     }).then(res=>{
+      axios.post('http://localhost:3500/messageId',{
+        userid:res.data.userId,
+        recieverid:recieverid
+       }).then((res)=>{
+        console.log(res.data)
+        setRecieverId(res.data.recieverId)
+        // localStorage.setItem('params',res.data.recieverId)
+       axios.post('http://localhost:3500/getMessages',{
+        from:res.data.messageId,
+        to:recieverid
+          }).then(res=>{
+           console.log(res.data)
+           
+           setData([...res.data.projectedMessages])
+         }).catch(e=>console.error(e))        
+       }).catch(e=>console.log(e))
       console.log(res.data)
       setUserId(res.data.userId)
       role=res.data.role
-      axios.post('http://localhost:3500/getMessages',{
-        from:res.data.userId,
-        to:props.recieverid
-          }).then(res=>{
-           console.log(res.data)
-           setData([...res.data])
-         }).catch(e=>console.error(e))
+      
        
     }).catch((e)=>console.log(e))
  
-  },[props.recieverid])
+  },[recieverid])
   return (
     <div>
 <UserNameContent userId={props.recieverid} />
-{data.length>0?<MessageArea message={data} to={props.recieverid}  socket={socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
-         </div>}
+{data.length>0 && recieverId ?<MessageArea message={data} to={recieverId}  socket={socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
+
 <TextArea from={userId} to={props.recieverid} socket={socket} setData={setData}/>
     </div>
   )
