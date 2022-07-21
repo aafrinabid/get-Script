@@ -8,22 +8,23 @@ import {io} from 'socket.io-client'
 
 function ChatContent(props) {
   console.log(props)
-  const socket=useRef();
+  // const socket=useRef();
   const params=useParams()
   const {recieverid}=params
   const [recieverId,setRecieverId]=useState(null)
+  const [messageId,setMessageId]=useState(null)
   const [data,setData]=useState([])
   let role
   console.log(data)
   const [userId,setUserId]=useState(null)
   console.log(userId)
   // const socket
-  useEffect(()=>{
-    if(userId){
-      socket.current= io('http://localhost:3001')
-    }
+  // useEffect(()=>{
+  //   if(userId){
+  //     socket.current= io('http://localhost:3001')
+  //   }
   
-  },[userId])
+  // },[userId])
  
 //   const [arrivalMessage,setArrivalMessage]=useState(null)
 //   console.log(arrivalMessage)
@@ -56,11 +57,12 @@ function ChatContent(props) {
         recieverid:recieverid
        }).then((res)=>{
         console.log(res.data)
+        setMessageId(res.data.messageId)
         setRecieverId(res.data.recieverId)
         // localStorage.setItem('params',res.data.recieverId)
        axios.post('http://localhost:3500/getMessages',{
-        from:res.data.messageId,
-        to:recieverid
+        from:res.data.senderId,
+        to:res.data.recieverId
           }).then(res=>{
            console.log(res.data)
            
@@ -78,9 +80,12 @@ function ChatContent(props) {
   return (
     <div>
 <UserNameContent userId={props.recieverid} />
-{data.length>0 && recieverId ?<MessageArea message={data} to={recieverId}  socket={socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
+{data.length>0 && recieverId ?<MessageArea message={data} to={recieverId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
 </div>}
-<TextArea from={userId} to={props.recieverid} socket={socket} setData={setData}/>
+{
+
+messageId? <TextArea from={userId} to={props.recieverid} messageId={messageId} socket={props.socket} setData={setData}/> :''
+}
     </div>
   )
 }

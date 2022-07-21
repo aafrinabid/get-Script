@@ -1,13 +1,17 @@
 import { data } from 'autoprefixer'
 import axios from 'axios'
 import React from 'react'
-import { useEffect,useState } from 'react'
+import { useEffect,useState,useRef } from 'react'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
 import {useHistory, useParams} from 'react-router-dom'
 
+
 function ChatUser(props) {
+  const [userId,setUserId]=useState(null)
   const history=useHistory();
+ 
+ 
   // const params=useParams()
 
   // const {recieverid}=params
@@ -23,6 +27,7 @@ function ChatUser(props) {
         console.log(res.data)
         // userId=res.data.userId
         role=res.data.role
+        setUserId(res.data.userId)
         // const recId=r
         axios.post('http://localhost:3500/messagedetail',{
           userid:res.data.userId,
@@ -46,7 +51,7 @@ function ChatUser(props) {
         {
                   datas.map((data)=>(
 
-            <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen}/>
+            <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket}/>
           ))
         }
        {/* <UserContainer/>

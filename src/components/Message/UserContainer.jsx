@@ -10,7 +10,15 @@ function UserContainer(props) {
   const params=useParams();
   const chatHandler=()=>{
     history.push(`/chat/t/${props.userId}/${1}`)
-    props.setSeen(true)
+    const messageId=props.messageId
+    props.socket.current.emit('join room',messageId)
+    props.socket.current.on('joined room',data=>{
+      console.log(data,'sockeeeeeeeeeeeeeeeeeeeeeeeeeet')
+      if(data.state){
+
+        props.setSeen(true)
+      }
+    })
   }
   // const {role}=params
   useEffect(()=>{
@@ -23,7 +31,7 @@ function UserContainer(props) {
       },[props.userId])
 
   return (
-    <div className={classes.user} onClick={chatHandler}>
+    <div className={classes.user} onClick={chatHandler} >
         <div>
         <img className={classes.profile} src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80' />
         </div>
