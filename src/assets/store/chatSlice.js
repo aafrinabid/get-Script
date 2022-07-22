@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const ChatSlice =createSlice({
     name:'chatslice',
     initialState:{
-        room:[]
+        room:[],
+        change:true
     },
     reducers:{
         roomAdder(state,action){
@@ -16,6 +17,10 @@ const ChatSlice =createSlice({
         },
         roomRemover(state,action){
             state.room=[]
+        },
+        changeHandler(state,action){
+            console.log(action.payload)
+            state.change=!state.change
         }
     }
 })

@@ -5,12 +5,13 @@ import { useEffect,useState,useRef } from 'react'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
 import {useHistory, useParams} from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 function ChatUser(props) {
   const [userId,setUserId]=useState(null)
   const history=useHistory();
- 
+ const change=useSelector(state=>state.chatHandler.change)
  
   // const params=useParams()
 
@@ -38,7 +39,7 @@ function ChatUser(props) {
         })
       })
  
-  },[])
+  },[change])
   
   return (
     <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >

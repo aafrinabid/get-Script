@@ -8,13 +8,15 @@ import Picker from "emoji-picker-react";
 // import { messageActions } from "../assets/store/messageSlice";
 import { io } from "socket.io-client";
 import axios from "axios";
-// const socket=io('http://localhost:3001')  
+import { chatActions } from "../../assets/store/chatSlice";
+// const socket=io('http://localhost:3001')
+import {useDispatch} from 'react-redux'  
 
 function TextArea(props) {
   console.log('text',props)
   // const socket=io('http://localhost:3001')
 
-  // const dispatch= useDispatch();
+  const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const handleEmojiPickerhideShow = () => {
@@ -46,6 +48,17 @@ function TextArea(props) {
         to:props.to
       }).then((res)=>{
         console.log(res.data)
+        const date=new Date()
+
+        axios.post('http://localhost:3500/updateMessageList',{
+          messageId:props.messageId,
+          date:date,
+        }).then((res)=>{
+          console.log(res.data)
+          if(res.data.message==='success'){
+dispatch(chatActions.changeHandler())
+          }
+        }).catch(e=>console.log(e))
         setMsg("");
         props.setData(prev=>[...prev,{fromSelf:true,message:msg}])
       }).catch(e=>{

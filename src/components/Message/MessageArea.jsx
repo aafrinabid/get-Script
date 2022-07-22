@@ -2,11 +2,14 @@ import React, { useEffect, useState,useRef } from 'react'
 import MessageBox from './MessageBox';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { chatActions } from '../../assets/store/chatSlice';
 
 
 function MessageArea(props) {
   console.log(props)
   let role
+  const dispatch=useDispatch()
   const [msgData,setMsgData]=useState([...props.message])
    const params=useParams()
   const {recieverid}=params
@@ -52,6 +55,7 @@ function MessageArea(props) {
       console.log(recieverid,'smeeesfge',props.to)
       if(data.room==props.messageId){
         if(data.reciever===userId || data.sender===userId){
+
           console.log('inside the most the sdfe shit',props.to)
           if(recieverId){
             if(data.reciever===recieverId || data.sender===recieverId){
@@ -82,6 +86,8 @@ function MessageArea(props) {
 },[recieverId,props.socket])
 
 useEffect(()=>{
+  console.log('arrival teams')
+  dispatch(chatActions.changeHandler({where:'messageArea'}))
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
 },[arrivalMessage])
 
