@@ -50,6 +50,10 @@ function MessageArea(props) {
   console.log(arrivalMessage)
   useEffect(()=>{
    if(props.socket.current){
+    props.socket.current.on('update-list',(data)=>{
+      // console.log(data,'okkkk in updataeeeeee')
+      dispatch(chatActions.changeHandler())
+    })
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)

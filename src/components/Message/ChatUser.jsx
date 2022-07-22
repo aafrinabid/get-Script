@@ -32,25 +32,41 @@ function ChatUser(props) {
         role=res.data.role
         setUserId(res.data.userId)
         // const recId=r
+
         axios.post('http://localhost:3500/messagedetail',{
           userid:res.data.userId,
         }).then((res)=>{
-          console.log(res.data)
+          console.log(res.data,'from data baase')
           setDatas([...res.data.result])
       
         })
       })
  
-  },[change])
+  })
 
-  // useEffect(()=>{
-  //   if(props.socket){
-  //     props.socket.current.on('update-list',(data)=>{
-  //       console.log(data)
-  //       dispatch(chatActions.changeHandler())
-  //     })
-  //   }
-  // },[])
+//  const updateList=()=>{
+//   props.socket.current.on('update-list',(data)=>{
+//           console.log(data)
+//           dispatch(chatActions.changeHandler())
+//         })
+
+//  }
+
+  useEffect(()=>{
+    if(props.socket.current){
+      props.socket.current.on('update-list',(data)=>{
+        console.log(data)
+        axios.post('http://localhost:3500/messagedetail',{
+          userid:userId,
+        }).then((res)=>{
+          console.log(res.data)
+          setDatas([...res.data.result])
+      
+        })
+        
+      })
+    }
+  },[change])
   
   return (
     <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >
