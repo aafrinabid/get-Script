@@ -53,8 +53,8 @@ function MessageArea(props) {
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)
-      if(data.room==props.messageId){
-        if(data.reciever===userId || data.sender===userId){
+      // if(data.room==props.messageId){
+        // if(data.reciever===userId || data.sender===userId){
 
           console.log('inside the most the sdfe shit',props.to)
           if(recieverId){
@@ -64,14 +64,14 @@ function MessageArea(props) {
               const it=data.sender===props.to
               console.log(isit,it)
             setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
-          }
+          // }
           }
           
         
         
       }
      
-      }
+      // }
       
 
       

@@ -5,7 +5,8 @@ import { useEffect,useState,useRef } from 'react'
 import classes from './ChatUser.module.css'
 import UserContainer from './UserContainer'
 import {useHistory, useParams} from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { chatActions } from '../../assets/store/chatSlice'
 
 
 function ChatUser(props) {
@@ -16,6 +17,7 @@ function ChatUser(props) {
   // const params=useParams()
 
   // const {recieverid}=params
+  const dispatch= useDispatch()
   const [datas,setDatas]=useState([])
     let role
   console.log(datas)
@@ -40,6 +42,15 @@ function ChatUser(props) {
       })
  
   },[change])
+
+  // useEffect(()=>{
+  //   if(props.socket){
+  //     props.socket.current.on('update-list',(data)=>{
+  //       console.log(data)
+  //       dispatch(chatActions.changeHandler())
+  //     })
+  //   }
+  // },[])
   
   return (
     <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >
