@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 function MessageArea(props) {
   console.log(props)
   let role
-  const [msgData,setMsgData]=useState([])
+  const [msgData,setMsgData]=useState([...props.message])
    const params=useParams()
   const {recieverid}=params
   const [recieverId,setRecieverId]=useState(null)
@@ -48,9 +48,10 @@ function MessageArea(props) {
   useEffect(()=>{
    if(props.socket.current){
     props.socket.current.on('recieve-msg',(data)=>{
-      console.log('messageArea',data)
+      console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)
-      if(data.reciever===userId || data.sender===userId){
+      if(data.room==props.messageId){
+        if(data.reciever===userId || data.sender===userId){
           console.log('inside the most the sdfe shit',props.to)
           if(recieverId){
             if(data.reciever===recieverId || data.sender===recieverId){
@@ -65,6 +66,8 @@ function MessageArea(props) {
         
         
       }
+     
+      }
       
 
       
@@ -76,7 +79,7 @@ function MessageArea(props) {
     });
  }
   }
-},[recieverId])
+},[recieverId,props.socket])
 
 useEffect(()=>{
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])

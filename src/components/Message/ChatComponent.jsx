@@ -4,7 +4,7 @@ import classes from './ChatComponent.module.css'
 import ChatContent from './ChatContent'
 import axios from 'axios'
 
-function ChatComponent() {
+function ChatComponent(props) {
   const params=useParams()
   const {recieverid}=params
   const [data,setData]=useState([])
@@ -37,7 +37,7 @@ function ChatComponent() {
     <div className={classes.component}>
 
      {/* <h1>start sending messages to script writer</h1> */}
-     <ChatContent recieverid={recieverid}/>
+     <ChatContent socket={props.socket} recieverid={recieverid}/>
     </div>
   )
 }

@@ -30,10 +30,12 @@ function TextArea(props) {
     const sendChat = (event) => {
       event.preventDefault();
       if (msg.length > 0) {
+        console.log(props.messageId)
         props.socket.current.emit('send-msg',{
           to:props.to,
           from:props.from,
-          msg
+          msg:msg,
+          room:props.messageId
         })
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
