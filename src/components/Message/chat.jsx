@@ -10,6 +10,7 @@ function Chat() {
   const history=useHistory();
   const [seen,setSeen]=useState(false)
 const [userId,setUserId]=useState(null)
+const [msg,setMsg]=useState({})
 const socket=useRef();
 let role
  useEffect(()=>{
@@ -29,14 +30,21 @@ let role
   useEffect(()=>{
     if(userId){
       socket.current= io('http://localhost:3001')
-    }
+      socket.current.emit('join-chat',userId)
+      socket.current.on('notifies',data=>{
+  console.log('userdateeea',data)
+  setMsg(data)
+
+    })
   
-  },[userId])
+  }
+},[userId])
+console.log(msg)
   return (
     <div className={classes.container}>
   <div className={classes.chat}>
 
-    <ChatUser socket={socket} setSeen={setSeen}/>
+    <ChatUser socket={socket} setSeen={setSeen} msg={msg}/>
     {!seen && <h1>hiii chat here d</h1>}
     {seen &&
     <Switch>

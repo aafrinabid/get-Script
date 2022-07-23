@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
 
 function UserContainer(props) {
+  console.log(props.msg,'checking coming',props.userId)
+  const [msg,setMsg]=useState({...props.msg})
+  console.log(msg)
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
   const dispatch=useDispatch()
@@ -30,6 +33,13 @@ function UserContainer(props) {
       }
     })
   }
+
+//   useEffect(()=>{
+// props.socket.current.on('notifies',data=>{
+//   console.log('userdateeea',data)
+//   setMsg(data)
+// })
+//   },[])
   // const {role}=params
   useEffect(()=>{
     axios.post('http://localhost:3500/userDetails',{
@@ -40,6 +50,7 @@ function UserContainer(props) {
     })
       },[props.userId])
 
+
   return (
     <div className={classes.user} onClick={chatHandler} >
         <div>
@@ -47,7 +58,7 @@ function UserContainer(props) {
         </div>
         <div className={classes.userText}>
             <p className={classes.usernamecont}>{data.username}</p>
-            <p className={classes.usermessage}>sent you message</p>
+            <p className={classes.usermessage}>{props.msg.sender===props.userId?props.msg.msg:'send you a message'}</p>
         </div>
     </div>
   )

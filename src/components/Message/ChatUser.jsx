@@ -31,6 +31,7 @@ function ChatUser(props) {
         console.log(res.data)
         // userId=res.data.userId
         role=res.data.role
+        // props.socket.current.emit('join-chat',res.data.userId)
         setUserId(res.data.userId)
         // const recId=r
 
@@ -45,6 +46,13 @@ function ChatUser(props) {
       })
  
   },[change])
+
+  // useEffect(()=>{
+  //   if(userId){
+
+  //       props.socket.current.emit('join-chat',res.data.userId)
+  //   }
+  // },[userId,props.socket.current])
 
 //  const updateList=()=>{
 //   props.socket.current.on('update-list',(data)=>{
@@ -83,7 +91,7 @@ function ChatUser(props) {
         {
                   users.map((data)=>(
 
-            <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket}/>
+            <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket} msg={props.msg}/>
           ))
         }
        {/* <UserContainer/>
