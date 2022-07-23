@@ -13,6 +13,7 @@ function ChatUser(props) {
   const [userId,setUserId]=useState(null)
   const history=useHistory();
  const change=useSelector(state=>state.chatHandler.change)
+ const users=useSelector(state=>state.chatHandler.users)
  
   // const params=useParams()
 
@@ -37,12 +38,13 @@ function ChatUser(props) {
           userid:res.data.userId,
         }).then((res)=>{
           console.log(res.data,'from data baase')
-          setDatas([...res.data.result])
+          dispatch(chatActions.userAdder({users:res.data.result}))
+          // setDatas([...res.data.result])
       
         })
       })
  
-  })
+  },[change])
 
 //  const updateList=()=>{
 //   props.socket.current.on('update-list',(data)=>{
@@ -55,18 +57,20 @@ function ChatUser(props) {
   useEffect(()=>{
     if(props.socket.current){
       props.socket.current.on('update-list',(data)=>{
-        console.log(data)
-        axios.post('http://localhost:3500/messagedetail',{
-          userid:userId,
-        }).then((res)=>{
-          console.log(res.data)
-          setDatas([...res.data.result])
-      
+        console.log(data,'sing for the dancer')
+        props.socket.current.emit('fetch-list',{
+          userId:userId
         })
+        props.socket.current.on('list',(data)=>{
+          console.log(data)
+          setDatas(...data.users)
+        })
+
+      //  dispatch(chatActions.changeHandler({date:data}))
         
       })
     }
-  },[change])
+  },[])
   
   return (
     <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >
@@ -77,7 +81,7 @@ function ChatUser(props) {
     <div className={classes.list}>
 
         {
-                  datas.map((data)=>(
+                  users.map((data)=>(
 
             <UserContainer key={data.reciever_id} userId={data.reciever_id} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket}/>
           ))

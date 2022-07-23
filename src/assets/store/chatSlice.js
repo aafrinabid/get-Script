@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const ChatSlice =createSlice({
     name:'chatslice',
     initialState:{
+        users:[],
         room:[],
-        change:true
+        change:''
     },
     reducers:{
         roomAdder(state,action){
@@ -20,8 +21,13 @@ const ChatSlice =createSlice({
         },
         changeHandler(state,action){
             console.log(action.payload)
-            state.change=!state.change
+            state.change=action.payload.date
+        },
+        userAdder(state,action){
+            console.log(action.payload)
+            state.users=[...action.payload.users]
         }
+        
     }
 })
 export const chatActions=ChatSlice.actions;

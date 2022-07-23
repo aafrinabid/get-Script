@@ -32,13 +32,16 @@ function TextArea(props) {
     const sendChat = (event) => {
       event.preventDefault();
       if (msg.length > 0) {
+        const date=new Date()
+
         console.log(props.messageId)
-        props.socket.current.emit('send-msg',{
-          to:props.to,
-          from:props.from,
-          msg:msg,
-          room:props.messageId
-        })
+        // props.socket.current.emit('send-msg',{
+        //   to:props.to,
+        //   from:props.from,
+        //   msg:msg,
+        //   room:props.messageId,
+        //   date:date.toISOString()
+        // })
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
       //  dispatch(messageActions.addMessage({message:msg,from:1}))
@@ -48,7 +51,6 @@ function TextArea(props) {
         to:props.to
       }).then((res)=>{
         console.log(res.data)
-        const date=new Date()
 
         axios.post('http://localhost:3500/updateMessageList',{
           messageId:props.messageId,
@@ -56,7 +58,29 @@ function TextArea(props) {
         }).then((res)=>{
           console.log(res.data)
           if(res.data.message==='success'){
-dispatch(chatActions.changeHandler())
+             props.socket.current.emit('send-msg',{
+          to:props.to,
+          from:props.from,
+          msg:msg,
+          room:props.messageId,
+          date:date.toISOString()
+        })
+            // props.socket.current.on('update-list',(data)=>{
+            //   console.log(data,'sing for the dancer')
+            //   props.socket.current.emit('fetch-list',{
+            //     userId:props.from
+            //   })
+            //   props.socket.current.on('list',(data)=>{
+            //     console.log(data)
+            //     dispatch(chatActions.userAdder({users:data.users}))
+            //   })
+        
+            //  dispatch(chatActions.changeHandler({date:data}))
+              
+            // })
+          
+           
+dispatch(chatActions.changeHandler({date:date.toISOString()}))
           }
         }).catch(e=>console.log(e))
         setMsg("");

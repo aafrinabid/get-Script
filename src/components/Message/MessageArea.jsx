@@ -29,7 +29,7 @@ function MessageArea(props) {
       }
     }).then(res=>{
       console.log(res.data)
-      // setUserId(res.data.userId)
+      setUserId(res.data.userId)
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
@@ -50,10 +50,21 @@ function MessageArea(props) {
   console.log(arrivalMessage)
   useEffect(()=>{
    if(props.socket.current){
-    props.socket.current.on('update-list',(data)=>{
-      // console.log(data,'okkkk in updataeeeeee')
-      dispatch(chatActions.changeHandler())
-    })
+      props.socket.current.on('update-list',(data)=>{
+        console.log(data,'sing for the dancer')
+        props.socket.current.emit('fetch-list',{
+          userId:props.from
+        })
+        props.socket.current.on('list',(data)=>{
+          console.log(data)
+          dispatch(chatActions.userAdder({users:data.users}))
+        })
+  
+      //  dispatch(chatActions.changeHandler({date:data}))
+        
+      })
+    
+   
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)
