@@ -8,8 +8,8 @@ import { chatActions } from '../../assets/store/chatSlice'
 
 function UserContainer(props) {
   console.log(props.msg,'checking coming',props.userId)
-  const [msg,setMsg]=useState({...props.msg})
-  console.log(msg)
+  // const [msg,setMsg]=useState(props.msg)
+  // console.log(msg)
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
   const dispatch=useDispatch()
@@ -49,6 +49,7 @@ function UserContainer(props) {
       setData(res.data)
     })
       },[props.userId])
+      
 
 
   return (
@@ -58,7 +59,9 @@ function UserContainer(props) {
         </div>
         <div className={classes.userText}>
             <p className={classes.usernamecont}>{data.username}</p>
-            <p className={classes.usermessage}>{props.msg.sender===props.userId?props.msg.msg:'send you a message'}</p>
+            <p className={classes.usermessage}>{props.msg}</p>
+            
+
         </div>
     </div>
   )

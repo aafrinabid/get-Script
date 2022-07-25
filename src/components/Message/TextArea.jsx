@@ -55,6 +55,7 @@ function TextArea(props) {
         axios.post('http://localhost:3500/updateMessageList',{
           messageId:props.messageId,
           date:date,
+          message:msg
         }).then((res)=>{
           console.log(res.data)
           if(res.data.message==='success'){

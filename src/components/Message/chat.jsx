@@ -5,8 +5,12 @@ import ChatUser from './ChatUser'
 import { Switch,Route ,Redirect,useLocation, useHistory} from 'react-router-dom';
 import {io} from 'socket.io-client'
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { chatActions } from '../../assets/store/chatSlice';
 
 function Chat() {
+  const dispatch=useDispatch()
+
   const history=useHistory();
   const [seen,setSeen]=useState(false)
 const [userId,setUserId]=useState(null)
@@ -33,9 +37,17 @@ let role
       socket.current.emit('join-chat',userId)
       socket.current.on('notifies',data=>{
   console.log('userdateeea',data)
-  setMsg(data)
+  // socket.current.emit('fetch-msg',{
+  //   // messageId:data.messageid
+  //   userId:userId
+  // })
 
     })
+
+    // socket.current.on('last-msg',(data)=>{
+    //   dispatch(chatActions.userAdder(...data))
+
+    // })
   
   }
 },[userId])

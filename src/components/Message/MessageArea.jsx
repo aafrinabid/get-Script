@@ -57,7 +57,7 @@ function MessageArea(props) {
         })
         props.socket.current.on('list',(data)=>{
           console.log(data)
-          dispatch(chatActions.userAdder({users:data.users}))
+          dispatch(chatActions.userAdder({users:[...data.users]}))
         })
   
       //  dispatch(chatActions.changeHandler({date:data}))
