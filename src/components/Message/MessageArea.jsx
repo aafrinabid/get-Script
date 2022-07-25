@@ -2,11 +2,14 @@ import React, { useEffect, useState,useRef } from 'react'
 import MessageBox from './MessageBox';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { chatActions } from '../../assets/store/chatSlice';
 
 
 function MessageArea(props) {
   console.log(props)
   let role
+  const dispatch=useDispatch()
   const [msgData,setMsgData]=useState([...props.message])
    const params=useParams()
   const {recieverid}=params
@@ -26,7 +29,7 @@ function MessageArea(props) {
       }
     }).then(res=>{
       console.log(res.data)
-      // setUserId(res.data.userId)
+      setUserId(res.data.userId)
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
@@ -47,11 +50,27 @@ function MessageArea(props) {
   console.log(arrivalMessage)
   useEffect(()=>{
    if(props.socket.current){
+      props.socket.current.on('update-list',(data)=>{
+        console.log(data,'sing for the dancer')
+        props.socket.current.emit('fetch-list',{
+          userId:props.from
+        })
+        props.socket.current.on('list',(data)=>{
+          console.log(data)
+          dispatch(chatActions.userAdder({users:[...data.users]}))
+        })
+  
+      //  dispatch(chatActions.changeHandler({date:data}))
+        
+      })
+    
+   
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)
-      if(data.room==props.messageId){
-        if(data.reciever===userId || data.sender===userId){
+      // if(data.room==props.messageId){
+        // if(data.reciever===userId || data.sender===userId){
+
           console.log('inside the most the sdfe shit',props.to)
           if(recieverId){
             if(data.reciever===recieverId || data.sender===recieverId){
@@ -60,14 +79,14 @@ function MessageArea(props) {
               const it=data.sender===props.to
               console.log(isit,it)
             setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
-          }
+          // }
           }
           
         
         
       }
      
-      }
+      // }
       
 
       
@@ -82,6 +101,8 @@ function MessageArea(props) {
 },[recieverId,props.socket])
 
 useEffect(()=>{
+  console.log('arrival teams')
+  dispatch(chatActions.changeHandler({where:'messageArea'}))
 arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
 },[arrivalMessage])
 

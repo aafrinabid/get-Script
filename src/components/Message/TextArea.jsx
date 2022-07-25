@@ -8,13 +8,15 @@ import Picker from "emoji-picker-react";
 // import { messageActions } from "../assets/store/messageSlice";
 import { io } from "socket.io-client";
 import axios from "axios";
-// const socket=io('http://localhost:3001')  
+import { chatActions } from "../../assets/store/chatSlice";
+// const socket=io('http://localhost:3001')
+import {useDispatch} from 'react-redux'  
 
 function TextArea(props) {
   console.log('text',props)
   // const socket=io('http://localhost:3001')
 
-  // const dispatch= useDispatch();
+  const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const handleEmojiPickerhideShow = () => {
@@ -30,13 +32,16 @@ function TextArea(props) {
     const sendChat = (event) => {
       event.preventDefault();
       if (msg.length > 0) {
+        const date=new Date()
+
         console.log(props.messageId)
-        props.socket.current.emit('send-msg',{
-          to:props.to,
-          from:props.from,
-          msg:msg,
-          room:props.messageId
-        })
+        // props.socket.current.emit('send-msg',{
+        //   to:props.to,
+        //   from:props.from,
+        //   msg:msg,
+        //   room:props.messageId,
+        //   date:date.toISOString()
+        // })
       //  setMsg(event.target.value)
       // socket.emit('send-message',msg)  
       //  dispatch(messageActions.addMessage({message:msg,from:1}))
@@ -46,6 +51,39 @@ function TextArea(props) {
         to:props.to
       }).then((res)=>{
         console.log(res.data)
+
+        axios.post('http://localhost:3500/updateMessageList',{
+          messageId:props.messageId,
+          date:date,
+          message:msg
+        }).then((res)=>{
+          console.log(res.data)
+          if(res.data.message==='success'){
+             props.socket.current.emit('send-msg',{
+          to:props.to,
+          from:props.from,
+          msg:msg,
+          room:props.messageId,
+          date:date.toISOString()
+        })
+            // props.socket.current.on('update-list',(data)=>{
+            //   console.log(data,'sing for the dancer')
+            //   props.socket.current.emit('fetch-list',{
+            //     userId:props.from
+            //   })
+            //   props.socket.current.on('list',(data)=>{
+            //     console.log(data)
+            //     dispatch(chatActions.userAdder({users:data.users}))
+            //   })
+        
+            //  dispatch(chatActions.changeHandler({date:data}))
+              
+            // })
+          
+           
+dispatch(chatActions.changeHandler({date:date.toISOString()}))
+          }
+        }).catch(e=>console.log(e))
         setMsg("");
         props.setData(prev=>[...prev,{fromSelf:true,message:msg}])
       }).catch(e=>{
