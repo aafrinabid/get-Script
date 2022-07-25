@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { chatActions } from '../../assets/store/chatSlice';
 
-function Chat() {
+function Chat(props) {
   const dispatch=useDispatch()
 
   const history=useHistory();
@@ -56,7 +56,7 @@ console.log(msg)
     <div className={classes.container}>
   <div className={classes.chat}>
 
-    <ChatUser socket={socket} setSeen={setSeen} msg={msg}/>
+    <ChatUser socket={socket} socketi={props.socketi} setSeen={setSeen} msg={msg}/>
     {!seen && <h1>hiii chat here d</h1>}
     {seen &&
     <Switch>

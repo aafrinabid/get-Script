@@ -8,7 +8,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import { authActions } from '../../assets/store/authSlice';
 import axios from 'axios'
 
-function NavBar({colorChange}) {
+function NavBar({colorChange,socket,userId}) {
   const [id,setId]=useState('')
   const [role,setRole]=useState('')
 
@@ -31,6 +31,9 @@ function NavBar({colorChange}) {
 
     console.log('logiinhouu')
     dispatch(authActions.logoutHandler())
+    socket.current.emit('offline',{
+      userId:userId
+    })
     history.push('/login')
   }
   const [anchorEl,setAnchorEl]=useState(null)

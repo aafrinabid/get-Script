@@ -2,9 +2,9 @@ import React from 'react';
 import Chat from '../components/Message/chat';
 
 
-function Message() {
+function Message(props) {
   return (
-    <Chat />
+    <Chat socketi={props.socketi}/>
   )
 }
 

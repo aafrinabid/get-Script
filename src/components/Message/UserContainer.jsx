@@ -7,9 +7,38 @@ import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
 
 function UserContainer(props) {
-  console.log(props.msg,'checking coming',props.userId)
-  // const [msg,setMsg]=useState(props.msg)
-  // console.log(msg)
+  
+  console.log(props,props.msg,'checking coming',props.userId)
+  const [isOnline,setIsOnline]=useState(null)
+  const [msg,setMsg]=useState(props.msg)
+  console.log(msg)
+  useEffect(()=>{
+    props.socketi.current.emit('checkOnline',props.userId)
+    props.socketi.current.on('isOnline',(data)=>{
+      console.log(data,'istabulllllllllllllllllllllllllllllllllll')
+      
+      if(data.status){
+        setIsOnline(true)
+      }
+      if(data.status===false){
+         console.log(data,'false')
+        setIsOnline(false)
+      }
+      
+  
+    })
+    // props.socketi.current.on('latestStatus',data=>{
+    //   const online=data.users.findIndex(user=>user==props.userId)
+    //   const user=data.users[online]
+    //   if(user){
+    //     setIsOnline(true)
+    //   }else{
+    //     setIsOnline(false)
+    //   }
+
+    // })
+  },[])
+  
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
   const dispatch=useDispatch()
@@ -59,9 +88,10 @@ function UserContainer(props) {
         </div>
         <div className={classes.userText}>
             <p className={classes.usernamecont}>{data.username}</p>
+            <div className='flex'>
             <p className={classes.usermessage}>{props.msg}</p>
-            
-
+            <p className='mx-4'>{isOnline?'online':''}</p>
+            </div>
         </div>
     </div>
   )

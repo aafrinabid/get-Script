@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
@@ -14,13 +14,33 @@ import { useSelector,useDispatch} from 'react-redux';
 import axios from 'axios';
 import { authActions } from './assets/store/authSlice';
 import Message from './pages/Message'
+import {io} from 'socket.io-client';
+
+
 
 function App() {
+const socket=useRef();
+const [userId,setUserId]=useState(null)
+console.log(userId)
+
   const dispatch=useDispatch()
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  // loginStatus && socket.current.emit('online',)
+
+ 
   const userRole=useSelector(state=>state.authHandler.role)
   console.log(loginStatus,userRole);
+  useEffect(()=>{
+    console.log(loginStatus,userId)
+    if(loginStatus && userId){
+      socket.current= io('http://localhost:3001')
+      socket.current.emit('online',{
+        room:'room',
+        userId:userId
+      })
+    }
+  },[userId,loginStatus])
   useEffect(
     ()=>{
       console.log('app.js hype')
@@ -32,6 +52,7 @@ function App() {
         console.log('checking auth')
         dispatch(authActions.loginHandler(res.data))
         console.log(res.data);
+        setUserId(res.data.id)
         // if(res.data['auth'] && res.data['status']){
         //   history.replace('/')
         // }
@@ -71,7 +92,7 @@ function App() {
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange} socket={socket} userId={userId}/>}
 </>    
 }
       <Switch>
@@ -115,7 +136,7 @@ function App() {
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message />
+ <Message socketi={socket}/>
 </Route>
 } 
       <Route path='*'>
