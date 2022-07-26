@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,current } from "@reduxjs/toolkit";
 
 const ChatSlice =createSlice({
     name:'chatslice',
@@ -29,7 +29,7 @@ const ChatSlice =createSlice({
             state.users=[...action.payload.users]
         },
         OnlineuserAdder(state,action){
-            console.log(action.payload)
+            // console.log(action.payload)
             const existingIndex=state.onlineUsers.findIndex(user=>user.id===action.payload.users.id)
             const existingUser=state.onlineUsers[existingIndex]
             let updatedlist
@@ -42,6 +42,7 @@ const ChatSlice =createSlice({
                     updatedlist[existingIndex]=updatedUser
                 }
             }else{
+                console.log(current(state.onlineUsers))
                 updatedlist=state.onlineUsers.concat(action.payload.users)
                 // state.users=[...state.users,action.payload.users]
 

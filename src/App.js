@@ -21,8 +21,8 @@ import { chatActions } from './assets/store/chatSlice';
 
 
 function App() {
-  const users=useSelector((state=>state.chatHandler.users))
-  console.log(users)
+  const onlineUsers=useSelector((state=>state.chatHandler.onlineUsers))
+  console.log(onlineUsers)
 
 const socket=useRef();
 const [userId,setUserId]=useState(null)
@@ -50,8 +50,8 @@ console.log(userId)
       })
       socket.current.on('addUserOnline',(data)=>{
         const id=data.userId
-        const socketId=data.socket.id
-        dispatch(chatActions.userAdder({users:{id,socketId}}))
+        const socketId=data.socketId
+        dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
 
       })
       socket.current.on('offlineUsers',data=>{
