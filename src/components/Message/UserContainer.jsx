@@ -12,33 +12,33 @@ function UserContainer(props) {
   const [isOnline,setIsOnline]=useState(null)
   const [msg,setMsg]=useState(props.msg)
   console.log(msg)
-  useEffect(()=>{
-    props.socketi.current.emit('checkonline')
-    props.socketi.current.on('isonline',(data)=>{
-      console.log(data,'istabulllllllllllllllllllllllllllllllllll')
+  // useEffect(()=>{
+  //   props.socketi.current.emit('checkonline')
+  //   props.socketi.current.on('isonline',(data)=>{
+  //     console.log(data,'istabulllllllllllllllllllllllllllllllllll')
       
       
-      if(data.status){
-        setIsOnline(true)
-      }
-      if(data.status===false){
-         console.log(data,'false')
-        setIsOnline(false)
-      }
+  //     if(data.status){
+  //       setIsOnline(true)
+  //     }
+  //     if(data.status===false){
+  //        console.log(data,'false')
+  //       setIsOnline(false)
+  //     }
       
   
-    })
-    // props.socketi.current.on('latestStatus',data=>{
-    //   const online=data.users.findIndex(user=>user==props.userId)
-    //   const user=data.users[online]
-    //   if(user){
-    //     setIsOnline(true)
-    //   }else{
-    //     setIsOnline(false)
-    //   }
+  //   })
+  //   // props.socketi.current.on('latestStatus',data=>{
+  //   //   const online=data.users.findIndex(user=>user==props.userId)
+  //   //   const user=data.users[online]
+  //   //   if(user){
+  //   //     setIsOnline(true)
+  //   //   }else{
+  //   //     setIsOnline(false)
+  //   //   }
 
-    // })
-  },[])
+  //   // })
+  // },[])
   
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
@@ -53,8 +53,9 @@ function UserContainer(props) {
       props.socket.current.emit('leave room',room)
     })
     const messageId=props.messageId
-    props.socket.current.emit('join room',messageId)
-    props.socket.current.on('joined room',data=>{
+    console.log(messageId,'set',',*************************')
+    props.socket.current.emit('join-room',messageId)
+    props.socket.current.on('joined-room',data=>{
       console.log(data,'sockeeeeeeeeeeeeeeeeeeeeeeeeeet')
       if(data.state){
         props.setSeen(true)

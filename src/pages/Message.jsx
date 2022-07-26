@@ -4,7 +4,7 @@ import Chat from '../components/Message/chat';
 
 function Message(props) {
   return (
-    <Chat socketi={props.socketi}/>
+    <Chat socket={props.socket}/>
   )
 }
 

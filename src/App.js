@@ -23,7 +23,7 @@ import { chatActions } from './assets/store/chatSlice';
 function App() {
   const users=useSelector((state=>state.chatHandler.users))
   console.log(users)
-  
+
 const socket=useRef();
 const [userId,setUserId]=useState(null)
 console.log(userId)
@@ -61,7 +61,7 @@ console.log(userId)
      dispatch(chatActions.logoutRemover(data.userId))
       })
     // }
-  },[])
+  },[dispatch])
   useEffect(
     ()=>{
       console.log('app.js hype')
@@ -157,7 +157,7 @@ console.log(userId)
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message socketi={socket}/>
+ <Message socket={socket}/>
 </Route>
 } 
       <Route path='*'>

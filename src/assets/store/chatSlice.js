@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const ChatSlice =createSlice({
     name:'chatslice',
     initialState:{
+        onlineUsers:[],
         users:[],
         room:[],
         change:''
@@ -25,32 +26,36 @@ const ChatSlice =createSlice({
         },
         userAdder(state,action){
             console.log(action.payload)
-            const existingIndex=state.users.findIndex(user=>user.id===action.payload.users.id)
-            const existingUser=state.users[existingIndex]
+            state.users=[...action.payload.users]
+        },
+        OnlineuserAdder(state,action){
+            console.log(action.payload)
+            const existingIndex=state.onlineUsers.findIndex(user=>user.id===action.payload.users.id)
+            const existingUser=state.onlineUsers[existingIndex]
             let updatedlist
             if(existingUser){
                 if(existingUser.socketId===action.payload.users.socketId){
                     return
                 }else{
-                    updatedUser={...existingUser,socketId:action.payload.users.socketId}
-                    updatedlist=[...state.users]
+                    const updatedUser={...existingUser,socketId:action.payload.users.socketId}
+                    updatedlist=[...state.onlineUsers]
                     updatedlist[existingIndex]=updatedUser
                 }
             }else{
-                updatedlist=state.users.concat(action.payload.users)
+                updatedlist=state.onlineUsers.concat(action.payload.users)
                 // state.users=[...state.users,action.payload.users]
 
 
             }
-            state.users=updatedlist
+            state.onlineUsers=updatedlist
         },
         userRemover(state,action){
-           const updatedList=state.users.filter(user=>user.socketId!==action.payload)
-           state.users=updatedList 
+           const updatedList=state.onlineUsers.filter(user=>user.socketId!==action.payload)
+           state.onlineUsers=updatedList 
         },
         logoutRemover(state,action){
-            const updatedList=state.users.filter(user=>user.id!==action.payload)
-            state.users=updatedList
+            const updatedList=state.onlineUsers.filter(user=>user.id!==action.payload)
+            state.onlineUsers=updatedList
         }
         
     }
