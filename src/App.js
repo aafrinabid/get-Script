@@ -51,7 +51,14 @@ console.log(userId)
       socket.current.on('addUserOnline',(data)=>{
         const id=data.userId
         const socketId=data.socketId
-        dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
+        const users={
+          id,
+          socketId
+        }
+        // dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
+        socket.current.emit('changeOnline',{
+          users:users
+        })
 
       })
       socket.current.on('offlineUsers',data=>{
@@ -59,7 +66,12 @@ console.log(userId)
       })
       socket.current.on('isonline',data=>{
      dispatch(chatActions.logoutRemover(data.userId))
+    
       })
+      socket.current.on('modify',(data)=>{
+        console.log(data)
+        dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
+       })
     // }
   },[dispatch])
   useEffect(

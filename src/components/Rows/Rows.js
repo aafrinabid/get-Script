@@ -26,12 +26,12 @@ const genres=['Action Genre',
     'Other Genres',]
 
 function Rows(props) {
-  console.log(props)
+  // console.log(props)
 
   const [isLoading,setIsLoading]=useState(false)
   const [scripts,setScripts]=useState([])
   const [genre,setGenre]=useState('')
-  console.log(scripts)
+  // console.log(scripts)
   const backgroundChanger=(url)=>{
     const divImage =  {
     
@@ -66,7 +66,7 @@ axios.get('http://localhost:3500/fetchscript',{
 }).then((res)=>{
 
   
-  console.log(res.data)
+  // console.log(res.data)
 
   setScripts([...res.data.result])
  setGenre(res.data.genre)
