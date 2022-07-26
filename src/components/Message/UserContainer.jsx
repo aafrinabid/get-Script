@@ -13,9 +13,10 @@ function UserContainer(props) {
   const [msg,setMsg]=useState(props.msg)
   console.log(msg)
   useEffect(()=>{
-    props.socketi.current.emit('checkOnline',props.userId)
-    props.socketi.current.on('isOnline',(data)=>{
+    props.socketi.current.emit('checkonline')
+    props.socketi.current.on('isonline',(data)=>{
       console.log(data,'istabulllllllllllllllllllllllllllllllllll')
+      
       
       if(data.status){
         setIsOnline(true)

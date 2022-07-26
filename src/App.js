@@ -15,10 +15,15 @@ import axios from 'axios';
 import { authActions } from './assets/store/authSlice';
 import Message from './pages/Message'
 import {io} from 'socket.io-client';
+import { chatActions } from './assets/store/chatSlice';
+
 
 
 
 function App() {
+  const users=useSelector((state=>state.chatHandler.users))
+  console.log(users)
+  
 const socket=useRef();
 const [userId,setUserId]=useState(null)
 console.log(userId)
@@ -33,14 +38,30 @@ console.log(userId)
   console.log(loginStatus,userRole);
   useEffect(()=>{
     console.log(loginStatus,userId)
-    if(loginStatus && userId){
-      socket.current= io('http://localhost:3001')
+   
+      socket.current= io('http://localhost:3001',{
+        auth:{
+          token:localStorage.getItem('token')?localStorage.getItem('token'):""
+        }
+      })
+      // if(loginStatus && userId){
       socket.current.emit('online',{
         room:'room',
-        userId:userId
       })
-    }
-  },[userId,loginStatus])
+      socket.current.on('addUserOnline',(data)=>{
+        const id=data.userId
+        const socketId=data.socket.id
+        dispatch(chatActions.userAdder({users:{id,socketId}}))
+
+      })
+      socket.current.on('offlineUsers',data=>{
+        dispatch(chatActions.userRemover(data.socketId))
+      })
+      socket.current.on('isonline',data=>{
+     dispatch(chatActions.logoutRemover(data.userId))
+      })
+    // }
+  },[])
   useEffect(
     ()=>{
       console.log('app.js hype')

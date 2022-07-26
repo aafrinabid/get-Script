@@ -25,7 +25,32 @@ const ChatSlice =createSlice({
         },
         userAdder(state,action){
             console.log(action.payload)
-            state.users=[...action.payload.users]
+            const existingIndex=state.users.findIndex(user=>user.id===action.payload.users.id)
+            const existingUser=state.users[existingIndex]
+            let updatedlist
+            if(existingUser){
+                if(existingUser.socketId===action.payload.users.socketId){
+                    return
+                }else{
+                    updatedUser={...existingUser,socketId:action.payload.users.socketId}
+                    updatedlist=[...state.users]
+                    updatedlist[existingIndex]=updatedUser
+                }
+            }else{
+                updatedlist=state.users.concat(action.payload.users)
+                // state.users=[...state.users,action.payload.users]
+
+
+            }
+            state.users=updatedlist
+        },
+        userRemover(state,action){
+           const updatedList=state.users.filter(user=>user.socketId!==action.payload)
+           state.users=updatedList 
+        },
+        logoutRemover(state,action){
+            const updatedList=state.users.filter(user=>user.id!==action.payload)
+            state.users=updatedList
         }
         
     }
