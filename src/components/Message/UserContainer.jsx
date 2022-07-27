@@ -5,6 +5,8 @@ import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
+import { SwapHorizontalCircleOutlined } from '@mui/icons-material';
+
 
 function UserContainer(props) {
   
@@ -12,6 +14,16 @@ function UserContainer(props) {
   const [isOnline,setIsOnline]=useState(null)
   const [msg,setMsg]=useState(props.msg)
   console.log(msg)
+  const onlineUsers=useSelector(state=>state.chatHandler.onlineUsers)
+
+  useEffect(()=>{
+const onlineuser=onlineUsers.filter(user=>user.userId===props.userId)
+if(onlineuser.length>0){
+setIsOnline(true)
+}else{
+  setIsOnline(false)
+}
+  },[onlineUsers])
   // useEffect(()=>{
   //   props.socketi.current.emit('checkonline')
   //   props.socketi.current.on('isonline',(data)=>{
@@ -46,6 +58,15 @@ function UserContainer(props) {
   const history =useHistory();
   const [data,setData]=useState({})
   const params=useParams();
+  console.log(onlineUsers)
+  // const userIndex=onlineUsers.findIndex(user=>user.userId===props.userId)
+  // const onlineUser=onlineUsers[userIndex]
+  // if(onlineUser){
+  //   setIsOnline(true)
+
+  // }
+
+  
   const chatHandler=()=>{
     history.push(`/chat/t/${props.userId}/${1}`)
     rooms.map((room)=>{
@@ -92,7 +113,7 @@ function UserContainer(props) {
             <p className={classes.usernamecont}>{data.username}</p>
             <div className='flex'>
             <p className={classes.usermessage}>{props.msg}</p>
-            <p className='mx-4'>{isOnline?'online':''}</p>
+            <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p>
             </div>
         </div>
     </div>

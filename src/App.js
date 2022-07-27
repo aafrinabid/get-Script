@@ -67,7 +67,7 @@ console.log(userId)
    
      
       // if(loginStatus && userId){
-      socket.current.emit('online',{
+     loginStatus&& socket.current.emit('online',{
         room:'room',
       })
       socket.current.on('addUserOnline',(data)=>{
@@ -104,7 +104,7 @@ console.log(userId)
        })
 
     // }
-  },[dispatch])
+  },[dispatch,loginStatus])
 
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
