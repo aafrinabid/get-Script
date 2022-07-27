@@ -55,7 +55,7 @@ const ChatSlice =createSlice({
            state.onlineUsers=updatedList 
         },
         logoutRemover(state,action){
-            const updatedList=state.onlineUsers.filter(user=>user.id!==action.payload)
+            const updatedList=state.onlineUsers.filter(user=>user.userId!==action.payload)
             state.onlineUsers=updatedList
         },
         changeOnlineUsers(state,action){

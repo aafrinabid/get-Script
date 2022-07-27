@@ -49,15 +49,17 @@ console.log(userId)
         room:'room',
       })
       socket.current.on('addUserOnline',(data)=>{
-        const id=data.userId
-        const socketId=data.socketId
-        const users={
-          id,
-          socketId
-        }
+        console.log(data.onlineUsers)
+        // const id=data.userId
+        // const socketId=data.socketId
+        // const users={
+        //   id,
+        //   socketId
+        // }
+        
         // dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
         socket.current.emit('changeOnline',{
-          users:users
+          users:data.onlineUsers
         })
 
       })
@@ -70,8 +72,10 @@ console.log(userId)
       })
       socket.current.on('modify',(data)=>{
         console.log(data)
-        dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
-        socket.current.emit('newUsers',{onlineUsers,socketId:socket.id})
+        // dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
+        dispatch(chatActions.changeOnlineUsers({users:[...data]}))
+        
+        // socket.current.emit('newUsers',{onlineUsers,socketId:socket.id})
        })
        socket.current.on('changeIt',(data)=>{
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
