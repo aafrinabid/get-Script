@@ -5,17 +5,68 @@ import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
+import { SwapHorizontalCircleOutlined } from '@mui/icons-material';
+
 
 function UserContainer(props) {
-  console.log(props.msg,'checking coming',props.userId)
-  // const [msg,setMsg]=useState(props.msg)
-  // console.log(msg)
+  
+  console.log(props,props.msg,'checking coming',props.userId)
+  const [isOnline,setIsOnline]=useState(null)
+  const [msg,setMsg]=useState(props.msg)
+  console.log(msg)
+  const onlineUsers=useSelector(state=>state.chatHandler.onlineUsers)
+
+  useEffect(()=>{
+const onlineuser=onlineUsers.filter(user=>user.userId===props.userId)
+if(onlineuser.length>0){
+setIsOnline(true)
+}else{
+  setIsOnline(false)
+}
+  },[onlineUsers])
+  // useEffect(()=>{
+  //   props.socketi.current.emit('checkonline')
+  //   props.socketi.current.on('isonline',(data)=>{
+  //     console.log(data,'istabulllllllllllllllllllllllllllllllllll')
+      
+      
+  //     if(data.status){
+  //       setIsOnline(true)
+  //     }
+  //     if(data.status===false){
+  //        console.log(data,'false')
+  //       setIsOnline(false)
+  //     }
+      
+  
+  //   })
+  //   // props.socketi.current.on('latestStatus',data=>{
+  //   //   const online=data.users.findIndex(user=>user==props.userId)
+  //   //   const user=data.users[online]
+  //   //   if(user){
+  //   //     setIsOnline(true)
+  //   //   }else{
+  //   //     setIsOnline(false)
+  //   //   }
+
+  //   // })
+  // },[])
+  
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
   const dispatch=useDispatch()
   const history =useHistory();
   const [data,setData]=useState({})
   const params=useParams();
+  console.log(onlineUsers)
+  // const userIndex=onlineUsers.findIndex(user=>user.userId===props.userId)
+  // const onlineUser=onlineUsers[userIndex]
+  // if(onlineUser){
+  //   setIsOnline(true)
+
+  // }
+
+  
   const chatHandler=()=>{
     history.push(`/chat/t/${props.userId}/${1}`)
     rooms.map((room)=>{
@@ -23,8 +74,9 @@ function UserContainer(props) {
       props.socket.current.emit('leave room',room)
     })
     const messageId=props.messageId
-    props.socket.current.emit('join room',messageId)
-    props.socket.current.on('joined room',data=>{
+    console.log(messageId,'set',',*************************')
+    props.socket.current.emit('join-room',messageId)
+    props.socket.current.on('joined-room',data=>{
       console.log(data,'sockeeeeeeeeeeeeeeeeeeeeeeeeeet')
       if(data.state){
         props.setSeen(true)
@@ -59,9 +111,10 @@ function UserContainer(props) {
         </div>
         <div className={classes.userText}>
             <p className={classes.usernamecont}>{data.username}</p>
+            <div className='flex'>
             <p className={classes.usermessage}>{props.msg}</p>
-            
-
+            <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p>
+            </div>
         </div>
     </div>
   )

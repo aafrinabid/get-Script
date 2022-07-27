@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
@@ -14,15 +14,35 @@ import { useSelector,useDispatch} from 'react-redux';
 import axios from 'axios';
 import { authActions } from './assets/store/authSlice';
 import Message from './pages/Message'
+import {io} from 'socket.io-client';
+import { chatActions } from './assets/store/chatSlice';
+
+
+
 
 function App() {
+  const onlineUsers=useSelector((state=>state.chatHandler.onlineUsers))
+  console.log(onlineUsers)
+
+const socket=useRef();
+const [userId,setUserId]=useState(null)
+console.log(userId)
+
   const dispatch=useDispatch()
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
+  // loginStatus && socket.current.emit('online',)
+
+ 
   const userRole=useSelector(state=>state.authHandler.role)
   console.log(loginStatus,userRole);
   useEffect(
     ()=>{
+      socket.current= io('http://localhost:3001',{
+        auth:{
+          token:localStorage.getItem('token')?localStorage.getItem('token'):""
+        }
+      })
       console.log('app.js hype')
       axios.get('http://localhost:3500/isAuth',{
         headers:{
@@ -32,6 +52,7 @@ function App() {
         console.log('checking auth')
         dispatch(authActions.loginHandler(res.data))
         console.log(res.data);
+        setUserId(res.data.id)
         // if(res.data['auth'] && res.data['status']){
         //   history.replace('/')
         // }
@@ -41,6 +62,50 @@ function App() {
       })
     }
     ,[dispatch,history]) 
+  useEffect(()=>{
+    console.log(loginStatus,userId)
+   
+     
+      // if(loginStatus && userId){
+     loginStatus&& socket.current.emit('online',{
+        room:'room',
+      })
+      socket.current.on('addUserOnline',(data)=>{
+        console.log(data.onlineUsers)
+        // const id=data.userId
+        // const socketId=data.socketId
+        // const users={
+        //   id,
+        //   socketId
+        // }
+        
+        // dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
+        socket.current.emit('changeOnline',{
+          users:data.onlineUsers
+        })
+
+      })
+      socket.current.on('offlineUsers',data=>{
+        dispatch(chatActions.userRemover(data.socketId))
+      })
+      socket.current.on('isonline',data=>{
+     dispatch(chatActions.logoutRemover(data.userId))
+    
+      })
+      socket.current.on('modify',(data)=>{
+        console.log(data)
+        // dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
+        dispatch(chatActions.changeOnlineUsers({users:[...data]}))
+        
+        // socket.current.emit('newUsers',{onlineUsers,socketId:socket.id})
+       })
+       socket.current.on('changeIt',(data)=>{
+        dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
+       })
+
+    // }
+  },[dispatch,loginStatus])
+
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
     console.log('happening guys')
@@ -71,7 +136,7 @@ function App() {
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange} socket={socket} userId={userId}/>}
 </>    
 }
       <Switch>
@@ -115,7 +180,7 @@ function App() {
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message />
+ <Message socket={socket}/>
 </Route>
 } 
       <Route path='*'>
