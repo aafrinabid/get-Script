@@ -59,6 +59,7 @@ const ChatSlice =createSlice({
             state.onlineUsers=updatedList
         },
         changeOnlineUsers(state,action){
+            console.log(action.payload)
             const updatedList=[...action.payload.users]
             state.onlineUsers=updatedList
         }

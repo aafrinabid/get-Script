@@ -71,7 +71,12 @@ console.log(userId)
       socket.current.on('modify',(data)=>{
         console.log(data)
         dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
+        socket.current.emit('newUsers',{onlineUsers,socketId:socket.id})
        })
+       socket.current.on('changeIt',(data)=>{
+        dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
+       })
+
     // }
   },[dispatch])
   useEffect(
