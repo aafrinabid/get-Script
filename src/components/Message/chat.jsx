@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { chatActions } from '../../assets/store/chatSlice';
 
-function Chat() {
+function Chat(props) {
   const dispatch=useDispatch()
 
   const history=useHistory();
@@ -33,9 +33,9 @@ let role
   },[])
   useEffect(()=>{
     if(userId){
-      socket.current= io('http://localhost:3001')
-      socket.current.emit('join-chat',userId)
-      socket.current.on('notifies',data=>{
+      // socket.current= io('http://localhost:3001')
+      props.socket.current.emit('join-chat',userId)
+      props.socket.current.on('notifies',data=>{
   console.log('userdateeea',data)
   // socket.current.emit('fetch-msg',{
   //   // messageId:data.messageid
@@ -56,12 +56,12 @@ console.log(msg)
     <div className={classes.container}>
   <div className={classes.chat}>
 
-    <ChatUser socket={socket} setSeen={setSeen} msg={msg}/>
+    <ChatUser socket={props.socket}  setSeen={setSeen} msg={msg}/>
     {!seen && <h1>hiii chat here d</h1>}
     {seen &&
     <Switch>
     <Route path='/chat/t/:recieverid/:role'>
-  <ChatComponent socket={socket}/>
+  <ChatComponent socket={props.socket}/>
   </Route>
   </Switch> 
     } 
