@@ -36,14 +36,36 @@ console.log(userId)
  
   const userRole=useSelector(state=>state.authHandler.role)
   console.log(loginStatus,userRole);
-  useEffect(()=>{
-    console.log(loginStatus,userId)
-   
+  useEffect(
+    ()=>{
       socket.current= io('http://localhost:3001',{
         auth:{
           token:localStorage.getItem('token')?localStorage.getItem('token'):""
         }
       })
+      console.log('app.js hype')
+      axios.get('http://localhost:3500/isAuth',{
+        headers:{
+          'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+        }
+      }).then(res=>{
+        console.log('checking auth')
+        dispatch(authActions.loginHandler(res.data))
+        console.log(res.data);
+        setUserId(res.data.id)
+        // if(res.data['auth'] && res.data['status']){
+        //   history.replace('/')
+        // }
+      }).catch((e)=>{
+        console.log('kili');
+        console.log(e.message)
+      })
+    }
+    ,[dispatch,history]) 
+  useEffect(()=>{
+    console.log(loginStatus,userId)
+   
+     
       // if(loginStatus && userId){
       socket.current.emit('online',{
         room:'room',
@@ -83,27 +105,7 @@ console.log(userId)
 
     // }
   },[dispatch])
-  useEffect(
-    ()=>{
-      console.log('app.js hype')
-      axios.get('http://localhost:3500/isAuth',{
-        headers:{
-          'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
-        }
-      }).then(res=>{
-        console.log('checking auth')
-        dispatch(authActions.loginHandler(res.data))
-        console.log(res.data);
-        setUserId(res.data.id)
-        // if(res.data['auth'] && res.data['status']){
-        //   history.replace('/')
-        // }
-      }).catch((e)=>{
-        console.log('kili');
-        console.log(e.message)
-      })
-    }
-    ,[dispatch,history]) 
+
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
     console.log('happening guys')
