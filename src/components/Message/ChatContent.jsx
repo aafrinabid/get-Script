@@ -79,7 +79,7 @@ function ChatContent(props) {
   },[recieverid])
   return (
     <div>
-<UserNameContent userId={props.recieverid} socket={props.socket} callUser={props.callUser}/>
+<UserNameContent userId={props.recieverid} stream={props.stream} socket={props.socket} callUser={props.callUser} connectionRef={props.connectionRef} userVideo={props.userVideo}/>
 {data.length>0 && recieverId ?<MessageArea message={data} to={recieverId} from={userId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
 </div>}
 {

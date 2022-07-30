@@ -178,33 +178,33 @@ console.log(userId)
 
 
 
- const callUser=(recieverId,username)=>{
-  console.log('callllling please',recieverId,username)
-  dispatch(videoActions.isCalling())
-  const peer=new Peer({initiator:true,trickle:false,stream})
-  peer.on('error', err => console.log('error', err))
-  console.log(peer)
-  peer.on('signal',(signal)=>{
-    console.log(signal,'signaling happening')
-    socket.current.emit('callUser',{
-      recieverId:recieverId,
-      signalData:signal,
-      name:username
-    })
-  })
+//  const callUser=(recieverId,username)=>{
+//   console.log('callllling please',recieverId,username)
+//   dispatch(videoActions.isCalling())
+//   const peer=new Peer({initiator:true,trickle:false,stream})
+//   peer.on('error', err => console.log('error', err))
+//   console.log(peer)
+//   peer.on('signal',(signal)=>{
+//     console.log(signal,'signaling happening')
+//     socket.current.emit('callUser',{
+//       recieverId:recieverId,
+//       signalData:signal,
+//       name:username
+//     })
+//   })
 
-  peer.on('stream',(currentStream)=>{
-    // dispatch(videoActions.setUserVideo(currentStream))
-    userVideo.current.srcObject=currentStream
-  })
-  socket.current.on('callAccepted',(signal)=>{
-    dispatch(videoActions.setCallAccepted())
-    peer.signal(signal)
-  })
+//   peer.on('stream',(currentStream)=>{
+//     // dispatch(videoActions.setUserVideo(currentStream))
+//     userVideo.current.srcObject=currentStream
+//   })
+//   socket.current.on('callAccepted',(signal)=>{
+//     dispatch(videoActions.setCallAccepted())
+//     peer.signal(signal)
+//   })
 
-  connectionRef.current=peer;
+//   connectionRef.current=peer;
 
-}
+// }
 
   return (
     <div className="App">
@@ -253,7 +253,7 @@ console.log(userId)
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message socket={socket} callUser={callUser}/>
+ <Message socket={socket}  stream={stream} connectionRef={connectionRef} userVideo={userVideo}/>
 </Route>
 } 
       <Route path='*'>
