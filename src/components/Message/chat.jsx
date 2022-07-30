@@ -61,7 +61,7 @@ console.log(msg)
     {seen &&
     <Switch>
     <Route path='/chat/t/:recieverid/:role'>
-  <ChatComponent socket={props.socket}/>
+  <ChatComponent socket={props.socket} callUser={props.callUser}/>
   </Route>
   </Switch> 
     } 

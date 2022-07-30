@@ -79,7 +79,7 @@ function ChatContent(props) {
   },[recieverid])
   return (
     <div>
-<UserNameContent userId={props.recieverid} />
+<UserNameContent userId={props.recieverid} socket={props.socket} callUser={props.callUser}/>
 {data.length>0 && recieverId ?<MessageArea message={data} to={recieverId} from={userId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
 </div>}
 {

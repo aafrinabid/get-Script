@@ -16,11 +16,32 @@ import { authActions } from './assets/store/authSlice';
 import Message from './pages/Message'
 import {io} from 'socket.io-client';
 import { chatActions } from './assets/store/chatSlice';
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import VideoChat from './components/VideoChat/VideoChat';
+import { videoActions } from './assets/store/videoSlice';
+import Peer from 'simple-peer';
+import CallInfo from './components/call/CallInfo';
 
 
 
 function App() {
+  const userVideo=useRef()
+  const myVideo=useRef()
+  const connectionRef=useRef()
+  const [call, setCall] = useState({});
+  const [stream,setStream]=useState()
+  console.log(call)
+  const isCalling=useSelector(state=>state.videoHandler.calling)
+  const callRecieving=useSelector(state=>state.videoHandler.recieving)
+  const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
+  const [open, setOpen] =useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   const onlineUsers=useSelector((state=>state.chatHandler.onlineUsers))
   console.log(onlineUsers)
 
@@ -103,12 +124,17 @@ console.log(userId)
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
        })
 
+       socket.current.on('receiveCall',({from,name,signal})=>{
+       dispatch(videoActions.setIsRecieving(true))
+ setCall({from, name, signal });
+      })
+
     // }
   },[dispatch,loginStatus])
 
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
-    console.log('happening guys')
+    // console.log('happening guys')
     if(window.scrollY >= 80){
       setColorchange(true);
     }
@@ -133,10 +159,57 @@ console.log(userId)
   }
  },[pathname])
 
+
+
+ const answerCall=()=>{
+   dispatch(videoActions.setIsRecieving(false))
+  dispatch(videoActions.setCallAccepted())
+  const peer=new Peer({initiator:false,tricke:false,stream})
+  peer.on('signal',data=>{
+    socket.emit('answerCall',{signal:data,to:call.from})
+  });
+  peer.on('stream',(currentStream)=>{
+    userVideo.current.srcObject=currentStream
+  })
+  peer.signal(call.signal)
+  connectionRef.current = peer;
+
+ }
+
+
+
+ const callUser=(recieverId,username)=>{
+  console.log('callllling please',recieverId,username)
+  dispatch(videoActions.isCalling())
+  const peer=new Peer({initiator:true,trickle:false,stream})
+  peer.on('error', err => console.log('error', err))
+  console.log(peer)
+  peer.on('signal',(signal)=>{
+    console.log(signal,'signaling happening')
+    socket.current.emit('callUser',{
+      recieverId:recieverId,
+      signalData:signal,
+      name:username
+    })
+  })
+
+  peer.on('stream',(currentStream)=>{
+    // dispatch(videoActions.setUserVideo(currentStream))
+    userVideo.current.srcObject=currentStream
+  })
+  socket.current.on('callAccepted',(signal)=>{
+    dispatch(videoActions.setCallAccepted())
+    peer.signal(signal)
+  })
+
+  connectionRef.current=peer;
+
+}
+
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange} socket={socket} userId={userId}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange} socket={socket} userId={userId} handleToggle={handleToggle}/>}
 </>    
 }
       <Switch>
@@ -180,7 +253,7 @@ console.log(userId)
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message socket={socket}/>
+ <Message socket={socket} callUser={callUser}/>
 </Route>
 } 
       <Route path='*'>
@@ -190,6 +263,30 @@ console.log(userId)
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>
       </Switch>
+      {loginStatus  &&(isCalling||CallAccepted)&& 
+      <>
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={isCalling||CallAccepted}
+      // onClick={handleClose}
+    >
+      {/* <CircularProgress color="inherit" /> */}
+   <VideoChat stream={stream} setStream={setStream} userVideo={userVideo}/>
+    </Backdrop>
+    </>
+    }
+
+    {callRecieving && 
+    <>
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={callRecieving}
+      // onClick={handleClose}
+    >
+   <CallInfo call={call}  answerCall={answerCall}/>
+   </Backdrop>
+    </>
+    }
 
       
     </div>

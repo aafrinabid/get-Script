@@ -8,7 +8,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import { authActions } from '../../assets/store/authSlice';
 import axios from 'axios'
 
-function NavBar({colorChange,socket,userId}) {
+function NavBar({colorChange,socket,userId,handleToggle}) {
   const [id,setId]=useState('')
   const [role,setRole]=useState('')
 
@@ -62,7 +62,7 @@ function NavBar({colorChange,socket,userId}) {
         <div className= {`flex ${classes.profile}`} >
     {(userRole===1 || userRole===3) && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
         <Link to='/chat/t'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><ChatRounded /></h1> </Link>
-        <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
+        <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications onClick={handleToggle}/></h1> </Link>
 
          <IconButton size='large'
          aria-label='profile'

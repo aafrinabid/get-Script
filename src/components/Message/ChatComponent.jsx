@@ -37,7 +37,7 @@ function ChatComponent(props) {
     <div className={classes.component}>
 
      {/* <h1>start sending messages to script writer</h1> */}
-     <ChatContent socket={props.socket} recieverid={recieverid}/>
+     <ChatContent socket={props.socket} recieverid={recieverid} callUser={props.callUser}/>
     </div>
   )
 }
