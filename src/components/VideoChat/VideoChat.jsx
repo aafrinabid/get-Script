@@ -58,7 +58,7 @@ function VideoChat(props) {
         </Grid>
       </Paper>
     
-    {callAccepted && !callEnded (
+    {callAccepted && (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{ 'Name'}</Typography>
