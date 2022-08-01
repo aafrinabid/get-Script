@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState,useRef,useContext } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
@@ -22,19 +22,19 @@ import VideoChat from './components/VideoChat/VideoChat';
 import { videoActions } from './assets/store/videoSlice';
 import Peer from 'simple-peer';
 import CallInfo from './components/call/CallInfo';
+import { SocketContext } from './assets/context';
 
 
 
 function App() {
-  const userVideo=useRef()
-  const myVideo=useRef()
-  const connectionRef=useRef()
-  const [call, setCall] = useState({});
-  const [stream,setStream]=useState()
-  console.log(call)
-  const isCalling=useSelector(state=>state.videoHandler.calling)
-  const callRecieving=useSelector(state=>state.videoHandler.recieving)
-  const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
+  // console.log(SocketContext)
+  const { callAccepted,isCalling,isRecieving,socketEmiter,socketOn,rejectCall,answerCall,fixCall} = useContext(SocketContext);
+  console.log(socketEmiter,callAccepted,isCalling,isRecieving,rejectCall,answerCall,socketOn)
+ 
+
+  // const isCalling=useSelector(state=>state.videoHandler.calling)
+  // const isRecieving=useSelector(state=>state.videoHandler.recieving)
+  // const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
   const [open, setOpen] =useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -46,6 +46,7 @@ function App() {
   console.log(onlineUsers)
 
 const socket=useRef();
+console.log(socket)
 const [userId,setUserId]=useState(null)
 console.log(userId)
 
@@ -59,6 +60,7 @@ console.log(userId)
   console.log(loginStatus,userRole);
   useEffect(
     ()=>{
+     
       socket.current= io('http://localhost:3001',{
         auth:{
           token:localStorage.getItem('token')?localStorage.getItem('token'):""
@@ -88,28 +90,19 @@ console.log(userId)
    
      
       // if(loginStatus && userId){
-     loginStatus&& socket.current.emit('online',{
-        room:'room',
-      })
+        loginStatus&& socket.current.emit('online',{
+          room:'room',
+        })
       socket.current.on('addUserOnline',(data)=>{
-        console.log(data.onlineUsers)
-        // const id=data.userId
-        // const socketId=data.socketId
-        // const users={
-        //   id,
-        //   socketId
-        // }
-        
-        // dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
         socket.current.emit('changeOnline',{
           users:data.onlineUsers
         })
 
       })
-      socket.current.on('offlineUsers',data=>{
+       socket.current.on('offlineUsers',data=>{
         dispatch(chatActions.userRemover(data.socketId))
       })
-      socket.current.on('isonline',data=>{
+       socket.current.on('isonline',data=>{
      dispatch(chatActions.logoutRemover(data.userId))
     
       })
@@ -123,14 +116,16 @@ console.log(userId)
        socket.current.on('changeIt',(data)=>{
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
        })
-
-       socket.current.on('receiveCall',({from,name,signal})=>{
-       dispatch(videoActions.setIsRecieving(true))
- setCall({from, name, signal });
-      })
+   
+       socket.current.on('recieveCall', ({ from, name: callerName, signal }) => {
+        console.log('recieving call machane do something')
+          fixCall({ from, name: callerName, signal });
+  
+      });
+     
 
     // }
-  },[dispatch,loginStatus])
+  },[dispatch,loginStatus,socketEmiter,socketOn])
 
   const [colorChange,setColorchange]=useState(false);
   const changeNavbarColor = () =>{
@@ -161,50 +156,50 @@ console.log(userId)
 
 
 
- const answerCall=()=>{
-   dispatch(videoActions.setIsRecieving(false))
-  dispatch(videoActions.setCallAccepted())
-  const peer=new Peer({initiator:false,tricke:false,stream})
-  peer.on('signal',data=>{
-    socket.emit('answerCall',{signal:data,to:call.from})
-  });
-  peer.on('stream',(currentStream)=>{
-    userVideo.current.srcObject=currentStream
-  })
-  peer.signal(call.signal)
-  connectionRef.current = peer;
+//  const answerCall=()=>{
+//    dispatch(videoActions.setIsRecieving(false))
+//   dispatch(videoActions.setCallAccepted())
+//   const peer=new Peer({initiator:false,tricke:false,stream})
+//   peer.on('signal',data=>{
+//     socket.emit('answerCall',{signal:data,to:call.from})
+//   });
+//   peer.on('stream',(currentStream)=>{
+//     userVideo.current.srcObject=currentStream
+//   })
+//   peer.signal(call.signal)
+//   connectionRef.current = peer;
 
- }
+//  }
 
 
 
- const callUser=(recieverId,username)=>{
-  console.log('callllling please',recieverId,username)
-  dispatch(videoActions.isCalling())
-  const peer=new Peer({initiator:true,trickle:false,stream})
-  peer.on('error', err => console.log('error', err))
-  console.log(peer)
-  peer.on('signal',(signal)=>{
-    console.log(signal,'signaling happening')
-    socket.current.emit('callUser',{
-      recieverId:recieverId,
-      signalData:signal,
-      name:username
-    })
-  })
+//  const callUser=(recieverId,username)=>{
+//   console.log('callllling please',recieverId,username)
+//   dispatch(videoActions.isCalling())
+//   const peer=new Peer({initiator:true,trickle:false,stream})
+//   peer.on('error', err => console.log('error', err))
+//   console.log(peer)
+//   peer.on('signal',(signal)=>{
+//     console.log(signal,'signaling happening')
+//     socket.current.emit('callUser',{
+//       recieverId:recieverId,
+//       signalData:signal,
+//       name:username
+//     })
+//   })
 
-  peer.on('stream',(currentStream)=>{
-    // dispatch(videoActions.setUserVideo(currentStream))
-    userVideo.current.srcObject=currentStream
-  })
-  socket.current.on('callAccepted',(signal)=>{
-    dispatch(videoActions.setCallAccepted())
-    peer.signal(signal)
-  })
+//   peer.on('stream',(currentStream)=>{
+//     // dispatch(videoActions.setUserVideo(currentStream))
+//     userVideo.current.srcObject=currentStream
+//   })
+//   socket.current.on('callAccepted',(signal)=>{
+//     dispatch(videoActions.setCallAccepted())
+//     peer.signal(signal)
+//   })
 
-  connectionRef.current=peer;
+//   connectionRef.current=peer;
 
-}
+// }
 
   return (
     <div className="App">
@@ -253,7 +248,7 @@ console.log(userId)
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message socket={socket} callUser={callUser}/>
+ <Message socket={socket}/>
 </Route>
 } 
       <Route path='*'>
@@ -263,27 +258,27 @@ console.log(userId)
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>
       </Switch>
-      {loginStatus  &&(isCalling||CallAccepted)&& 
-      <>
+      {/* </Switch> */}
+      {loginStatus  &&(isCalling||callAccepted)&& 
       <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={isCalling||CallAccepted}
+      open={isCalling||callAccepted}
       // onClick={handleClose}
     >
       {/* <CircularProgress color="inherit" /> */}
-   <VideoChat stream={stream} setStream={setStream} userVideo={userVideo}/>
+   <VideoChat />
     </Backdrop>
-    </>
     }
 
-    {callRecieving && 
+
+    {isRecieving && 
     <>
       <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={callRecieving}
+      open={isRecieving}
       // onClick={handleClose}
     >
-   <CallInfo call={call}  answerCall={answerCall}/>
+   <CallInfo  />
    </Backdrop>
     </>
     }
