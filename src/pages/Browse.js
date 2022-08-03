@@ -38,7 +38,7 @@ function Browse() {
         {
           genres.map((genre)=>(
 
-            <Rows screenper={6} genre={genre} />
+            <Rows key={genre} screenper={6} genre={genre} />
           ))
         }
         {/* <Rows screenper={6} genre='Comedy Genre' />

@@ -2,8 +2,9 @@ import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
 
 
 import React from 'react'
-import { useEffect , useRef,useContext} from 'react'
-import { useState } from 'react'
+
+import { useEffect , useRef,useContext,useState} from 'react'
+// import { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { SocketContext } from '../../assets/context';
 import { videoActions } from '../../assets/store/videoSlice';
@@ -28,8 +29,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function VideoChat(props) {
-  const { callAccepted,userVideo, callEnded, stream,leaveCall,fixStream } = useContext(SocketContext);
+  console.log(props)
   const myVideo=useRef();
+  const [stream,setStream]=useState()
+  const { callAccepted,callEnded,leaveCall,fixStream,call } = useContext(SocketContext);
+ 
+
+  // const myVideo=useRef()
+  const userVideo=useRef()
+  console.log(props.userVideo,props.myVideo)
 
   const dispatch=useDispatch();
   // const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
@@ -37,15 +45,15 @@ function VideoChat(props) {
     // const [stream,setStream]=useState()
   // const userVideo = useRef();
   // const connectionRef = useRef();
-  useEffect(()=>{
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-    .then((currentStream) => {
-      // setStream(currentStream);
-      fixStream(currentStream)
-      console.log('setting stream',currentStream)
-      myVideo.current.srcObject = currentStream;
-    });
-  },[])
+  // useEffect(()=>{
+  //   navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  //   .then((currentStream) => {
+  //     // setStream(currentStream);
+  //     fixStream(currentStream)
+  //     console.log('setting stream',currentStream)
+  //     myVideo.current.srcObject = currentStream;
+  //   }).catch((e)=>console.log(e));
+  // },[userVideo])
   
     
   return (
@@ -54,7 +62,7 @@ function VideoChat(props) {
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{'Name'}</Typography>
-          <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
+          <video playsInline muted ref={props.userVideo} autoPlay className={classes.video} />
         </Grid>
       </Paper>
     
@@ -62,14 +70,14 @@ function VideoChat(props) {
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{ 'Name'}</Typography>
-          <video playsInline ref={userVideo} autoPlay className={classes.video} />
+          <video playsInline ref={props.userVideo} autoPlay className={classes.video} />
         </Grid>
       </Paper>
     )}
   </Grid>
   <div style={{display:'grid',gridTemplateColumns:'1fr 1fr'}}>
     <h1>join</h1>
-    <h1 onClick={leaveCall}>end call</h1>
+    <h1 onClick={props.endCall.bind(null,call.from)}>end call</h1>
   </div>
   </div>
 );

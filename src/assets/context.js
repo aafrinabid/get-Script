@@ -20,6 +20,8 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState('');
   const [call, setCall] = useState({});
   const [isRecieving,setIsRecieving]=useState(false)
+  const localConnection=new RTCPeerConnection()
+  const rc=new RTCPeerConnection()
 //   const [me, setMe] = useState('');
 
   const myVideo = useRef();
@@ -73,57 +75,64 @@ if(loginStatus){
 
   }
 
-  const answerCall = () => {
+  // const answerCall = () => {
+  //   setIsRecieving(false)
+  //   setCallAccepted(true);
+
+  //   const peer = new Peer({ initiator: false, trickle: false, stream });
+
+  //   peer.on('signal', (data) => {
+  //     socket.current.emit('answerCall', { signal: data, to: call.from});
+  //   });
+
+  //   peer.on('stream', (currentStream) => {
+  //     userVideo.current.srcObject = currentStream;
+  //   });
+
+  //   peer.signal(call.signal);
+
+  //   connectionRef.current = peer;
+  // };
+  // let peers
+  // const callUser = (id) => {
+  //   setIsCalling(true)
+  //   history.push('/video')
+  //    peers = new Peer({ initiator: true, trickle: false, stream });
+
+  //   peers.on('signal', (data) => {
+  //     socket.current.emit('callUser', { id, signalData: data,peers});
+  //   });
+
+  //   peers.on('stream', (currentStream) => {
+  //     userVideo.current.srcObject = currentStream;
+  //   });
+
+  //   socket.current.on('callAccepted', (signal) => {
+  //     setCallAccepted(true);
+
+  //     peers.signal(signal);
+  //   });
+
+  //   connectionRef.current = peers;
+  // };
+  const answering=()=>{
     setIsRecieving(false)
     setCallAccepted(true);
+  }
 
-    const peer = new Peer({ initiator: false, trickle: false, stream });
-
-    peer.on('signal', (data) => {
-      socket.current.emit('answerCall', { signal: data, to: call.from});
-    });
-
-    peer.on('stream', (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
-
-    peer.signal(call.signal);
-
-    connectionRef.current = peer;
-  };
-  let peers
-  const callUser = (id) => {
-    setIsCalling(true)
-    history.push('/video')
-     peers = new Peer({ initiator: true, trickle: false, stream });
-
-    peers.on('signal', (data) => {
-      socket.current.emit('callUser', { id, signalData: data,peers});
-    });
-
-    peers.on('stream', (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
-
-    socket.current.on('callAccepted', (signal) => {
-      setCallAccepted(true);
-
-      peers.signal(signal);
-    });
-
-    connectionRef.current = peers;
-  };
   const isCallingHandler=()=>{
     setIsCalling(true)
   }
 
-  const callAccepter=()=>{
-    console.log('setting call')
+  const callAccepter=(id)=>{
+    console.log('setting call',id)
+    setCall({from:id})
     setCallAccepted(true);
 
   }
 
  const setConnectionRef=(peer)=>{
+  console.log('setting connection ',peer)
     connectionRef.current=peer
   }
 
@@ -132,12 +141,18 @@ if(loginStatus){
   }
 
   const leaveCall = () => {
-    setCallEnded(true);
 
-    connectionRef.current.destroy();
+    setCallEnded(true);
+    setCallAccepted(false)
+
 
     // window.location.reload();
   };
+const endingCall=()=>{
+  setIsCalling(false)
+  setCallAccepted(false)
+}
+  
   const rejectCall=()=>{
     socket.current.on('sing',data=>{
       console.log('what the hell')
@@ -166,9 +181,172 @@ socket.current.on(name,cb)
   function fixStream(stream){
     setStream(stream)
   }
+  const answerCall = () => {
+    answering()
+    // const rc=new RTCPeerConnection()
+    rc.ondatachannel=e=>{
+      rc.dc=e.channel
+      rc.dc.onmessage=e=>console.log('new message is here',e.data)
+      rc.dc.onopen=e=>{
+        console.log('connection opened')
+        // setConnection(true)
+      }
+    }
+    rc.ontrack=(e)=>{
+      console.log(e)
+      userVideo.current.srcObject=e.streams[0]
+     }
+     rc.addEventListener('track',(e)=>{
+      userVideo.current.srcObject=e.streams[0]
+     },false)
+    // stream.getTracks().forEach(function (track) {
+    //   rc.addTrack(track, stream);
+    // });
+    
+     rc.addEventListener('icegatheringstatechange',(ev)=>{
+      let connection=ev.target;
+      switch(connection.iceGatheringState){
+        case 'gathering':
+          console.log('gathering')
+          break;
+          case  'complete':
+            rc.onicecandidate=e=>{
+              console.log('new ice kittiye')
+             const answer= rc.localDescription
+             console.log(answer)
+             socket.current.emit('answerCall',{signal:answer,to:call.from})        
+            }
+            break;
+      }
+    })
+    console.log(call.signal)
+    const offer=call.signal
+  
+    rc.setRemoteDescription(new RTCSessionDescription(offer)).then(e=>console.log('offer set'))
+    rc.createAnswer().then(a=>rc.setLocalDescription(a)).then(a=>console.log('answer created')).catch(e=>e)
+  
+    stream && stream.getTracks().forEach(function (track) {
+      console.log(track,'trackingg')
+      rc.addTrack(track,stream);
+      localConnection.addTrack(track,stream);
+    });
+  
+  
+  
+  
+  
+  
+    // const peer = new Peer({ initiator: false, trickle: false, stream });
+    // if(call.signal){
+    //     console.log(' trying to signal the offer')
+    //   peer.signal(call.signal);
+    // }
+  
+    // peer.on('signal', (data) => {
+    //   console.log('checking the reciever callings',data)
+    //   socket.current.emit('answerCall', { signal: data, to: call.from});
+    // });
+  
+    // peer.on('stream', (currentStream) => {
+    //   console.log(currentStream,'shounnnnnnnyyyyyyy')
+      
+    //  userVideo.current.srcObject=currentStream;
+    // });
+    
+    // console.log(call.signal)
+    // console.log(peer.signal)
+  
+    connectionRef.current = rc;
+  };
+  const endCall=(id)=>{
+    leaveCall()
+    connectionRef.current.destroy();
+    socket.current.emit('endCall',id)
+  
+  }
+  
+  
+  const callUser = (id) => {
+  
+    isCallingHandler()
+    // const localConnection=new RTCPeerConnection()
+    const sendChannel=localConnection.createDataChannel('sendChannel')
+    sendChannel.onmessage=e=>console.log('message recieved!!!'+e.data)
+    sendChannel.onopen=e=>{
+      console.log('connection opened')
+      // setConnection(true)
+    }
+    // stream.getTracks().forEach(function (track) {
+    //   localConnection.addTrack(track, stream);
+    // });
+  
+    localConnection.ontrack=(e)=>{
+      console.log(e)
+      userVideo.current.srcObject=e.streams[0]
+    }   
+    localConnection.addEventListener('track',(e)=>{
+      userVideo.current.srcObject=e.streams[0]
+     },false)
+    localConnection.createOffer().then(o=>localConnection.setLocalDescription(o)).then(a=>console.log(a,'setSuccesfully'))
+    localConnection.addEventListener('icegatheringstatechange',(ev)=>{
+      let connection=ev.target;
+      switch(connection.iceGatheringState){
+        case 'gathering':
+          console.log('gathering')
+          break;
+          case  'complete':
+            console.log('completeing')
+            localConnection.onicecandidate=e=>{
+              console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
+              // setOffer(JSON.stringify(localConnection.localDescription))
+              const offer=localConnection.localDescription
+              socket.current.emit('callUser', {id, signalData: offer })
+              
+  
+             }
+  
+            break;
+      }
+    })
+    stream && stream.getTracks().forEach(function (track) {
+      console.log(track,'trackingg')
+      localConnection.addTrack(track,stream);
+    });
+  
+  
+  
+  
+    // history.push('/video')
+     const peer = new Peer({ initiator: true, trickle: false, stream });
+  
+    // peer.on('signal', (data) => {
+    //   socket.current.emit('callUser', { id, signalData: data});
+    // });
+  
+    // peer.on('stream', (currentStream) => {
+    //   console.log('useme',currentStream)
+    //   // userVideoHandler(currentStream)
+    //  userVideo.current.srcObject=currentStream;
+      
+    // });
+    // peer.on('connect',()=>{
+    //   peer.send('cooool strytttt')
+    // })
+  
+    socket.current.on('callAccepted', (data) => {
+      callAccepter(data.userId)
+      console.log(data)
+      localConnection.setRemoteDescription(data.signal)
+    
+    });
+  
+    connectionRef.current = localConnection;
+    // setConnectionRef(peer)
+  };
 
   return (
     <SocketContext.Provider value={{
+      endingCall,
       setConnectionRef,
       userVideoHandler,
       callAccepter,
@@ -190,7 +368,8 @@ socket.current.on(name,cb)
       leaveCall,
       answerCall,
       fixStream,
-      fixCall
+      fixCall,
+      answering
     }}
     >
       {children}
