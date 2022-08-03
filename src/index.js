@@ -7,6 +7,7 @@ import { StyledEngineProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './assets/store';
+import { ContextProvider } from './assets/context';
 // const root=document.getElementById('root');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <BrowserRouter>
   <React.StrictMode>
     <Provider store={store}>
+      <ContextProvider>
     <App />
+    </ContextProvider>
     </Provider>
   </React.StrictMode>
   </BrowserRouter>
