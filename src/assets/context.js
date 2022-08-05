@@ -12,6 +12,7 @@ const ContextProvider = ({ children }) => {
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
   const location=useLocation
   const {pathname}=location
+  const [id,setId]=useState('')
   const [signal,setSignal]=useState({})
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
@@ -20,13 +21,16 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState('');
   const [call, setCall] = useState({});
   const [isRecieving,setIsRecieving]=useState(false)
-  const localConnection=new RTCPeerConnection()
-  
+  const [content,setContent]=useState(false)
+  const [count,setCount]=useState(1)
+  const [open,setOpen]=useState(false)
+  const [user,setUser]=useState(0)
 //   const rc=new RTCPeerConnection()
 //   const [me, setMe] = useState('');
 
   const myVideo = useRef();
   const userVideo = useRef();
+  console.log(userVideo)
   const connectionRef = useRef();
   let socket=useRef()
   console.log(socket)
@@ -40,28 +44,187 @@ if(loginStatus){
     },
     
 })
+
+
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+.then((currentStream) => {
+setStream(currentStream);
+  console.log('setting stream',currentStream)
+  myVideo.current.srcObject = currentStream;
+}).then(res=>{ 
+    setContent(true)
+    // setCount(prev=>prev+1)
+ 
+
+})
+console.log(count,content)
+if(isCalling&&id){
+
+    const localConnection=new RTCPeerConnection()
+   
+    const sendChannel=localConnection.createDataChannel('sendChannel')
+    sendChannel.onmessage=e=>console.log('message recieved!!!'+e.data)
+    sendChannel.onopen=e=>{
+      console.log('connection opened')
+      stream.getTracks().forEach(function (track) {
+        console.log(track,'trackingg')
+        localConnection.addTrack(track,stream);
+      });
+      localConnection.ontrack=(e)=>{
+        console.log(e)
+        userVideo.current.srcObject=e.streams[0]
+       }
+      // setConnection(true)
+    }
+    // localConnection.addEventListener('track',(e)=>{
+    //     console.log(e.streams[0])
+    //     userVideo.current.srcObject=e.streams[0]
+    //    },false)
+      
+      localConnection.createOffer().then(o=>localConnection.setLocalDescription(o)).then(a=>console.log(a,'setSuccesfully'))
+      localConnection.addEventListener('icegatheringstatechange',(ev)=>{
+        let connection=ev.target;
+        switch(connection.iceGatheringState){
+          case 'gathering':
+            console.log('gathering')
+            break;
+            case  'complete':
+              console.log('completeing')
+              localConnection.onicecandidate=e=>{
+                console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
+                // setOffer(JSON.stringify(localConnection.localDescription))
+                const offer=localConnection.localDescription
+                setUser(prev=>prev+1)
+                socket.current.emit('callUser', {id, signalData: offer })
+                
+    
+               }
+    
+              break;
+        }
+      })
+     
+
+      socket.current.on('callAccepted', (data) => {
+        console.log(data,'accccepting the calll hurrray')
+        localConnection.setRemoteDescription(data.signal)
+        callAccepter(data.userId)
+        setIsCalling(false)
+        
+      
+      });
+    
+    
+    
+    
+     
+    
+    
+    
+      connectionRef.current = localConnection;
+}
+if(!isRecieving&&callAccepted&&!open&&user===0){
+    const rc=new RTCPeerConnection()
+  
+    rc.ondatachannel=e=>{
+      rc.dc=e.channel
+      rc.dc.onmessage=e=>console.log('new message is here',e.data)
+      rc.dc.onopen=e=>{
+        setOpen(true)
+        console.log('connection opened')
+        stream.getTracks().forEach(function (track) {
+            console.log(track,'trackingg')
+            rc.addTrack(track,stream);
+          });
+          rc.ontrack=(e)=>{
+            console.log(e)
+            userVideo.current.srcObject=e.streams[0]
+           }
+
+        // setConnection(true)
+      }
+    }
+  
+    //  rc.addEventListener('track',(e)=>{
+    //     console.log(e.streams[0])
+    //   userVideo.current.srcObject=e.streams[0]
+    //  },false)
+    // stream.getTracks().forEach(function (track) {
+    //   rc.addTrack(track, stream);
+    // });
+    
+     rc.addEventListener('icegatheringstatechange',(ev)=>{
+      let connection=ev.target;
+      switch(connection.iceGatheringState){
+        case 'gathering':
+          console.log('gathering')
+          break;
+          case  'complete':
+            rc.onicecandidate=e=>{
+              console.log('new ice kittiye')
+             const answer= rc.localDescription
+             console.log(answer)
+             socket.current.emit('answerCall',{signal:answer,to:call.from,socketId:call.socketId,roomId:call.roomId})        
+            }
+            break;
+      }
+    })
+    console.log(call.signal)
+    const offer=call.signal
+  
+    rc.setRemoteDescription(new RTCSessionDescription(offer)).then(e=>console.log('offer set'))
+    rc.createAnswer().then(a=>rc.setLocalDescription(a)).then(a=>console.log('answer created')).catch(e=>e)
+  
+   
+  
+  
+  
+  
+  
+  
+    // const peer = new Peer({ initiator: false, trickle: false, stream });
+    // if(call.signal){
+    //     console.log(' trying to signal the offer')
+    //   peer.signal(call.signal);
+    // }
+  
+    // peer.on('signal', (data) => {
+    //   console.log('checking the reciever callings',data)
+    //   socket.current.emit('answerCall', { signal: data, to: call.from});
+    // });
+  
+    // peer.on('stream', (currentStream) => {
+    //   console.log(currentStream,'shounnnnnnnyyyyyyy')
+      
+    //  userVideo.current.srcObject=currentStream;
+    // });
+    
+    // console.log(call.signal)
+    // console.log(peer.signal)
+  
+    connectionRef.current = rc;
+
+}
 // }
 // socketEmiter('online',{
 //   room:'room',
 // })
+
     
     socket.current.emit('joinVideo')
     // socket.on('me', (id) => setMe(id));
-    socket.current.on('recieveCall', ({ from, name: callerName, signal }) => {
-      console.log('recieving call machane do something')
-        setCall({ from, name: callerName, signal });
+ 
 
-    });
-
-    socket.current.on('recieveCall', ({ from,signal,socketId }) => {
-      console.log('recieving call machane do something')
+    socket.current.on('recieveCall', ({ from,signal,socketId,roomId}) => {
+      console.log('recieving call machane do something',from,signal,socketId)
         setIsRecieving(true)
-        setCall({ from, signal,socketId });
+        setCall({ from, signal,socketId,roomId });
 
     });
+   
   }
  
-  }, [loginStatus,isRecieving,isCalling,callAccepted]);
+  }, [loginStatus,isRecieving,isCalling,callAccepted,id,open]);
   
  const fixStream=(stream)=>{
 setStream(stream)
@@ -77,7 +240,7 @@ setStream(stream)
     // callAccepter(userId)
     console.log('setting answer ',signal)
     const answer=new RTCSessionDescription(signal)
-    localConnection.setRemoteDescription(answer)
+    // localConnection.setRemoteDescription(answer)
   }
 
   
@@ -141,79 +304,80 @@ const endingCall=()=>{
     // answering()
     setIsRecieving(false)
     setCallAccepted(true)
-    const rc=new RTCPeerConnection()
-    rc.ondatachannel=e=>{
-      rc.dc=e.channel
-      rc.dc.onmessage=e=>console.log('new message is here',e.data)
-      rc.dc.onopen=e=>{
-        console.log('connection opened')
-        // setConnection(true)
-      }
-    }
-    rc.ontrack=(e)=>{
-      console.log(e)
-      userVideo.current.srcObject=e.streams[0]
-     }
-     rc.addEventListener('track',(e)=>{
-      userVideo.current.srcObject=e.streams[0]
-     },false)
-    // stream.getTracks().forEach(function (track) {
-    //   rc.addTrack(track, stream);
-    // });
-    
-     rc.addEventListener('icegatheringstatechange',(ev)=>{
-      let connection=ev.target;
-      switch(connection.iceGatheringState){
-        case 'gathering':
-          console.log('gathering')
-          break;
-          case  'complete':
-            rc.onicecandidate=e=>{
-              console.log('new ice kittiye')
-             const answer= rc.localDescription
-             console.log(answer)
-             socket.current.emit('answerCall',{signal:answer,to:call.from,socket})        
-            }
-            break;
-      }
-    })
-    console.log(call.signal)
-    const offer=call.signal
-  
-    rc.setRemoteDescription(new RTCSessionDescription(offer)).then(e=>console.log('offer set'))
-    rc.createAnswer().then(a=>rc.setLocalDescription(a)).then(a=>console.log('answer created')).catch(e=>e)
-  
-    stream.getTracks().forEach(function (track) {
-      console.log(track,'trackingg')
-      rc.addTrack(track,stream);
-    });
-  
-  
-  
-  
-  
-  
-    // const peer = new Peer({ initiator: false, trickle: false, stream });
-    // if(call.signal){
-    //     console.log(' trying to signal the offer')
-    //   peer.signal(call.signal);
+    // const rc=new RTCPeerConnection()
+    // rc.ondatachannel=e=>{
+    //   rc.dc=e.channel
+    //   rc.dc.onmessage=e=>console.log('new message is here',e.data)
+    //   rc.dc.onopen=e=>{
+    //     console.log('connection opened')
+    //     // setConnection(true)
+    //   }
     // }
-  
-    // peer.on('signal', (data) => {
-    //   console.log('checking the reciever callings',data)
-    //   socket.current.emit('answerCall', { signal: data, to: call.from});
-    // });
-  
-    // peer.on('stream', (currentStream) => {
-    //   console.log(currentStream,'shounnnnnnnyyyyyyy')
-      
-    //  userVideo.current.srcObject=currentStream;
-    // });
+    // // rc.ontrack=(e)=>{
+    // //   console.log(e)
+    // //   userVideo.current.srcObject=e.streams[0]
+    // //  }
+    //  rc.addEventListener('track',(e)=>{
+    //     console.log(e.streams[0])
+    //   userVideo.current.srcObject=e.streams[0]
+    //  },false)
+    // // stream.getTracks().forEach(function (track) {
+    // //   rc.addTrack(track, stream);
+    // // });
     
+    //  rc.addEventListener('icegatheringstatechange',(ev)=>{
+    //   let connection=ev.target;
+    //   switch(connection.iceGatheringState){
+    //     case 'gathering':
+    //       console.log('gathering')
+    //       break;
+    //       case  'complete':
+    //         rc.onicecandidate=e=>{
+    //           console.log('new ice kittiye')
+    //          const answer= rc.localDescription
+    //          console.log(answer)
+    //          socket.current.emit('answerCall',{signal:answer,to:call.from,socketId:call.socketId,roomId:call.roomId})        
+    //         }
+    //         break;
+    //   }
+    // })
     // console.log(call.signal)
-    // console.log(peer.signal)
+    // const offer=call.signal
   
-    connectionRef.current = rc;
+    // rc.setRemoteDescription(new RTCSessionDescription(offer)).then(e=>console.log('offer set'))
+    // rc.createAnswer().then(a=>rc.setLocalDescription(a)).then(a=>console.log('answer created')).catch(e=>e)
+  
+    // stream.getTracks().forEach(function (track) {
+    //   console.log(track,'trackingg')
+    //   rc.addTrack(track,stream);
+    // });
+  
+  
+  
+  
+  
+  
+    // // const peer = new Peer({ initiator: false, trickle: false, stream });
+    // // if(call.signal){
+    // //     console.log(' trying to signal the offer')
+    // //   peer.signal(call.signal);
+    // // }
+  
+    // // peer.on('signal', (data) => {
+    // //   console.log('checking the reciever callings',data)
+    // //   socket.current.emit('answerCall', { signal: data, to: call.from});
+    // // });
+  
+    // // peer.on('stream', (currentStream) => {
+    // //   console.log(currentStream,'shounnnnnnnyyyyyyy')
+      
+    // //  userVideo.current.srcObject=currentStream;
+    // // });
+    
+    // // console.log(call.signal)
+    // // console.log(peer.signal)
+  
+    // connectionRef.current = rc;
   };
   const endCall=(id)=>{
     leaveCall()
@@ -224,80 +388,75 @@ const endingCall=()=>{
   
   
   const callUser = (id) => {
-  
+     setId(id)
     // isCallingHandler()
     setIsCalling(true)
-    const sendChannel=localConnection.createDataChannel('sendChannel')
-    sendChannel.onmessage=e=>console.log('message recieved!!!'+e.data)
-    sendChannel.onopen=e=>{
-      console.log('connection opened')
-      // setConnection(true)
-    }
-    // stream.getTracks().forEach(function (track) {
-    //   localConnection.addTrack(track, stream);
-    // });
+    // const sendChannel=localConnection.createDataChannel('sendChannel')
+    // sendChannel.onmessage=e=>console.log('message recieved!!!'+e.data)
+    // sendChannel.onopen=e=>{
+    //   console.log('connection opened')
+    //   // setConnection(true)
+    // }
+    // // stream.getTracks().forEach(function (track) {
+    // //   localConnection.addTrack(track, stream);
+    // // });
   
-    // localConnection.ontrack=(e)=>{
-    //   console.log(e)
+    // // localConnection.ontrack=(e)=>{
+    // //   console.log(e)
+    // //   userVideo.current.srcObject=e.streams[0]
+    // // }   
+    // localConnection.addEventListener('track',(e)=>{
     //   userVideo.current.srcObject=e.streams[0]
-    // }   
-    localConnection.addEventListener('track',(e)=>{
-      userVideo.current.srcObject=e.streams[0]
-     },false)
-    localConnection.createOffer().then(o=>localConnection.setLocalDescription(o)).then(a=>console.log(a,'setSuccesfully'))
-    localConnection.addEventListener('icegatheringstatechange',(ev)=>{
-      let connection=ev.target;
-      switch(connection.iceGatheringState){
-        case 'gathering':
-          console.log('gathering')
-          break;
-          case  'complete':
-            console.log('completeing')
-            localConnection.onicecandidate=e=>{
-              console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
-              // setOffer(JSON.stringify(localConnection.localDescription))
-              const offer=localConnection.localDescription
-              socket.current.emit('callUser', {id, signalData: offer })
+    //  },false)
+    // localConnection.createOffer().then(o=>localConnection.setLocalDescription(o)).then(a=>console.log(a,'setSuccesfully'))
+    // localConnection.addEventListener('icegatheringstatechange',(ev)=>{
+    //   let connection=ev.target;
+    //   switch(connection.iceGatheringState){
+    //     case 'gathering':
+    //       console.log('gathering')
+    //       break;
+    //       case  'complete':
+    //         console.log('completeing')
+    //         localConnection.onicecandidate=e=>{
+    //           console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
+    //           // setOffer(JSON.stringify(localConnection.localDescription))
+    //           const offer=localConnection.localDescription
+    //           socket.current.emit('callUser', {id, signalData: offer })
               
   
-             }
+    //          }
   
-            break;
-      }
-    })
-    stream.getTracks().forEach(function (track) {
-      console.log(track,'trackingg')
-      localConnection.addTrack(track,stream);
-    });
-  
-  
-  
-  
-    // history.push('/video')
-    //  const peer = new Peer({ initiator: true, trickle: false, stream });
-  
-    // peer.on('signal', (data) => {
-    //   socket.current.emit('callUser', { id, signalData: data});
-    // });
-  
-    // peer.on('stream', (currentStream) => {
-    //   console.log('useme',currentStream)
-    //   // userVideoHandler(currentStream)
-    //  userVideo.current.srcObject=currentStream;
-      
-    // });
-    // peer.on('connect',()=>{
-    //   peer.send('cooool strytttt')
+    //         break;
+    //   }
     // })
+    // stream.getTracks().forEach(function (track) {
+    //   console.log(track,'trackingg')
+    //   localConnection.addTrack(track,stream);
+    // });
   
-    socket.current.on('callAccepted', (data) => {
-      callAccepter(data.userId)
-      console.log(data)
-      localConnection.setRemoteDescription(data.signal)
-    
-    });
   
-    connectionRef.current = localConnection;
+  
+  
+    // // history.push('/video')
+    // //  const peer = new Peer({ initiator: true, trickle: false, stream });
+  
+    // // peer.on('signal', (data) => {
+    // //   socket.current.emit('callUser', { id, signalData: data});
+    // // });
+  
+    // // peer.on('stream', (currentStream) => {
+    // //   console.log('useme',currentStream)
+    // //   // userVideoHandler(currentStream)
+    // //  userVideo.current.srcObject=currentStream;
+      
+    // // });
+    // // peer.on('connect',()=>{
+    // //   peer.send('cooool strytttt')
+    // // })
+  
+  
+  
+    // connectionRef.current = localConnection;
     // setConnectionRef(peer)
   };
 

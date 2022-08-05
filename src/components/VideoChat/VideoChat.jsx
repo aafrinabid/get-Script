@@ -29,17 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 function VideoChat(props) {
   const classes=useStyles()
-  const myVideo=useRef()
-  const {userVideo,endCall,stream,callAccepted,fixStream}=useContext(SocketContext)
-  useEffect(()=>{
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-    .then((currentStream) => {
-  fixStream(currentStream);
-      console.log('setting stream',currentStream)
-      myVideo.current.srcObject = currentStream;
-    });
-  },[])
-
+  // const myVideo=useRef()
+  const {myVideo,userVideo,endCall,stream,callAccepted,fixStream}=useContext(SocketContext)
+  console.log(userVideo)
 
     
   return (
