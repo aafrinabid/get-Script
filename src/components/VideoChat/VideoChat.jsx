@@ -1,11 +1,12 @@
 import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
 
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect , useRef} from 'react'
 import { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { videoActions } from '../../assets/store/videoSlice';
+import { SocketContext } from '../../assets/context';
 const useStyles = makeStyles((theme) => ({
   video: {
     width: '550px',
@@ -27,27 +28,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function VideoChat(props) {
-  const dispatch=useDispatch();
-  const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
   const classes=useStyles()
-    // const [stream,setStream]=useState()
-    const myVideo = useRef();
-  // const userVideo = useRef();
-  // const connectionRef = useRef();
-    useEffect(()=>{
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        .then((currentStream) => {
-          // setStream(currentStream);
-          // dispatch(videoActions.setStream(currentStream))  
-          props.setStream(currentStream)
-          myVideo.current.srcObject = currentStream;
-        });
-    },[])
+  // const myVideo=useRef()
+  const {myVideo,userVideo,endCall,stream,callAccepted,fixStream}=useContext(SocketContext)
+  console.log(userVideo)
 
     
   return (
     <Grid container className={classes.gridContainer}>
-    {props.stream && (
+    {stream && (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{'Name'}</Typography>
@@ -55,11 +44,11 @@ function VideoChat(props) {
         </Grid>
       </Paper>
     )}
-    {CallAccepted && (
+    {callAccepted && (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{ 'Name'}</Typography>
-          <video playsInline ref={props.userVideo} autoPlay className={classes.video} />
+          <video playsInline ref={userVideo} autoPlay className={classes.video} />
         </Grid>
       </Paper>
     )}

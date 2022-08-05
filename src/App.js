@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState,useRef, useContext } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
@@ -22,19 +22,12 @@ import VideoChat from './components/VideoChat/VideoChat';
 import { videoActions } from './assets/store/videoSlice';
 import Peer from 'simple-peer';
 import CallInfo from './components/call/CallInfo';
-
+import {SocketContext} from './assets/context'
+import { data } from 'autoprefixer';
 
 
 function App() {
-  const userVideo=useRef()
-  const myVideo=useRef()
-  const connectionRef=useRef()
-  const [call, setCall] = useState({});
-  const [stream,setStream]=useState()
-  console.log(call)
-  const isCalling=useSelector(state=>state.videoHandler.calling)
-  const callRecieving=useSelector(state=>state.videoHandler.recieving)
-  const CallAccepted=useSelector(state=>state.videoHandler.CallAccepted)
+  const { callAccepted,isCalling,isRecieving,setAnswer}=useContext(SocketContext)
   const [open, setOpen] =useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -124,10 +117,12 @@ console.log(userId)
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
        })
 
-       socket.current.on('receiveCall',({from,name,signal})=>{
-       dispatch(videoActions.setIsRecieving(true))
- setCall({from, name, signal });
-      })
+       socket.current.on('callAccepted',(data)=>{
+        console.log(data,'call accepeter')
+        setAnswer(data.signal)
+       })
+
+      
 
     // }
   },[dispatch,loginStatus])
@@ -161,50 +156,11 @@ console.log(userId)
 
 
 
- const answerCall=()=>{
-   dispatch(videoActions.setIsRecieving(false))
-  dispatch(videoActions.setCallAccepted())
-  const peer=new Peer({initiator:false,tricke:false,stream})
-  peer.on('signal',data=>{
-    socket.emit('answerCall',{signal:data,to:call.from})
-  });
-  peer.on('stream',(currentStream)=>{
-    userVideo.current.srcObject=currentStream
-  })
-  peer.signal(call.signal)
-  connectionRef.current = peer;
-
- }
+ 
 
 
 
-//  const callUser=(recieverId,username)=>{
-//   console.log('callllling please',recieverId,username)
-//   dispatch(videoActions.isCalling())
-//   const peer=new Peer({initiator:true,trickle:false,stream})
-//   peer.on('error', err => console.log('error', err))
-//   console.log(peer)
-//   peer.on('signal',(signal)=>{
-//     console.log(signal,'signaling happening')
-//     socket.current.emit('callUser',{
-//       recieverId:recieverId,
-//       signalData:signal,
-//       name:username
-//     })
-//   })
 
-//   peer.on('stream',(currentStream)=>{
-//     // dispatch(videoActions.setUserVideo(currentStream))
-//     userVideo.current.srcObject=currentStream
-//   })
-//   socket.current.on('callAccepted',(signal)=>{
-//     dispatch(videoActions.setCallAccepted())
-//     peer.signal(signal)
-//   })
-
-//   connectionRef.current=peer;
-
-// }
 
   return (
     <div className="App">
@@ -253,7 +209,7 @@ console.log(userId)
 {loginStatus&& 
  <Route path='/chat/t'>
   {console.log('message')}
- <Message socket={socket}  stream={stream} connectionRef={connectionRef} userVideo={userVideo}/>
+ <Message socket={socket}  />
 </Route>
 } 
       <Route path='*'>
@@ -263,27 +219,27 @@ console.log(userId)
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>
       </Switch>
-      {loginStatus  &&(isCalling||CallAccepted)&& 
+      {loginStatus  &&(isCalling||callAccepted)&& 
       <>
       <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={isCalling||CallAccepted}
+      open={isCalling||callAccepted}
       // onClick={handleClose}
     >
       {/* <CircularProgress color="inherit" /> */}
-   <VideoChat stream={stream} setStream={setStream} userVideo={userVideo}/>
+   <VideoChat/>
     </Backdrop>
     </>
     }
 
-    {callRecieving && 
+    {isRecieving && 
     <>
       <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={callRecieving}
+      open={isRecieving}
       // onClick={handleClose}
     >
-   <CallInfo call={call}  answerCall={answerCall}/>
+   <CallInfo />
    </Backdrop>
     </>
     }
