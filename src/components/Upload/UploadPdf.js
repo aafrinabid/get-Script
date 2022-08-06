@@ -155,29 +155,38 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         }
         
          function post(details) {
+          console.log(details)
           const form = buildForm(details)
           document.body.appendChild(form)
           form.submit()
           form.remove()
         }
         
-        const getData=async(data)=>{
-          
-const response=await axios.post('http://localhost:3500/payment',data)   
-       return response.data
+        const getData=(data)=>{
+
+          return fetch(`http://localhost:3500/payment`,{
+            method:"POST",
+            headers:{
+                Accept:"application/json",
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        }).then(response=>response.json()).catch(err=>console.log(err))
       }
          
 
 
-       const makePayment=async()=>
+       const makePayment=()=>
     {
-const response=await getData({amount:500,email:'abc@gmail.com'})
- console.log(response)
-  //   var information={
-  //       action:"https://securegw-stage.paytm.in/order/process",
-  //       params:response
-  //   }
-  // post(information)
+      getData({amount:500,email:'abc@gmail.com'}).then(response=>{
+ 
+        var information={
+            action:"https://securegw-stage.paytm.in/order/process",
+            params:response
+        }
+      post(information)
+    
+    })
   
 
     }
