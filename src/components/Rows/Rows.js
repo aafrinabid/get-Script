@@ -60,6 +60,9 @@ function Rows(props) {
           //  borderRadius:'1px',
           //  borderColor:'red'
           border:'1px solid red',
+          display:'grid',
+          gridTemplateColumns:'1fr',
+          gridTemplateRows:'80% 18% 2%'
           // backgroundSize: '111%'
 
        };
@@ -121,11 +124,18 @@ setIsLoading(false)
  <SwiperSlide>
   {/* <div style={{borderRadius:'2px',borderColor:'red'}}> */}
   <div className={classes.poster}style={backgroundChanger(script.script_poster,script.featured)} onClick={details.bind(null,script.script_id)}>
-  <div style={{display:'grid',gridTemplateColumns:'1fr',gridTemplateRows:'2fr 1fr'}}>
+  {/* <div style={{display:'grid',gridTemplateColumns:'1fr',gridTemplateRows:'2fr 1fr'}}> */}
  <h1 className="text-white">{script.script_title}</h1>
+ {
+  script.featured?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
+    {/* <h3 style={{color:'black',textAlign:'end',backgroundColor:'red',marginRight:'110px',paddingBottom:'50px'}}> */}
+      FEATURED
+      {/* </h3> */}
+      </div>:''
+ }
 
  {/* </div> */}
- </div> 
+ {/* </div>  */}
  </div>
  {/* </div> */}
   </SwiperSlide>
