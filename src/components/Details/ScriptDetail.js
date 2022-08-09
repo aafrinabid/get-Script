@@ -7,14 +7,18 @@ import ScriptTable from './ScriptTable';
 import ScriptPdf from './ScriptPdf'
 import Rows from '../Rows/Rows';
 import Button from '@mui/material/Button';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
 function ScriptDetail() {
+    const history=useHistory();
     const params=useParams()
     const [detail,setDetail]=useState([]);
     const [genres,setGenres]=useState([])
+    const [scriptwriterId,setScriptwriterId]=useState('')
+    const [userId,setUserId]=useState('')
+    const [featured,setFeatured]=useState(false)
     console.log(genres)
     console.log(detail.script_id)
     // const genres=detail.genres
@@ -22,6 +26,21 @@ function ScriptDetail() {
     const [isLoading,setIsLoading]=useState(false)
     const {scriptId}=params
     console.log(scriptId)
+    useEffect(()=>{
+        axios.get('http://localhost:3500/getId',{
+          headers:{
+            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+          }
+        }).then(res=>{
+          console.log(res.data)
+          // userId=res.data.userId
+        //   role=res.data.role
+          setUserId(res.data.userId)
+          // const recId=r
+        })
+   
+    },[])
+
     useEffect(()=>{
        setIsLoading(true)
         axios.get('http://localhost:3500/scriptdetails',{
@@ -32,8 +51,11 @@ function ScriptDetail() {
             console.log(res.data)
             setDetail(res.data.result)
             setGenres(res.data.result.genres)
+            setScriptwriterId(res.data.result.id)
+            setFeatured(res.data.result.featured)
             setIsLoading(false)
-       
+            
+            
         }).catch(e=>{
             setIsLoading(false)
             console.log(e,'poppppppssssss')
@@ -51,6 +73,9 @@ function ScriptDetail() {
         console.log('closssing')
         setSeenScript((prevSeen=>!prevSeen))
     }
+    const paymentHandler=()=>{
+        history.push(`/featured/${scriptId}`)
+    }
 
   return (
     <div className={classes.scriptdetails}>
@@ -66,6 +91,9 @@ function ScriptDetail() {
         <div className='bg-inherit'>
        {!seenScript && <Button variant='contained' className='bg-black text-white my-3' onClick={scriptClickHandler}>Script Preview</Button>} 
         {seenScript && <ScriptPdf detail={detail} className='pt-4' scriptHandler={scriptClickHandler}/>}
+        </div> 
+        <div className='bg-inherit'>
+       { userId===scriptwriterId && !featured && <Button variant='contained' className='bg-black text-white my-3' onClick={paymentHandler}>Get Featured</Button>} 
         </div> 
         <div className={classes.suggestrows}>
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
