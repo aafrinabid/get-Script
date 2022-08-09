@@ -43,8 +43,9 @@ function Rows(props) {
            height:'110px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '100%',
+           backgroundSize: 'cover',
            backgroundRepeat: 'no-repeat',
+          //  backgroundSize: '111%'
            
        };
     }  else{
@@ -54,11 +55,13 @@ function Rows(props) {
            height:'110px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '100%',
+           backgroundSize: 'cover',
            backgroundRepeat: 'no-repeat',
           //  borderRadius:'1px',
           //  borderColor:'red'
-          border:'1px solid red'
+          border:'1px solid red',
+          // backgroundSize: '111%'
+
        };
 
     }
