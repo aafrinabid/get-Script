@@ -14,7 +14,7 @@ function ScriptCard(props) {
            height:'400px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
-           backgroundSize: '100%',
+          //  backgroundSize: 'cover',
            backgroundRepeat: 'no-repeat',
        };
   return (

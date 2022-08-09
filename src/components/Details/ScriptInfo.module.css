@@ -1,14 +1,15 @@
 .content{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    height: 30vh;
+    /* height: 30vh; */
     background-color: rgb(37, 36, 36);
     justify-content: left;
 }
 
 .miniposter{
-    height: 140px;
+    height: 200px;
     width: 50%;
+    border-radius: 25px;
 }
 
 .details{
