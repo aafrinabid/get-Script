@@ -95,7 +95,9 @@ setIsLoading(false)
 >
   {isLoading && <h1>loading ...</h1>}
   {!isLoading && scripts.map(script=>(
- <SwiperSlide><div className={classes.poster}style={backgroundChanger(script.script_poster)} onClick={details.bind(null,script.script_id)}> <h1 className="text-white">{script.script_title}</h1></div> </SwiperSlide>
+ <SwiperSlide><div className={classes.poster}style={backgroundChanger(script.script_poster)} onClick={details.bind(null,script.script_id)}>{
+  script.featured?<h3 style={{color:'red',textAlign:'end'}}>FEATURED</h3>:''
+ } <h1 className="text-white">{script.script_title}</h1></div> </SwiperSlide>
 //  <SwiperSlide><div className={classes.poster}  onClick={details.bind(null,script.script_id)}> </div> </SwiperSlide>
 ))}
     {/* <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
