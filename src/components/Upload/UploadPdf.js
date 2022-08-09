@@ -95,9 +95,11 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
           }
         }).then(res=>{
           if(res.data.uploaded){
+            console.log(res.data)
             // dispatch(formAction.nextStepHandler())
             dispatch(formAction.submitFormHandler())
-            history.push('/')
+            // history.push('/chat/t')
+            history.push(`/featured/${res.data.scriptId}`)
           }else{
             throw new Error('some issue at our end please try again after some time')
           }
@@ -121,75 +123,75 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         //     setFiles(file)
         //     console.log(files)
         // }
-        function isDate(val) {
-          // Cross realm comptatible
-          return Object.prototype.toString.call(val) === '[object Date]'
-        }
+    //     function isDate(val) {
+    //       // Cross realm comptatible
+    //       return Object.prototype.toString.call(val) === '[object Date]'
+    //     }
         
-        function isObj(val) {
-          return typeof val === 'object'
-        }
+    //     function isObj(val) {
+    //       return typeof val === 'object'
+    //     }
         
-         function stringifyValue(val) {
-          if (isObj(val) && !isDate(val)) {
-            return JSON.stringify(val)
-          } else {
-            return val
-          }
-        }
+    //      function stringifyValue(val) {
+    //       if (isObj(val) && !isDate(val)) {
+    //         return JSON.stringify(val)
+    //       } else {
+    //         return val
+    //       }
+    //     }
         
-        function buildForm({ action, params }) {
-          const form = document.createElement('form')
-          form.setAttribute('method', 'post')
-          form.setAttribute('action', action)
+    //     function buildForm({ action, params }) {
+    //       const form = document.createElement('form')
+    //       form.setAttribute('method', 'post')
+    //       form.setAttribute('action', action)
         
-          Object.keys(params).forEach(key => {
-            const input = document.createElement('input')
-            input.setAttribute('type', 'hidden')
-            input.setAttribute('name', key)
-            input.setAttribute('value', stringifyValue(params[key]))
-            form.appendChild(input)
-          })
+    //       Object.keys(params).forEach(key => {
+    //         const input = document.createElement('input')
+    //         input.setAttribute('type', 'hidden')
+    //         input.setAttribute('name', key)
+    //         input.setAttribute('value', stringifyValue(params[key]))
+    //         form.appendChild(input)
+    //       })
         
-          return form
-        }
+    //       return form
+    //     }
         
-         function post(details) {
-          console.log(details)
-          const form = buildForm(details)
-          document.body.appendChild(form)
-          form.submit()
-          form.remove()
-        }
+    //      function post(details) {
+    //       console.log(details)
+    //       const form = buildForm(details)
+    //       document.body.appendChild(form)
+    //       form.submit()
+    //       form.remove()
+    //     }
         
-        const getData=(data)=>{
+    //     const getData=(data)=>{
 
-          return fetch(`http://localhost:3500/payment`,{
-            method:"POST",
-            headers:{
-                Accept:"application/json",
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(data)
-        }).then(response=>response.json()).catch(err=>console.log(err))
-      }
+    //       return fetch(`http://localhost:3500/payment`,{
+    //         method:"POST",
+    //         headers:{
+    //             Accept:"application/json",
+    //             "Content-Type":"application/json"
+    //         },
+    //         body:JSON.stringify(data)
+    //     }).then(response=>response.json()).catch(err=>console.log(err))
+    //   }
          
 
 
-       const makePayment=()=>
-    {
-      getData({amount:500,email:'abc@gmail.com'}).then(response=>{
+    //    const makePayment=()=>
+    // {
+    //   getData({amount:500,email:'abc@gmail.com'}).then(response=>{
  
-        var information={
-            action:"https://securegw-stage.paytm.in/order/process",
-            params:response
-        }
-      post(information)
+    //     var information={
+    //         action:"https://securegw-stage.paytm.in/order/process",
+    //         params:response
+    //     }
+    //   post(information)
     
-    })
+    // })
   
 
-    }
+    // }
   return (
     <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>
@@ -234,10 +236,10 @@ inputProps={{ className: classes.input }}
 
 
 </div>
-<div>
+{/* <div>
   <h1>Want your script to get fearured ???</h1>
   <button onClick={makePayment}>click here</button>
-</div>
+</div> */}
 
   
    

@@ -1,0 +1,10 @@
+.payment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature{
+    display: grid;
+    grid-template-columns: 1fr;
+}
