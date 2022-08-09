@@ -16,6 +16,7 @@ import { authActions } from './assets/store/authSlice';
 import Message from './pages/Message'
 import {io} from 'socket.io-client';
 import { chatActions } from './assets/store/chatSlice';
+import Featured from './pages/Featured';
 
 
 
@@ -183,12 +184,18 @@ console.log(userId)
  <Message socket={socket}/>
 </Route>
 } 
+
+<Route path='/featured/:scriptId'>
+        <Featured />
+      </Route>
+
       <Route path='*'>
 
         {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}
         {console.log(loginStatus)}
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>
+
       </Switch>
 
       
