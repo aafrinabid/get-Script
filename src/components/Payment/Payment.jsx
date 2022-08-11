@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
-
+import {useHistory} from 'react-router-dom'
 function Payment() {
+  const history=useHistory()
     const params=useParams()
     const {scriptId}=params
     const [price,setPrice]=useState(500)
@@ -99,30 +100,37 @@ function Payment() {
 
   }
 
-  const makeStripePayment=(token)=>{
-    const body={
-      token,
-      product:{
-        price,
-        id:scriptId
+  const makeStripePayment=async(token)=>{
+    try{
+      const body={
+        token,
+        product:{
+          price,
+          id:scriptId
+        }
       }
+  
+      // const headers={
+      //   "Content-Type":'application/json'
+      // }
+  
+      const result=await axios.post(`http://localhost:3500/paymentstripe`,body)
+      console.log(result)
+
+      // .then(res=>{
+      //   console.log('RESPONSE',res)
+      //   const {status}=res
+      //   console.log(status)
+      //   if(status===200){
+      //     console.log(res.data)
+      //     history.push('/')
+      //   }
+  
+      // })
+     
+    }catch(e){
+      console.log(e)
     }
-
-    const headers={
-      "Content-Type":'application/json'
-    }
-
-    return fetch(`http://localhost:3500/paymentstripe`,{
-      method:'POST',
-      headers,
-      body:JSON.stringify(body)
-    }).then(res=>{
-      console.log('RESPONSE',res.data)
-      const {status}=res
-      console.log(status)
-
-    })
-    .catch(err=>console.log(err))
 
   }
   return (
