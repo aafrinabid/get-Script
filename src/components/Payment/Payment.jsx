@@ -5,10 +5,12 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
+import StripeCheckout from 'react-stripe-checkout'
 
 function Payment() {
     const params=useParams()
     const {scriptId}=params
+    const [price,setPrice]=useState(500)
     const [email,setEmail]=useState('')
     console.log(email)
     useEffect(() => {
@@ -92,7 +94,35 @@ function Payment() {
     post(information)
   
   })
+  
 
+
+  }
+
+  const makeStripePayment=(token)=>{
+    const body={
+      token,
+      product:{
+        price,
+        id:scriptId
+      }
+    }
+
+    const headers={
+      "Content-Type":'application/json'
+    }
+
+    return fetch(`http://localhost:3500/paymentstripe`,{
+      method:'POST',
+      headers,
+      body:JSON.stringify(body)
+    }).then(res=>{
+      console.log('RESPONSE',res.data)
+      const {status}=res
+      console.log(status)
+
+    })
+    .catch(err=>console.log(err))
 
   }
   return (
@@ -116,7 +146,16 @@ function Payment() {
             <Divider />
             <div className={classes.method}>
                 <Button onClick={makePayment}>Pay with Paytm</Button>
+                <StripeCheckout
+                stripeKey='pk_test_51LTPCzSCQkcXAqhhHp9ueINd9xnLf5PpFwJ86Hb5uRafifCIN1yTYThFBNlEjaLhby1ppWF4czlo4T6s25kETBDK00meMrvl4U'
+                token={makeStripePayment}
+                name={'featur your script'}
+                amount={price *100}
+
+                >
+
                 <Button>Pay with Stripe</Button>
+                </StripeCheckout>
 
             </div>
 
