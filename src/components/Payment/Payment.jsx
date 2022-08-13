@@ -121,7 +121,11 @@ function Payment() {
       console.log(result.data)
       if(result.data.requires_action){
         const data= await stripe.confirmCardPayment(result.data.payment_intent_client_secret)
-        console.log(data)
+        console.log(data.paymentIntent.status)
+        if(data.paymentIntent.status==='succeeded'){
+          console.log('it is confirmed op now')
+          history.replace('/')
+        }
       }
       
 
