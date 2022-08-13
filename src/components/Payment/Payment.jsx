@@ -7,8 +7,11 @@ import axios from 'axios'
 import { useState } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import {useHistory} from 'react-router-dom'
+import {useStripe,useElements} from '@stripe/react-stripe-js';
 function Payment() {
-  const history=useHistory()
+ const stripe=useStripe()
+  // const stripe=loadStripe('pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv')
+    const history=useHistory()
     const params=useParams()
     const {scriptId}=params
     const [price,setPrice]=useState(500)
@@ -115,7 +118,12 @@ function Payment() {
       // }
   
       const result=await axios.post(`http://localhost:3500/paymentstripe`,body)
-      console.log(result)
+      console.log(result.data)
+      if(result.data.requires_action){
+        const data= await stripe.confirmCardPayment(result.data.payment_intent_client_secret)
+        console.log(data)
+      }
+      
 
       // .then(res=>{
       //   console.log('RESPONSE',res)
@@ -155,7 +163,7 @@ function Payment() {
             <div className={classes.method}>
                 <Button onClick={makePayment}>Pay with Paytm</Button>
                 <StripeCheckout
-                stripeKey='pk_test_51LTPCzSCQkcXAqhhHp9ueINd9xnLf5PpFwJ86Hb5uRafifCIN1yTYThFBNlEjaLhby1ppWF4czlo4T6s25kETBDK00meMrvl4U'
+                stripeKey='pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv'
                 token={makeStripePayment}
                 name={'featur your script'}
                 amount={price *100}
