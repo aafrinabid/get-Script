@@ -1,17 +1,19 @@
 import { Button, Divider } from '@mui/material'
 import React from 'react'
 import classes from './Payment.module.css'
-import { useEffect } from 'react'
+import { useEffect ,useRef} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import {io} from 'socket.io-client';
 import { useState } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import {useHistory} from 'react-router-dom'
 import {useStripe,useElements} from '@stripe/react-stripe-js';
 function Payment() {
+
+  const history=useHistory() 
  const stripe=useStripe()
   // const stripe=loadStripe('pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv')
-    const history=useHistory()
     const params=useParams()
     const {scriptId}=params
     const [price,setPrice]=useState(500)
