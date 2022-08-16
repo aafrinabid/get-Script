@@ -1,14 +1,22 @@
 import { Button, Divider } from '@mui/material'
 import React from 'react'
 import classes from './Payment.module.css'
-import { useEffect } from 'react'
+import { useEffect ,useRef} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import {io} from 'socket.io-client';
 import { useState } from 'react'
-
+import StripeCheckout from 'react-stripe-checkout'
+import {useHistory} from 'react-router-dom'
+import {useStripe,useElements} from '@stripe/react-stripe-js';
 function Payment() {
+
+  const history=useHistory() 
+ const stripe=useStripe()
+  // const stripe=loadStripe('pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv')
     const params=useParams()
     const {scriptId}=params
+    const [price,setPrice]=useState(500)
     const [email,setEmail]=useState('')
     console.log(email)
     useEffect(() => {
@@ -92,7 +100,51 @@ function Payment() {
     post(information)
   
   })
+  
 
+
+  }
+
+  const makeStripePayment=async(token)=>{
+    try{
+      const body={
+        token,
+        product:{
+          price,
+          id:scriptId
+        }
+      }
+  
+      // const headers={
+      //   "Content-Type":'application/json'
+      // }
+  
+      const result=await axios.post(`http://localhost:3500/paymentstripe`,body)
+      console.log(result.data)
+      if(result.data.requires_action){
+        const data= await stripe.confirmCardPayment(result.data.payment_intent_client_secret)
+        console.log(data.paymentIntent.status)
+        if(data.paymentIntent.status==='succeeded'){
+          console.log('it is confirmed op now')
+          history.replace('/')
+        }
+      }
+      
+
+      // .then(res=>{
+      //   console.log('RESPONSE',res)
+      //   const {status}=res
+      //   console.log(status)
+      //   if(status===200){
+      //     console.log(res.data)
+      //     history.push('/')
+      //   }
+  
+      // })
+     
+    }catch(e){
+      console.log(e)
+    }
 
   }
   return (
@@ -116,7 +168,16 @@ function Payment() {
             <Divider />
             <div className={classes.method}>
                 <Button onClick={makePayment}>Pay with Paytm</Button>
+                <StripeCheckout
+                stripeKey='pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv'
+                token={makeStripePayment}
+                name={'featur your script'}
+                amount={price *100}
+
+                >
+
                 <Button>Pay with Stripe</Button>
+                </StripeCheckout>
 
             </div>
 
