@@ -26,6 +26,7 @@ function ProfileInfo() {
   }).then((res)=>{
     console.log(res)
     setDetails(res.data.result)
+    setName(res.data.username)
   }).catch(e=>console.log(e))
   },[])
   const location=useLocation()
@@ -80,7 +81,7 @@ function ProfileInfo() {
     <div className= { `${classes.profilecard} w-full` }style={divImage} >
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
      <div className='p-5  pl-11'>
-      <h1 className='text-9xl px-10 pt-10'>{details.username}</h1>
+      <h1 className='text-9xl px-10 pt-10'>{name}</h1>
       <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>
       </div>
       <div className={ `${classes.details}  pt-12 mt-2 `} >

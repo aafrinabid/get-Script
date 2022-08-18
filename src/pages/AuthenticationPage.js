@@ -19,6 +19,7 @@ import classes from './AuthenticationPage.module.css'
 import axios from 'axios';
 import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
+import jwtDecode from 'jwt-decode';
 
 // function Copyright(props) {
 //   return (
@@ -64,6 +65,7 @@ export default function SignIn() {
 
   }
   ,[history,loginStatus])
+
   const [loginUser,setLoginUser]=useState(true);
   const [isLogin,setIsLogin]=useState(true);
   const firstnameRef=useRef();
@@ -73,6 +75,7 @@ export default function SignIn() {
   const passwordRef =useRef();
   console.log(loginStatus)
   let url
+  // useE
   if(isLogin){
     if(loginUser){
     url='http://localhost:3500/loginScriptWriter'
@@ -89,6 +92,50 @@ export default function SignIn() {
     }
   }
 
+  function handleCallbackResponse(response){
+    console.log('Encoded JWT ID token'+response.credential);
+    const userObject=jwtDecode(response.credential)
+    console.log(userObject)
+    // if(loginUser){
+      axios.post('http://localhost:3500/Oauth/google',{
+        scriptwriter:loginUser,
+        userObject
+      }).then(res=>{
+console.log(res)
+dispatch(authActions.loginHandler(res.data))
+if(res.data['auth'] && res.data['status']==='approved'){
+  history.push('/')
+}if(!res.data['auth']){
+  console.log('not auth')
+  handleClick()
+  // appBar('you are not authorised')
+}if(res.data['status']==='pending')(
+  <>
+  {console.log('not approved')}
+ {handleClick()} 
+  
+</>
+)
+      })
+
+    // }
+
+  }  
+
+ useEffect(()=>{
+  /* global google */
+google.accounts.id.initialize({
+  client_id:"1094517807760-q4a2296b3t7h640h9q284a52d7fs9dbm.apps.googleusercontent.com",
+  callback:handleCallbackResponse
+})
+console.log(google)
+
+google.accounts.id.renderButton(
+  document.getElementById('signInDiv'),
+  {theme:'outline',size:'large'}
+)
+  
+ },[isLogin])
 //  const handleClose=()=>{
 //   setOpen(false)
 //  }
@@ -271,6 +318,7 @@ export default function SignIn() {
             >
              {isLogin?'Sign In':'Sign Up'} 
             </Button>
+            <div id='signInDiv'></div>
             <Grid container>
             <Grid item xs={12} sm={6}>
                 <Link href="#" variant="body2">

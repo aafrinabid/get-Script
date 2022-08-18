@@ -7,6 +7,7 @@ import { StyledEngineProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './assets/store';
+import {Auth0Provider} from '@auth0/auth0-react'
 // const root=document.getElementById('root');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,13 @@ root.render(
     <BrowserRouter>
   <React.StrictMode>
     <Provider store={store}>
+    <Auth0Provider
+    domain="aafrinabid9.us.auth0.com"
+    clientId="BIF4y85zwcZ5xonQj2PIkRpvtupfhwcY"
+    redirectUri={window.location.origin}
+  >
     <App />
+    </Auth0Provider>
     </Provider>
   </React.StrictMode>
   </BrowserRouter>
