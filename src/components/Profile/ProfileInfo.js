@@ -28,7 +28,7 @@ function ProfileInfo() {
     setDetails(res.data.result)
     setName(res.data.username)
   }).catch(e=>console.log(e))
-  },[])
+  },[userid])
   const location=useLocation()
   // console.log(params)
   const {pathname}=location
