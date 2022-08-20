@@ -100,8 +100,15 @@ function ProfileInfo() {
         <Facebook className='text-3xl mx-3 cursor-pointer'/>
         <Twitter className='text-3xl mx-3 cursor-pointer'/>
         <LinkedIn className='text-3xl mx-3 cursor-pointer'/>
+        {details.type==='scriptwriter' &&
+
         <h1 className='text-3xl mt-7'>Scripts Posted</h1>
+        }
+        {
+          details.type==='scriptwriter' &&
+
         <h1 className='text-5xl'>{scriptCount}</h1>
+        }
         </div>
       </div>
       {/* <div className='h-0.5 bg-cyan-800 col-span-3 m-4'></div> */}
