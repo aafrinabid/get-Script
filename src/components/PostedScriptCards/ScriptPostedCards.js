@@ -5,9 +5,16 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
 import classes from './ScriptPostedCards.module.css';
+import axios from 'axios';
 
-function ScriptPostedCards() {
+function ScriptPostedCards(props) {
+  useEffect(()=>{
+    axios.post('/fetchScripts',{
+      id:props.id
+    })
+  })
     const [showContent,setShowContent]=useState(false);
     const scripts=[1,2,3,4,6,7];
     const showcontent=()=>{
