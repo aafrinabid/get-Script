@@ -13,8 +13,10 @@
     grid-gap: 10px;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    margin: 0 350px;
+    /* width: 50%; */
+    width: 0px;
+
+    margin: 0 764px;
     color: white;
 }
 

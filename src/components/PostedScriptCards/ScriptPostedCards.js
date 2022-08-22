@@ -14,6 +14,7 @@ const backgroundChanger=(url)=>{
     let divImage={
   
       // backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
+        // borderRadius:'20px',
         backgroundImage:`url(${url})`,
          height:'300px',
          position:'relative',

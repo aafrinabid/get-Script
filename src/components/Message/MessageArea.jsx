@@ -112,7 +112,7 @@ scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   // const messages=useSelector(state=>state.messageHandler.message)
   // console.log(messages)
   return (
-        <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
+        <div style={{height:'592px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'#40A8A9'}}>
           {
             msgData.map(message=>(
               

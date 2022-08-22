@@ -1,6 +1,6 @@
 .upperpart{
     display: grid;
-    background-color: rgb(255,254,254);
+    background: #446F7A;
     grid-template-columns: 10% 90%;
     border: 1px rgb(255,254,254);
 }

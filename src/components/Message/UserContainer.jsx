@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
 import { SwapHorizontalCircleOutlined } from '@mui/icons-material';
+import { Divider } from '@mui/material';
 
 
 function UserContainer(props) {
@@ -105,8 +106,9 @@ setIsOnline(true)
 
 
   return (
+    <>
     <div className={classes.user} onClick={chatHandler} >
-        <div>
+        <div style={{paddingTop:'22px'}}>
         <img className={classes.profile} src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80' />
         </div>
         <div className={classes.userText}>
@@ -117,6 +119,8 @@ setIsOnline(true)
             </div>
         </div>
     </div>
+<Divider />
+</>
   )
 }
 

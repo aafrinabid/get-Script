@@ -1,10 +1,10 @@
 .user{
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 30% 70%;
     height: 80px;
     /* grid-gap: px; */
     border: 0px black solid;
-    background-color: rgb(255,254,254);
+    background-color: #40A8A9;
 }
 
 .profile{

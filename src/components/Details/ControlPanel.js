@@ -44,7 +44,7 @@ function ControlPanel(props) {
     <h1 className={`${classes.control}  `}   >
     Page {props.pageNumber} of { numPages}
   </h1>
-  <ArrowForwardIcon className='text-white text-4xl cursor-pointer' onClick={pageForward}/>
+  <ArrowForwardIcon className='text-white text-4xl cursor-pointer' style={{marginLeft:'37px'}} onClick={pageForward}/>
   </div>
   )
 }
