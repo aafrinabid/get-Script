@@ -36,12 +36,15 @@ const backgroundChanger=(url)=>{
 
 function ScriptPostedCards(props) {
   useEffect(()=>{
-    axios.post('/fetchScripts',{
-      id:props.id
+    axios.post('http://localhost:3500/writersscripts',{
+      username:props.id
+    }).then(res=>{
+      setScripts([...res.data])
+
     })
   })
     const [showContent,setShowContent]=useState(false);
-    const scripts=[1,2,3,4,6,7];
+    const [scripts,setScripts]=useState([])
     const showcontent=()=>{
         setShowContent(true)
         console.log('hovering');
@@ -54,19 +57,19 @@ function ScriptPostedCards(props) {
   return (
     <div className={classes.gridWrapper}>
     <div className={classes.postedscripts}>
-        {scripts.map((i)=>(
-          <div key={i} className={classes.background}   style={backgroundChanger('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')}>
+        {scripts.map((script)=>(
+          <div key={script.script_id} className={classes.background}   style={backgroundChanger(script.script_mini_poster)}>
       {/* <div className={classes.background}> */}
             <div className={classes.DisplayOver}>
               <h1 className={classes.BigTitle}>
-                Tinder
+                {script.script_title}
               </h1>
             <div className={classes.hover}>
              {/* <h4 className={classes.subTitle}>
                noce
              </h4>  */}
             <p className={classes.paragraph}>
-              MOre description herererer
+              {script.description}
 
             </p>
               
