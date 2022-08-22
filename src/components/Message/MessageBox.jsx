@@ -22,7 +22,7 @@ function MessageBox(props){
             alignItems:'flex-end',
             border:'0px solid black',
            margin:'5px 0px',
-           backgroundColor:'rgb(239,238,238)'
+           backgroundColor:'rgb(76 128 187)'
 
         }
         direction='flex-end'
@@ -36,8 +36,8 @@ function MessageBox(props){
             alignItems:'flex-start',
             borderRadius:'13px',
             justifyContent:'flex-start',
-            border:'.5px solid rgb(239,238,238)',
-            backgroundColor:'rgb(255,254,254)'
+            // border:'.5px solid rgb(239,238,238)',
+            backgroundColor:'rgb(116 204 251)'
 
 
         }
