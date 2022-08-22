@@ -5,6 +5,7 @@ import { Instagram, Facebook , LinkedIn, Twitter ,ChatBubble} from '@mui/icons-m
 import ScriptPostedCards from '../PostedScriptCards/ScriptPostedCards';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import {useSelector} from 'react-redux'
 import axios from 'axios';
 
 
@@ -13,6 +14,9 @@ function ProfileInfo() {
   const history= useHistory();
    const [details,setDetails]=useState({})
    const [name,setName]=useState('')
+   const [scriptCount,setScriptCount]=useState(0)
+  const userRole=useSelector(state=>state.authHandler.role)
+
    
    console.log(details)
    const params=useParams();
@@ -27,8 +31,9 @@ function ProfileInfo() {
     console.log(res)
     setDetails(res.data.result)
     setName(res.data.username)
+    setScriptCount(res.data.scriptCount)
   }).catch(e=>console.log(e))
-  },[])
+  },[userid])
   const location=useLocation()
   // console.log(params)
   const {pathname}=location
@@ -82,7 +87,11 @@ function ProfileInfo() {
       <img src='https://media.istockphoto.com/photos/cinematographer-picture-id504854133?k=20&m=504854133&s=612x612&w=0&h=h81HJkAJRoGH5_6WcLV--t-XDQUbDyCizhKmfS_dGhA=' className='h-44 mt-12 ml-12 pl-8 pt-4 shadow-l rounded ' />
      <div className='p-5  pl-11'>
       <h1 className='text-9xl px-10 pt-10'>{name}</h1>
-      <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>
+     {
+      (userRole===2 || userRole===3) 
+      &&
+      <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>  
+    }
       </div>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
         <div className={classes.socials}>
@@ -91,12 +100,19 @@ function ProfileInfo() {
         <Facebook className='text-3xl mx-3 cursor-pointer'/>
         <Twitter className='text-3xl mx-3 cursor-pointer'/>
         <LinkedIn className='text-3xl mx-3 cursor-pointer'/>
+        {details.type==='scriptwriter' &&
+
         <h1 className='text-3xl mt-7'>Scripts Posted</h1>
-        <h1 className='text-5xl'>12</h1>
+        }
+        {
+          details.type==='scriptwriter' &&
+
+        <h1 className='text-5xl'>{scriptCount}</h1>
+        }
         </div>
       </div>
       {/* <div className='h-0.5 bg-cyan-800 col-span-3 m-4'></div> */}
-      <div className={`text-xl col-span-3 pl-12 ml-7 pt-6 text-left ${classes.description}`}>
+      <div className={`text-xl col-span-3 pl-12 ml-7 pt-6 mt-12 text-left ${classes.description}`}>
       Ancient myths, tall tales and ghost stories - Lore and lies. Fascinated by every language in the world and endeavoring to pick at least one up before I die. My cats will tell you I sing too loudly and dance terribly, though I would advise you not to believe them as both are notorious liars. Country, hip-hop, disco, soul, grunge, pop, rock and everything in between. My favourite hobby is laughing until I cry and my goal is making others do the same.
 
       </div>
@@ -105,7 +121,7 @@ function ProfileInfo() {
       <div className={`mt-20 pt-11 h-screen w-full bg-inherit ${classes.postedScripts}`} >
         <h1 className='pt-12 text-3xl text-white  font-extrabold' style={{paddingTop:'100px'}}>Posted Scripts</h1>
         <div className='bg-inherit w-full'>
-          <ScriptPostedCards />
+          <ScriptPostedCards id={userid}/>
 
         </div>
 

@@ -11,6 +11,7 @@ import axios from 'axios'
 function NavBar({colorChange,socket,userId}) {
   const [id,setId]=useState('')
   const [role,setRole]=useState('')
+  const [username,setUsername]=useState('')
 
   useEffect(()=>{
  axios.get('http://localhost:3500/getId',{
@@ -20,9 +21,14 @@ function NavBar({colorChange,socket,userId}) {
   }).then((res)=>{
     setId(res.data.userId)
     setRole(res.data.role)
-
+    axios.post('http://localhost:3500/getUsername',{
+      id:res.data.userId
+    }).then((res)=>{
+      setUsername(res.data.username)
+    })
   })
   },[])
+
   const userRole=useSelector(state=>state.authHandler.role)
 
   const history=useHistory()
@@ -86,7 +92,7 @@ function NavBar({colorChange,socket,userId}) {
              open={open}
              onClose={handleClose}
            >
-              <MenuItem onClick={handleClose}><Link to={`/Profile/${id}/${role}`}>Profile</Link></MenuItem>
+              <MenuItem onClick={handleClose}><Link to={`/Profile/${username}/${role}`}>Profile</Link></MenuItem>
             {userRole===3 && <MenuItem onClick={handleClose}><Link to='/AdminPanel'>Admin Panel</Link></MenuItem>}
                 <MenuItem onClick={onLogoutHandler}> logout</MenuItem>
 
