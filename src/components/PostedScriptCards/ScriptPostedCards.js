@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import classes from './ScriptPostedCards.module.css';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 const backgroundChanger=(url)=>{
   
     let divImage={
@@ -34,7 +35,9 @@ const backgroundChanger=(url)=>{
    return divImage
 }
 
+
 function ScriptPostedCards(props) {
+  const history=useHistory()
   useEffect(()=>{
     axios.post('http://localhost:3500/writersscripts',{
       username:props.id
@@ -54,11 +57,14 @@ function ScriptPostedCards(props) {
         setShowContent(false)
 
     }
+    const scriptViewer=(id)=>{
+      history.push(`/details/${id}`)
+    }
   return (
     <div className={classes.gridWrapper}>
     <div className={classes.postedscripts}>
         {scripts.map((script)=>(
-          <div key={script.script_id} className={classes.background}   style={backgroundChanger(script.script_mini_poster)}>
+          <div onClick={scriptViewer.bind(null,script.script_id)} key={script.script_id} className={classes.background}   style={backgroundChanger(script.script_mini_poster)}>
       {/* <div className={classes.background}> */}
             <div className={classes.DisplayOver}>
               <h1 className={classes.BigTitle}>
