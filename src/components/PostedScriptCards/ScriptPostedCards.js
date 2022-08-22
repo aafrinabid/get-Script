@@ -23,7 +23,7 @@ const backgroundChanger=(url)=>{
       //    marginTop:'-70px',
       //    fontSize:'50px',
          padding:'142px',
-         backgroundSize: 'cover',
+         backgroundSize: '100% 100%',
          backgroundRepeat: 'no-repeat',
         //  cursor:'pointer',
         //  backgroundSize: '111%'
