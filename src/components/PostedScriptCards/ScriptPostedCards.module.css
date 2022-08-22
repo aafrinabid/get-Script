@@ -78,7 +78,8 @@
 
   }
 
-  .BigTitile{
+  .BigTitle{
+    font-size: x-large;
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -139,6 +140,8 @@ transform: translate3d(0,50,0);
 
   .background:hover .hover .paragraph{
     /* color: red; */
+transform: translate3d(0,0,0);
+
     opacity: 1;
   }
   /* .DisplayOver :hover .hover{

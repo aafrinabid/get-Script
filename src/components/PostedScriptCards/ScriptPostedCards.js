@@ -24,7 +24,7 @@ const backgroundChanger=(url)=>{
          padding:'142px',
          backgroundSize: 'cover',
          backgroundRepeat: 'no-repeat',
-         cursor:'pointer',
+        //  cursor:'pointer',
         //  backgroundSize: '111%'
          
      };
@@ -62,9 +62,9 @@ function ScriptPostedCards(props) {
                 Tinder
               </h1>
             <div className={classes.hover}>
-             <h4 className={classes.subTitle}>
+             {/* <h4 className={classes.subTitle}>
                noce
-             </h4> 
+             </h4>  */}
             <p className={classes.paragraph}>
               MOre description herererer
 
