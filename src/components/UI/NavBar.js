@@ -8,7 +8,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import { authActions } from '../../assets/store/authSlice';
 import axios from 'axios'
 
-function NavBar({colorChange,socket,userId}) {
+function NavBar({blockChange,colorChange,socket,userId}) {
   const [id,setId]=useState('')
   const [role,setRole]=useState('')
   const [username,setUsername]=useState('')
@@ -53,7 +53,8 @@ function NavBar({colorChange,socket,userId}) {
       };
 
   return (
-    <div className={`${colorChange?`bg-black ${classes.navbar}`:classes.navbar}` } >
+    <div className={!blockChange?`${colorChange?`bg-black  ${classes.navbar}`:classes.navbar}`:`${classes.navbar2}` } >
+      {console.log(colorChange)}
     <div className={`flex ${classes.logo} justify-end items-center object-contain`} >
 <Link to='/'>  <h1 className='text-white text-xl'>getScript</h1> </Link>
 {/* <p className='ml-3 text-2xl'>GetScript</p>      */}
