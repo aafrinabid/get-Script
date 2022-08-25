@@ -133,7 +133,9 @@ setIsOnline(true)
             </div>
         </div>
     </div>
+    <div>
 <Divider />
+</div>
 </>
   )
 }
