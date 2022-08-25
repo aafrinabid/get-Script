@@ -6,7 +6,8 @@ const ChatSlice =createSlice({
         onlineUsers:[],
         users:[],
         room:[],
-        change:''
+        change:'',
+        currentChat:''
     },
     reducers:{
         roomAdder(state,action){
@@ -62,6 +63,9 @@ const ChatSlice =createSlice({
             console.log(action.payload)
             const updatedList=[...action.payload.users]
             state.onlineUsers=updatedList
+        },
+        currentChatAdder(state,action){
+            state.currentChat=action.payload;
         }
         
     }

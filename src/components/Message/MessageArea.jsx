@@ -112,7 +112,8 @@ scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   // const messages=useSelector(state=>state.messageHandler.message)
   // console.log(messages)
   return (
-        <div style={{height:'592px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'#40A8A9'}}>
+        <div style={{height:'592px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundImage:`url('https://images.unsplash.com/photo-1531303511320-729cbf66254f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGdyZWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80')`, backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',padding:'0 32px'}}>
           {
             msgData.map(message=>(
               

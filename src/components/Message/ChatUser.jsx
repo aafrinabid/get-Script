@@ -84,7 +84,7 @@ function ChatUser(props) {
   },[])
   
   return (
-    <div style={{backgroundColor:'#446F7A',border:'1px rgb(237,236,237)'}} >
+    <div style={{backgroundColor:'rgb(32,44,51)',borderRight:'.1px solid #545353'}} >
         <div style={{border:'1px rgb(237,236,237)',paddingTop:'31px'}}>
       <h4 style={{color:'black',textAlign:'center',border:'1px rgb(237,236,237)'}}>username</h4>
       {/* <h3>scriptWriters</h3> */}

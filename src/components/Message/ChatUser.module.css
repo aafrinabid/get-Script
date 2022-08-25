@@ -4,8 +4,13 @@
     flex-direction:column;
     height: 632px;
     overflow-y:scroll;
+    overflow-x: hidden;
     grid-gap: 0px;
+    scrollbar-width: thin;
+
 }
+
+
 
 
 .username{
