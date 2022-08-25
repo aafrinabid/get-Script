@@ -106,8 +106,11 @@ console.log(userId)
 
     // }
   },[dispatch,loginStatus])
-
+  const location=useLocation()
+  // console.log(params)
+  const {pathname}=location
   const [colorChange,setColorchange]=useState(false);
+  const [blockChange,setBlockChange]=useState(false)
   const changeNavbarColor = () =>{
     console.log('happening guys')
     if(window.scrollY >= 80){
@@ -121,23 +124,21 @@ console.log(userId)
 
 
 
- const location=useLocation()
- // console.log(params)
- const {pathname}=location
+
  useEffect(()=>{
   console.log(pathname)
   if(pathname.startsWith("/Profile") || pathname.startsWith("/chat")){
     console.log('########################################*******************************')
-   setColorchange(true)
+   setBlockChange(true)
   }else{
-    setColorchange(false)
+    setBlockChange(false)
   }
  },[pathname])
 
   return (
     <div className="App">
   {loginStatus && <>     
-{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar colorChange={colorChange} socket={socket} userId={userId}/>}
+{pathname.startsWith('/Admin') || pathname.startsWith('/logi')  ?'':<Navbar blockChange={blockChange} colorChange={colorChange} socket={socket} userId={userId}/>}
 </>    
 }
       <Switch>

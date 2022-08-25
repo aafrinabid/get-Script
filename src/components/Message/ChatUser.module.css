@@ -2,10 +2,15 @@
     display: flex;
     /* grid-template-columns: 1fr; */
     flex-direction:column;
-    height: 600px;
+    height: 669px;
     overflow-y:scroll;
+    overflow-x: hidden;
     grid-gap: 0px;
+    scrollbar-width: thin;
+
 }
+
+
 
 
 .username{

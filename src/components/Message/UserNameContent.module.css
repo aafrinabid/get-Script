@@ -1,7 +1,7 @@
 .upperpart{
     display: grid;
-    background-color: rgb(255,254,254);
-    grid-template-columns: 10% 90%;
+    background: rgb(32,44,51);
+    grid-template-columns: 5% 95%;
     border: 1px rgb(255,254,254);
 }
 

@@ -7,10 +7,12 @@ import UserContainer from './UserContainer'
 import {useHistory, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
+import { Divider } from '@mui/material';
 
 
 function ChatUser(props) {
   const [userId,setUserId]=useState(null)
+  const [ownerName,setOwnerName]=useState('')
   const history=useHistory();
  const change=useSelector(state=>state.chatHandler.change)
  const users=useSelector(state=>state.chatHandler.users)
@@ -32,6 +34,22 @@ function ChatUser(props) {
         console.log(res.data)
         // userId=res.data.userId
         role=res.data.role
+        axios.post('http://localhost:3500/getUsername',{
+          id:res.data.userId
+        }).then(res=>{
+          const length=res.data.username.length
+          const username=res.data.username.split('')
+          const index=username.findIndex(letter=>letter==='@')
+          let finalName
+          if(index>0){
+              const diff=length-index
+              const deleted=username.splice(index,diff)
+              finalName=username.join('')
+          }else{
+              finalName=res.data.username      
+          }
+          setOwnerName(finalName)
+        })
         // props.socket.current.emit('join-chat',res.data.userId)
         setUserId(res.data.userId)
         // const recId=r
@@ -83,12 +101,13 @@ function ChatUser(props) {
   },[])
   
   return (
-    <div style={{backgroundColor:'rgb(255,254,254)',border:'1px rgb(237,236,237)'}} >
-        <div style={{border:'1px rgb(237,236,237)'}}>
-      <h4 style={{color:'black',textAlign:'center',border:'1px rgb(237,236,237)'}}>username</h4>
+    <div style={{backgroundColor:'rgb(32,44,51)',borderRight:'.1px solid #545353'}} >
+        <div style={{border:'1px rgb(237,236,237)',height:'55px'}}>
+      <h4 style={{color:'white',textAlign:'center',border:'1px rgb(237,236,237)',paddingTop:'15px'}}>{ownerName}</h4>
+      {/* <h3>scriptWriters</h3> */}
       </div>
-      <h3>scriptWriters</h3>
     <div className={classes.list}>
+      <Divider />
 
         {
                   users.map((data)=>(

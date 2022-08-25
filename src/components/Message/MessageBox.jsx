@@ -11,18 +11,22 @@ function MessageBox(props){
     // console.log(props)
     let style
     let direction
+    
     if(props.from===true){
         style={
             // padding:'5px 0px',
-            paddingLeft:'5px',
+            padding:'0 7px',
+            paddingBottom:'3px',
+            // border:'2.5px solid #9719f6',
+            backgroundColor:'#005d4a',
+            wordBreak:'break-all',
 
-            width:'50%',
+            width:props.message.length>35?'50%':'',
             borderRadius:'10px',
             // justifyContent:'flex-start',
             alignItems:'flex-end',
-            border:'0px solid black',
            margin:'5px 0px',
-           backgroundColor:'rgb(239,238,238)'
+           color:'#bedad6',
 
         }
         direction='flex-end'
@@ -30,15 +34,20 @@ function MessageBox(props){
     }else{
          style={
             // padding:'5px 0px',
-            paddingLeft:'5px',
-
-            width:'50%',
+            padding:'0 7px',
+            paddingBottom:'3px',
+            // border:'2.5px solid #1155e6',
+            backgroundColor:'#202c33',
+            width:props.message.length>35?'50%':'',
+            wordBreak:'break-all',
+            // width:'50%',
             alignItems:'flex-start',
             borderRadius:'13px',
             justifyContent:'flex-start',
-            border:'.5px solid rgb(239,238,238)',
-            backgroundColor:'rgb(255,254,254)'
-
+            // border:'.5px solid rgb(239,238,238)',
+            // backgroundColor:'rgb(116 204 251)'
+           color:'#bedad6',
+            
 
         }
         direction='flex-start'

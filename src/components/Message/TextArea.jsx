@@ -101,7 +101,8 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
           </div>
         </div>
         <form className="input-container" onSubmit={(event) => sendChat(event)}>
-          <input
+
+          <textarea
             type="text"
             placeholder="type your message here"
             onChange={(e) => setMsg(e.target.value)}
@@ -120,7 +121,7 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
     display: grid;
     align-items: center;
     grid-template-columns: 10% 90%;
-    background-color: rgb(255,254,254);
+    background-color: #202c33;
     padding: 0 2rem;
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       padding: 0 1rem;
@@ -135,7 +136,7 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
         position: relative;
         svg {
           font-size: 1.5rem;
-          color: black;
+          color: #7e8e99;
           cursor: pointer;
         }
         .emoji-picker-react {
@@ -167,18 +168,29 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
       }
     }
     .input-container {
-        padding-left:30px;
+      color:white;
+      padding-left: 30px;
+      display: grid;
+      grid-template-columns: 80% 20%;
+      margin: 10px 0;
       width: 100%;
-      border-radius: 2rem;
-      display: flex;
+      border-radius: 60rpx;
+      /* display: -webkit-box; */
+      /* display: -webkit-flex; */
+      display: -ms-flexbox;
+      /* display: flex; */
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
-      gap: 2rem;
-      background-color: rgb(239,238,238);
-      input {
-        width: 90%;
-        height: 60%;
-        background-color: transparent;
-        color: black;
+      /* gap: 2rem; */
+      background-color: transparent;
+      textarea {
+        color:white;
+        width: 100%;
+        height: 100%;
+        border-radius:3px;
+        background-color: #2b3842;
         border: none;
         padding-left: .5rem;
         font-size: 1.2rem;
@@ -195,7 +207,7 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(255,254,254);
+        background-color: transparent;
         border: none;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           padding: 0.3rem 1rem;
@@ -205,7 +217,7 @@ dispatch(chatActions.changeHandler({date:date.toISOString()}))
         }
         svg {
           font-size: 2rem;
-          color: black;
+          color: #7e8e99;
         }
       }
     }

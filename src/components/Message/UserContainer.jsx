@@ -6,10 +6,10 @@ import {useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatActions } from '../../assets/store/chatSlice'
 import { SwapHorizontalCircleOutlined } from '@mui/icons-material';
+import { Divider } from '@mui/material';
 
 
 function UserContainer(props) {
-  
   console.log(props,props.msg,'checking coming',props.userId)
   const [isOnline,setIsOnline]=useState(null)
   const [msg,setMsg]=useState(props.msg)
@@ -55,6 +55,7 @@ setIsOnline(true)
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
   const dispatch=useDispatch()
+
   const history =useHistory();
   const [data,setData]=useState({})
   const params=useParams();
@@ -74,6 +75,8 @@ setIsOnline(true)
       props.socket.current.emit('leave room',room)
     })
     const messageId=props.messageId
+    dispatch(chatActions.currentChatAdder(messageId))
+    
     console.log(messageId,'set',',*************************')
     props.socket.current.emit('join-room',messageId)
     props.socket.current.on('joined-room',data=>{
@@ -85,6 +88,8 @@ setIsOnline(true)
       }
     })
   }
+
+  const currentChat=useSelector(state=>state.chatHandler.currentChat)
 
 //   useEffect(()=>{
 // props.socket.current.on('notifies',data=>{
@@ -105,18 +110,33 @@ setIsOnline(true)
 
 
   return (
-    <div className={classes.user} onClick={chatHandler} >
-        <div>
+    <>
+    <div className={currentChat===props.messageId?classes.currentuser: classes.user} onClick={chatHandler} >
+        <div style={{paddingTop:'22px'}}>
         <img className={classes.profile} src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80' />
         </div>
-        <div className={classes.userText}>
+            <div className='flex flex-col'>
+        <div className={classes.userText} style={{height:'46px'}}>
             <p className={classes.usernamecont}>{data.username}</p>
-            <div className='flex'>
-            <p className={classes.usermessage}>{props.msg}</p>
-            <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p>
+            </div>
+              {/* <div style={{overflow:'hidden'}}> */}
+              <div style={{display:'grid',gridTemplateColumns:'60% 40%'}}>
+            <div className={classes.usermessage}>{props.msg}</div>
+            {/* </div> */}
+            <div style={{
+              background: isOnline?'green':'red',
+              borderRadius: '109px',
+              padding: '-12px',
+              margin: '7px 56px'
+}}></div>
+            {/* <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p> */}
             </div>
         </div>
     </div>
+    <div>
+<Divider />
+</div>
+</>
   )
 }
 
