@@ -120,9 +120,17 @@ setIsOnline(true)
             <p className={classes.usernamecont}>{data.username}</p>
             </div>
               {/* <div style={{overflow:'hidden'}}> */}
+              <div style={{display:'grid',gridTemplateColumns:'60% 40%'}}>
             <div className={classes.usermessage}>{props.msg}</div>
             {/* </div> */}
-            <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p>
+            <div style={{
+              background: isOnline?'green':'red',
+              borderRadius: '109px',
+              padding: '-12px',
+              margin: '7px 56px'
+}}></div>
+            {/* <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p> */}
+            </div>
         </div>
     </div>
 <Divider />
