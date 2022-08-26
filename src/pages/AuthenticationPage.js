@@ -91,7 +91,7 @@ export default function SignIn() {
       url='http://localhost:3500/registerProducer'
     }
   }
-
+  console.log(loginUser)
   function handleCallbackResponse(response){
     console.log('Encoded JWT ID token'+response.credential);
     const userObject=jwtDecode(response.credential)
@@ -104,7 +104,7 @@ export default function SignIn() {
 console.log(res)
 dispatch(authActions.loginHandler(res.data))
 if(res.data['auth'] && res.data['status']==='approved'){
-  history.push('/')
+  history.push('/UploadScript')
 }if(!res.data['auth']){
   console.log('not auth')
   handleClick()
@@ -135,7 +135,7 @@ google.accounts.id.renderButton(
   {theme:'outline',size:'large'}
 )
   
- },[isLogin])
+ },[loginUser])
 //  const handleClose=()=>{
 //   setOpen(false)
 //  }

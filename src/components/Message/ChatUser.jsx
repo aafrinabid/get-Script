@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer'
 import axios from 'axios'
 import React from 'react'
 import { useEffect,useState,useRef } from 'react'
@@ -55,7 +54,7 @@ function ChatUser(props) {
         // const recId=r
 
         axios.post('http://localhost:3500/messagedetail',{
-          userid:res.data.userId,
+          userid:userId,
         }).then((res)=>{
           console.log(res.data,'from data baase')
           dispatch(chatActions.userAdder({users:res.data.result}))
@@ -64,7 +63,7 @@ function ChatUser(props) {
         })
       })
  
-  },[change])
+  },[change,userId])
 
   // useEffect(()=>{
   //   if(userId){

@@ -46,7 +46,7 @@ function ScriptPostedCards(props) {
       setScripts([...res.data])
 
     })
-  })
+  },[])
     const [showContent,setShowContent]=useState(false);
     const [scripts,setScripts]=useState([])
     const showcontent=()=>{
