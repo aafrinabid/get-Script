@@ -26,52 +26,63 @@ function ChatUser(props) {
     let role
   console.log(datas)
   useEffect(()=>{
-      axios.get('http://localhost:3500/getId',{
+  //     axios.get('http://localhost:3500/getId',{
+  //       headers:{
+  //         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+  //       }
+  //     }).then(res=>{
+  //       console.log(res.data)
+  //       // userId=res.data.userId
+  //       role=res.data.role
+  //       // axios.post('http://localhost:3500/getUsername',{
+  //       //   id:res.data.userId
+  //       // }).then(res=>{
+  //       //   console.log(res.data.username,'username')
+  //       //   const length=res.data.username.length
+  //       //   const username=res.data.username.split('')
+  //       //   const index=username.findIndex(letter=>letter==='@')
+  //       //   let finalName
+  //       //   if(index>0){
+  //       //       const diff=length-index
+  //       //       const deleted=username.splice(index,diff)
+  //       //       finalName=username.join('')
+  //       //   }else{
+  //       //       finalName=res.data.username      
+  //       //   }
+  //       //   setOwnerName(finalName)
+  //       // })
+  //       // props.socket.current.emit('join-chat',res.data.userId)
+  //       setUserId(res.data.userId)
+  //       // const recId=r
+
+        axios.post('http://localhost:3500/messagedetail',{
+          userid:props.userId,
+        },{
         headers:{
           'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
         }
-      }).then(res=>{
-        console.log(res.data)
-        // userId=res.data.userId
-        role=res.data.role
-        axios.post('http://localhost:3500/getUsername',{
-          id:res.data.userId
-        }).then(res=>{
-          const length=res.data.username.length
-          const username=res.data.username.split('')
-          const index=username.findIndex(letter=>letter==='@')
-          let finalName
-          if(index>0){
-              const diff=length-index
-              const deleted=username.splice(index,diff)
-              finalName=username.join('')
-          }else{
-              finalName=res.data.username      
-          }
-          setOwnerName(finalName)
-        })
-        // props.socket.current.emit('join-chat',res.data.userId)
-        setUserId(res.data.userId)
-        // const recId=r
-
-        axios.post('http://localhost:3500/messagedetail',{
-          userid:res.data.userId,
-        }).then((res)=>{
+      }).then((res)=>{
           console.log(res.data,'from data baase')
-          dispatch(chatActions.userAdder({users:res.data.result}))
+          if(res.data.message>0){
+
+            dispatch(chatActions.userAdder({users:res.data.result}))
+          }
           // setDatas([...res.data.result])
       
+        }).catch(e=>{
+          console.log('message details error')
+
         })
-      })
+      // })
  
   },[change])
 
-  // useEffect(()=>{
-  //   if(userId){
+//   useEffect(()=>{
+//     if(userId){
 
-  //       props.socket.current.emit('join-chat',res.data.userId)
-  //   }
-  // },[userId,props.socket.current])
+//         props.socket.current.emit('join-chat',res.data.userId)
+//     }
+//   },[userId,props.socket.current])
 
 //  const updateList=()=>{
 //   props.socket.current.on('update-list',(data)=>{
@@ -103,7 +114,7 @@ function ChatUser(props) {
   return (
     <div style={{backgroundColor:'rgb(32,44,51)',borderRight:'.1px solid #545353'}} >
         <div style={{border:'1px rgb(237,236,237)',height:'55px'}}>
-      <h4 style={{color:'white',textAlign:'center',border:'1px rgb(237,236,237)',paddingTop:'15px'}}>{ownerName}</h4>
+      <h4 style={{color:'white',textAlign:'center',border:'1px rgb(237,236,237)',paddingTop:'15px'}}>{props.ownerName}</h4>
       {/* <h3>scriptWriters</h3> */}
       </div>
     <div className={classes.list}>

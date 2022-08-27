@@ -21,11 +21,15 @@ function NavBar({blockChange,colorChange,socket,userId}) {
   }).then((res)=>{
     setId(res.data.userId)
     setRole(res.data.role)
+    console.log(res.data.userId,'testing data baseeeeeeeeeeeeeeeeeeeeeeeee')
     axios.post('http://localhost:3500/getUsername',{
       id:res.data.userId
     }).then((res)=>{
+      console.log(res.data)
       setUsername(res.data.username)
     })
+  }).catch(e=>{
+    console.log(e)
   })
   },[])
 
