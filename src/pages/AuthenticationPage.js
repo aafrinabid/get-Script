@@ -135,7 +135,7 @@ google.accounts.id.renderButton(
   {theme:'outline',size:'large'}
 )
   
- },[isLogin])
+ },[loginUser])
 //  const handleClose=()=>{
 //   setOpen(false)
 //  }

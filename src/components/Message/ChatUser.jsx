@@ -66,6 +66,9 @@ function ChatUser(props) {
           if(res.data.message>0){
 
             dispatch(chatActions.userAdder({users:res.data.result}))
+          }else{
+
+            dispatch(chatActions.userCleaner())
           }
           // setDatas([...res.data.result])
       
@@ -75,7 +78,7 @@ function ChatUser(props) {
         })
       // })
  
-  },[change])
+  },[change,props.userId])
 
 //   useEffect(()=>{
 //     if(userId){
