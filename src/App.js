@@ -175,7 +175,6 @@ console.log(userId)
 
 {loginStatus && userRole===3 && 
  <Route path='/AdminPanel'>
-  {console.log('what the fuck happended')}
  <AdminPanel />
 </Route>
 }    

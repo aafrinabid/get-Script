@@ -121,7 +121,7 @@ setIsLoading(false)
 >
   {isLoading && <h1>loading ...</h1>}
   {!isLoading && scripts.map(script=>(
- <SwiperSlide>
+ <SwiperSlide style={{background:'black'}}>
   {/* <div style={{borderRadius:'2px',borderColor:'red'}}> */}
   <div className={classes.poster}style={backgroundChanger(script.script_poster,script.featured)} onClick={details.bind(null,script.script_id)}>
   {/* <div style={{display:'grid',gridTemplateColumns:'1fr',gridTemplateRows:'2fr 1fr'}}> */}
@@ -141,12 +141,7 @@ setIsLoading(false)
   </SwiperSlide>
 //  <SwiperSlide><div className={classes.poster}  onClick={details.bind(null,script.script_id)}> </div> </SwiperSlide>
 ))}
-    {/* <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
-    <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
-    <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
-    <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
-    <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide>
-    <SwiperSlide><div className={classes.poster} onClick={details}> <img className={classes.imageTitle} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43"></img></div> </SwiperSlide> */}
+   
         
   </Swiper>
   </div>
