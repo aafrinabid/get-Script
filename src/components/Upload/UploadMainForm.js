@@ -44,7 +44,7 @@ function UploadMainForm() {
     <div>
 {activeStep === labels.length?(
  <>
-   {history.push('/')}
+   {history.push(`/Browse/${0}`)}
 </> 
 
 ):(

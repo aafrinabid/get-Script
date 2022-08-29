@@ -142,7 +142,7 @@ console.log(userId)
 </>    
 }
       <Switch>
-      {loginStatus &&   <Route path='/' exact>
+      {loginStatus &&   <Route path='/Browse/:type' exact>
       <Browse />
         </Route>
 }
@@ -191,7 +191,7 @@ console.log(userId)
 
       <Route path='*'>
 
-        {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}
+        {loginStatus?<Redirect to={`/Browse/${0}`}/>:<Redirect to='/login'/>}
         {console.log(loginStatus)}
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>

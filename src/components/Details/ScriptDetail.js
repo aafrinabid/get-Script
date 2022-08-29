@@ -83,7 +83,7 @@ function ScriptDetail() {
         {!isLoading &&  
         <>
         <ScriptCard img={detail.script_poster}/>
-        <ScriptInfo detail={detail}/>
+        <ScriptInfo detail={detail} scriptId={scriptId}/>
         <div className={classes.tablediv}>
            {!seenTable && <Button variant='text' className='text-4xl font-bold text-white p-7' onClick={clickHandler}>Show Pitch</Button>} 
         {seenTable &&<ScriptTable detail={detail} clickHandler={clickHandler}/>}
