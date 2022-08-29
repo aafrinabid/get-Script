@@ -68,7 +68,7 @@ function NavBar({blockChange,colorChange,socket,userId}) {
     <Link to={`/Browse/TV_Series`}> <h1 className='mx-2 text-l  cursor-pointer'>TV Shows</h1> </Link>
     <Link to={`/Browse/MOVIE`}> <h1 className='mx-2 text-l  cursor-pointer'>Movies</h1> </Link>
     <Link to={`/Browse/Anime`}> <h1 className='mx-2 text-l cursor-pointer'>Anime</h1> </Link>
-    <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
+    <Link to='/savedscript'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
         </div>
         <div className= {`flex ${classes.profile}`} >
     {(userRole===1 || userRole===3) && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    

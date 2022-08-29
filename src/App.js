@@ -17,6 +17,7 @@ import Message from './pages/Message'
 import {io} from 'socket.io-client';
 import { chatActions } from './assets/store/chatSlice';
 import Featured from './pages/Featured';
+import Saved from './pages/Saved';
 
 
 
@@ -144,6 +145,11 @@ console.log(userId)
       <Switch>
       {loginStatus &&   <Route path='/Browse/:type' exact>
       <Browse />
+        </Route>
+}
+
+{loginStatus &&   <Route path='/savedscript'>
+          <Saved />
         </Route>
 }
         {loginStatus &&   <Route path='/details/:scriptId'>
