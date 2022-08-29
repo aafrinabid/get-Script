@@ -79,7 +79,6 @@ useEffect(()=>{
       <div className={`${classes.details}`}>
         {/* <img className={classes.titleimage} src="https://occ-0-6058-3663.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUJuexBo9PcuDem99SxCIRkLb6vllV0EfehwnalimUa6Wqqm8gSFD8zkIjAUzPt4byng_57yB8mtGQQOkeE7tXaj6vT7kcZPjWYLARDnTtWQ0BpJg-XYmiEXRN1IcSPFw4iAb9b9vIDg9ggS79aLU8shH8gk_YsyLIAnQfKPgyreG6t667uzow.png?r=e43" />
          */}
-         {/* <h1 className='text-3xl'>holly shit</h1> */}
 
          <h1 className='text-white text-3xl'>{title.toUpperCase()}</h1>
         <h1 className={`text-green-50 text-xs ml-5 ${classes.description}`}>{script.description}</h1>        
