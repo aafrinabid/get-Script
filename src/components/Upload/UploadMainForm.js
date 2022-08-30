@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Typography from '@mui/material/Typography'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -12,6 +12,9 @@ import UploadFormInput from './UploadFormInput'
 import UploadForm2 from './UploadForm2'
 import UplpoadPdf from './UploadPdf'
 import UploadPdf from './UploadPdf'
+import axios from 'axios'
+import ScriptDetail from '../Details/ScriptDetail'
+import { formAction } from '../../assets/store/formslice'
 // Step titles
 
 const useStyles = makeStyles({
@@ -38,8 +41,33 @@ const handleSteps = (step) => {
 function UploadMainForm() {
 
   const clas=useStyles()
+  const dispatch=useDispatch();
     const history= useHistory()
     const activeStep=useSelector((state)=>state.formHandler.activeStepState)
+    const tableData=useSelector(state=>state.formHandler.userData)
+      console.log(tableData)
+    const addEpisodeState=useSelector(state=>state.formHandler['nextEpisode']['state'])
+    const mainScript=useSelector(state=>state.formHandler['nextEpisode']['mainScript'])
+    useEffect(()=>{
+      if(addEpisodeState){
+        axios.post('http://localhost:3500/nextScriptEpisode',{
+   id:mainScript
+        }).then((res)=>{
+          console.log(res.data.result)
+          const obj=res.data.result
+          const keys=Object.keys(obj)
+          console.log(keys)
+          keys.map(key=>{
+            dispatch(formAction.inputChangeHandler({name:key,value:obj[key]}))
+            // dispatch(formAction.episodePageHandler())
+          })
+          
+
+          
+        })
+      }
+
+    },[])
   return (
     <div>
 {activeStep === labels.length?(

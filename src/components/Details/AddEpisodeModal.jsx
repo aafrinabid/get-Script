@@ -32,7 +32,7 @@ export default function AddEpisodeModal(props) {
   const [season,setSeason]=React.useState(0)
   const [episode,setEpisode]=React.useState(0)
   React.useEffect(()=>{
-    if((season>=0 && episode>0)  ){
+    if((season>0 && episode>0)  ){
         setValid(true)
     }else{
         setValid(false)
