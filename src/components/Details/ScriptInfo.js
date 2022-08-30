@@ -55,7 +55,9 @@ function ScripInfo(props) {
   return (
     <div className={`${classes.content} text-white p-10`}>
       <div className={classes.scriptmajor}>
-     <h1 className='text-xl font-bold text-left'>{props.detail.script_title}</h1>
+     <h1 className='text-xl font-bold text-left' style={{    paddingBottom: '10px',
+    paddingLeft: '7px',
+}}>{props.detail.script_title}</h1>
      <div className='flex'>
       <img className={classes.miniposter} src={props.detail.script_mini_poster}/>
       <div className={classes.button}>
