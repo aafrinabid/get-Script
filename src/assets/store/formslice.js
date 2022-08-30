@@ -40,6 +40,10 @@ const formHandleSlice=createSlice({
             uploadPage:false
             
 
+        },
+        nextEpisode:{
+            episode:'',
+            mainScript:'',
         }
     },
     reducers:{
@@ -176,6 +180,10 @@ const formHandleSlice=createSlice({
                 }
             })
 
+        },
+        episodeHandler(state,action){
+            state.nextEpisode.episode=action.payload.episode
+            state.nextEpisode.mainScript=action.payload.scriptId
         }
         
     }
