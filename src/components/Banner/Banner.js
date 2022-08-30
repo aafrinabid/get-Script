@@ -60,7 +60,8 @@ useEffect(()=>{
   const divImage =  {
     
     backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.952), rgba(73, 69, 68, 0.64)), url(${url})`,
-       height:'400px',
+
+       height:'480px',
       //  width:'100vw',
     //    marginTop:'-70px',
     //    fontSize:'50px',
