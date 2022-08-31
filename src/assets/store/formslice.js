@@ -43,6 +43,7 @@ const formHandleSlice=createSlice({
         },
         nextEpisode:{
             episode:'',
+            season:'',
             mainScript:'',
             state:false
         },
@@ -184,6 +185,7 @@ const formHandleSlice=createSlice({
         },
         episodeHandler(state,action){
             state.nextEpisode.episode=action.payload.episode
+            state.nextEpisode.season=action.payload.season
             state.nextEpisode.mainScript=action.payload.scriptId
             state.nextEpisode.state=true
         },

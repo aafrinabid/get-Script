@@ -7,6 +7,7 @@ import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { formAction } from '../../assets/store/formslice';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -41,16 +42,25 @@ export default function AddEpisodeModal(props) {
   },[season,episode])
 
   const setTheEpisode=()=>{
-    const s=season.toString()
-    const e=episode.toString()
-    const number=s+e
-    const episodeNumber=parseInt(number)
-    if(valid){
-        console.log(episodeNumber)
 
-        dispatch(formAction.episodeHandler({episode:episodeNumber,scriptId:props.scriptId}))
-        setOpen(false)
-        history.push('/UploadScript')
+    if(valid){
+        axios.post('http://localhost:3500/episodeCheck',{
+            scriptId:props.scriptId,
+            episode,
+            season            
+        }).then(res=>{
+            console.log(res.data)
+           if(res.data.notFound){
+            dispatch(formAction.episodeHandler({episode:episode,season:season,scriptId:props.scriptId}))
+            setOpen(false)
+            history.push('/UploadScript')
+           }else if(res.data.notFound===false){
+            console.log('already there is episode.')
+           }
+        }).catch(e=>{
+            console.log(e)
+        })
+
     }
 
   }
