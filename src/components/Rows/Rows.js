@@ -34,9 +34,9 @@ function Rows(props) {
   const [isLoading,setIsLoading]=useState(false)
   const [scripts,setScripts]=useState([])
   const [genre,setGenre]=useState('')
-  // console.log(scripts)
+  const [episode,setEpisode]=useState(0)
+  const [season,setSeaosn]=useState(0)
   const backgroundChanger=(url,featured)=>{
-    console.log(featured)
     let divImage ={}
     if(!featured){
       divImage={
@@ -96,7 +96,6 @@ axios.get('http://localhost:3500/fetchscript',{
 }).then((res)=>{
 
   
-  console.log(res.data)
 
   setScripts([...res.data.result])
  setGenre(res.data.genre)
@@ -132,6 +131,15 @@ setIsLoading(false)
   <div className={classes.poster}style={backgroundChanger(script.script_poster,script.featured)} onClick={details.bind(null,script.script_id)}>
   {/* <div style={{display:'grid',gridTemplateColumns:'1fr',gridTemplateRows:'2fr 1fr'}}> */}
  <h1 className="text-white">{script.script_title}</h1>
+ {
+  props.episodes?<div style={{width:'100%',color:'white',borderRadius:'5px'}}>
+    {/* <h3 style={{color:'black',textAlign:'end',backgroundColor:'red',marginRight:'110px',paddingBottom:'50px'}}> */}
+      {/* {season} {episode} */}
+    <h1 style={{    fontSize: '29px',}}>{`S${script.season} E${script.episode}`}</h1>
+      {/* </h3> */}
+      </div>:''
+ }
+
  {
   script.featured?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
     {/* <h3 style={{color:'black',textAlign:'end',backgroundColor:'red',marginRight:'110px',paddingBottom:'50px'}}> */}
