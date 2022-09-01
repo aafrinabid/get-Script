@@ -90,12 +90,13 @@ axios.get('http://localhost:3500/fetchscript',{
     'genre':props.genre,
     'indetail':props.inDetail,
     'scriptid':props.scriptId,
-    'type':type
+    'type':type,
+    'episodes':props.episodes
   }
 }).then((res)=>{
 
   
-  // console.log(res.data)
+  console.log(res.data)
 
   setScripts([...res.data.result])
  setGenre(res.data.genre)
@@ -103,6 +104,8 @@ setIsLoading(false)
 }).catch((e)=>{
   console.log(e)
   setIsLoading(false)
+}).catch(e=>{
+  console.log(e)
 })
 },[type])
   return (

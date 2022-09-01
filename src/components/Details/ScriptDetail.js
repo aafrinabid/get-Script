@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import AddEpisodeModal from './AddEpisodeModal';
+import Episodes from './Episodes';
 
 
 function ScriptDetail() {
@@ -17,6 +18,7 @@ function ScriptDetail() {
     const params=useParams()
     const [detail,setDetail]=useState([]);
     const [genres,setGenres]=useState([])
+    const [episodeState,setEpisodeState]=useState(false)
     const [scriptwriterId,setScriptwriterId]=useState('')
     const [userId,setUserId]=useState('')
     const [featured,setFeatured]=useState(false)
@@ -54,6 +56,7 @@ function ScriptDetail() {
             setGenres(res.data.result.genres)
             setScriptwriterId(res.data.result.id)
             setFeatured(res.data.result.featured)
+            setEpisodeState(res.data.episodeState)
             setIsLoading(false)
             
             
@@ -97,7 +100,13 @@ function ScriptDetail() {
         <div className='bg-inherit'>
        { userId===scriptwriterId && !featured && <Button variant='contained' className='bg-black text-white my-3' onClick={paymentHandler}>Get Featured</Button>} 
         </div> 
+
         <div className={classes.suggestrows}>
+            {episodeState && 
+            <div>
+                <Episodes scriptId={scriptId}/>
+        
+        </div>}
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
             {
                
