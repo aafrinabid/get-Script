@@ -122,6 +122,7 @@ setIsLoading(false)
     // scrollbar={{ draggable: true }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}
+    style={{background:'inherit'}}
 
 >
   {isLoading && <h1>loading ...</h1>}

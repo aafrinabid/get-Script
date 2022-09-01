@@ -9,6 +9,7 @@ import { formAction } from '../../assets/store/formslice';
 function UploadData(props) {
     const dispatch=useDispatch()
     const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
+    const [makeChange,setMakeChange]=useState(false)
     useEffect(()=>{
 dispatch(formAction.formavalidator({name:'uploadPage'}))
     },[isUploaded,dispatch])
@@ -77,6 +78,7 @@ const onUpload =()=>{
         const url=res.data.url
         dispatch(formAction.mediaHandler({name:props.ext,value:url}))
         dispatch(formAction.uploadHandler({name:props.ext}))
+        setMakeChange(false)
 
     }).catch(e=>{
         setIsValid(false)
@@ -90,7 +92,18 @@ const onUpload =()=>{
 
   return (
     <>
- {isUploaded?'cooool':
+ {isUploaded && !makeChange ?  <section className="container">
+  <h1>
+    YOUR FILE IS UPLOADED
+  </h1>
+  <Button onClick={()=>{
+    setMakeChange(true)
+  }}>
+    Do you Want to Change it
+  </Button>
+
+</section>
+:
     <section className="container">
   <Dropzone onDrop={handleOnDrop}  multiple={false} accept={props.type} maxSize={props.dataSize}>
   {({getRootProps, getInputProps}) => (
@@ -113,6 +126,15 @@ const onUpload =()=>{
 Upload
 </Button>:''}
 </div>
+{
+
+}
+{isUploaded && makeChange &&
+  <Button onClick={()=>{
+  setMakeChange(false)
+}}>
+  want to keep the old files click here
+</Button>}
 
 </section>
 }

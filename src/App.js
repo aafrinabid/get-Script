@@ -128,7 +128,7 @@ console.log(userId)
 
  useEffect(()=>{
   console.log(pathname)
-  if(pathname.startsWith("/Profile") || pathname.startsWith("/chat")){
+  if(pathname.startsWith("/Profile") || pathname.startsWith("/chat") || pathname.startsWith('/UploadScript')){
     console.log('########################################*******************************')
    setBlockChange(true)
   }else{
@@ -203,7 +203,10 @@ console.log(userId)
       </Route>
 
       </Switch>
-
+      
+    <div>
+      
+    </div>
       
     </div>
   );
