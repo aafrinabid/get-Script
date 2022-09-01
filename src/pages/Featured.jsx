@@ -29,7 +29,7 @@ function Featured() {
         // return history.push('/chat/t')
 
       }if(res.data.pAuth===false&&res.data.auth===true){
-        return history.replace('/')
+        return history.replace(`/Browse/${0}`)
       }
 
     })

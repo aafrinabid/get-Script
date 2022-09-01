@@ -9,6 +9,8 @@ import Rows from '../Rows/Rows';
 import Button from '@mui/material/Button';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import AddEpisodeModal from './AddEpisodeModal';
+import Episodes from './Episodes';
 
 
 function ScriptDetail() {
@@ -16,6 +18,7 @@ function ScriptDetail() {
     const params=useParams()
     const [detail,setDetail]=useState([]);
     const [genres,setGenres]=useState([])
+    const [episodeState,setEpisodeState]=useState(false)
     const [scriptwriterId,setScriptwriterId]=useState('')
     const [userId,setUserId]=useState('')
     const [featured,setFeatured]=useState(false)
@@ -53,6 +56,7 @@ function ScriptDetail() {
             setGenres(res.data.result.genres)
             setScriptwriterId(res.data.result.id)
             setFeatured(res.data.result.featured)
+            setEpisodeState(res.data.episodeState)
             setIsLoading(false)
             
             
@@ -83,7 +87,7 @@ function ScriptDetail() {
         {!isLoading &&  
         <>
         <ScriptCard img={detail.script_poster}/>
-        <ScriptInfo detail={detail}/>
+        <ScriptInfo detail={detail} scriptId={scriptId}/>
         <div className={classes.tablediv}>
            {!seenTable && <Button variant='text' className='text-4xl font-bold text-white p-7' onClick={clickHandler}>Show Pitch</Button>} 
         {seenTable &&<ScriptTable detail={detail} clickHandler={clickHandler}/>}
@@ -92,10 +96,17 @@ function ScriptDetail() {
        {!seenScript && <Button variant='contained' className='bg-black text-white my-3' onClick={scriptClickHandler}>Script Preview</Button>} 
         {seenScript && <ScriptPdf detail={detail} className='pt-4' scriptHandler={scriptClickHandler}/>}
         </div> 
+        <AddEpisodeModal scriptId={scriptId}/>
         <div className='bg-inherit'>
        { userId===scriptwriterId && !featured && <Button variant='contained' className='bg-black text-white my-3' onClick={paymentHandler}>Get Featured</Button>} 
         </div> 
+
         <div className={classes.suggestrows}>
+            {episodeState && 
+            <div>
+                <Episodes scriptId={scriptId}/>
+        
+        </div>}
             <h1 className='text-xl text-white p-5'>You may also like these scripts...</h1>
             {
                

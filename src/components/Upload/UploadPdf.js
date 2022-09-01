@@ -64,6 +64,11 @@ const genres=['Action Genre',
         const formState=useSelector(state=>state.formHandler['formValidator']['uploadPage'])
         const formData=useSelector(state=>state.formHandler['userData'])
         const formkey=Object.keys(formData)
+        const addEpisodeState=useSelector(state=>state.formHandler['nextEpisode']['state'])
+        const mainScript=useSelector(state=>state.formHandler['nextEpisode']['mainScript'])
+        const episode=useSelector(state=>state.formHandler['nextEpisode']['episode'])
+        const season=useSelector(state=>state.formHandler['nextEpisode']['season'])
+
         const dispatch=useDispatch();
         const changeHandler=(e)=>{
           console.log('happening')
@@ -90,8 +95,11 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
          
           console.log('happpening')
           
-          axios.post('http://localhost:3500/scriptupload',data, {headers:{
-            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+          axios.post('http://localhost:3500/scriptupload',{...data,mainScriptId:addEpisodeState?mainScript:false}, {headers:{
+            'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):"",
+            'mainScriptId':addEpisodeState?mainScript:false,
+            'episode':addEpisodeState?episode:false,
+            'season':addEpisodeState?season:false
           }
         }).then(res=>{
           if(res.data.uploaded){

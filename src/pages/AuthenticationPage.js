@@ -60,7 +60,7 @@ export default function SignIn() {
   const confirmationStatus=useSelector(state=>state.authHandler.status)
   useEffect(()=>{
     if(loginStatus && confirmationStatus==='approved'){
-    history.push('/')  
+    history.push(`/Browse/${0}`)  
     }
 
   }
@@ -104,7 +104,7 @@ export default function SignIn() {
 console.log(res)
 dispatch(authActions.loginHandler(res.data))
 if(res.data['auth'] && res.data['status']==='approved'){
-  history.push('/')
+  history.push(`/Browse/${0}`)
 }if(!res.data['auth']){
   console.log('not auth')
   handleClick()
@@ -186,7 +186,7 @@ google.accounts.id.renderButton(
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
-          history.push('/')
+          history.push(`/Browse/${0}`)
         }if(!res.data['auth']){
           console.log('not auth')
           handleClick()

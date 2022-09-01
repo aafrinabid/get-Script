@@ -139,7 +139,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link to={`/Browse/${0}`}>  GetScript Page</Link></MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
@@ -251,7 +251,7 @@ export default function PrimarySearchAppBar() {
                 onClose={handleMenuClose}
               >
                 <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link to='/'>  GetScript Page</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to={`/Browse/${0}`}>  GetScript Page</Link></MenuItem>
                 <MenuItem onClick={handleLogout}> logout</MenuItem>
 
               </Menu>

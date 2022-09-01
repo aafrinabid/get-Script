@@ -6,7 +6,7 @@ import classes from './Rows.module.css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 import { LineAxisSharp } from "@mui/icons-material";
 import axios from "axios";
 import { borderColor } from "@mui/system";
@@ -29,6 +29,8 @@ const genres=['Action Genre',
 function Rows(props) {
   // console.log(props)
 
+  const params = useParams()
+  const {type}=params
   const [isLoading,setIsLoading]=useState(false)
   const [scripts,setScripts]=useState([])
   const [genre,setGenre]=useState('')
@@ -87,12 +89,14 @@ axios.get('http://localhost:3500/fetchscript',{
   headers:{
     'genre':props.genre,
     'indetail':props.inDetail,
-    'scriptid':props.scriptId
+    'scriptid':props.scriptId,
+    'type':type,
+    'episodes':props.episodes
   }
 }).then((res)=>{
 
   
-  // console.log(res.data)
+  console.log(res.data)
 
   setScripts([...res.data.result])
  setGenre(res.data.genre)
@@ -100,8 +104,10 @@ setIsLoading(false)
 }).catch((e)=>{
   console.log(e)
   setIsLoading(false)
+}).catch(e=>{
+  console.log(e)
 })
-},[])
+},[type])
   return (
 <div className={`${classes.rows} bg-inherit`}>
   <div className={classes.rowtitle}>
@@ -121,7 +127,7 @@ setIsLoading(false)
 >
   {isLoading && <h1>loading ...</h1>}
   {!isLoading && scripts.map(script=>(
- <SwiperSlide style={{background:'black'}}>
+ <SwiperSlide >
   {/* <div style={{borderRadius:'2px',borderColor:'red'}}> */}
   <div className={classes.poster}style={backgroundChanger(script.script_poster,script.featured)} onClick={details.bind(null,script.script_id)}>
   {/* <div style={{display:'grid',gridTemplateColumns:'1fr',gridTemplateRows:'2fr 1fr'}}> */}

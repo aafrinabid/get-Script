@@ -71,7 +71,6 @@ function MessageArea(props) {
       // if(data.room==props.messageId){
         // if(data.reciever===userId || data.sender===userId){
 
-          console.log('inside the most the sdfe shit',props.to)
           if(recieverId){
             if(data.reciever===recieverId || data.sender===recieverId){
           
