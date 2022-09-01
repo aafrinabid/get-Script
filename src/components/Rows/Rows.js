@@ -37,7 +37,7 @@ function Rows(props) {
   const [season,setSeaosn]=useState(0)
   const backgroundChanger=(url,featured)=>{
     let divImage ={}
-    if(!featured){
+    if(!featured || props.episodes===true){
       divImage={
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,

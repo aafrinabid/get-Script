@@ -22,6 +22,8 @@ function ScriptDetail() {
     const [scriptwriterId,setScriptwriterId]=useState('')
     const [userId,setUserId]=useState('')
     const [featured,setFeatured]=useState(false)
+    const [season,setSeaosn]=useState(0)
+    const [episode,setEpisode]=useState(0)
     console.log(genres)
     console.log(detail.script_id)
     // const genres=detail.genres
@@ -55,8 +57,10 @@ function ScriptDetail() {
             setDetail(res.data.result)
             setGenres(res.data.result.genres)
             setScriptwriterId(res.data.result.id)
-            setFeatured(res.data.result.featured)
+            setFeatured(res.data.featured)
             setEpisodeState(res.data.episodeState)
+            setSeaosn(res.data.season)
+            setEpisode(res.data.episode)
             setIsLoading(false)
             
             
@@ -87,7 +91,7 @@ function ScriptDetail() {
         {!isLoading &&  
         <>
         <ScriptCard img={detail.script_poster}/>
-        <ScriptInfo detail={detail} scriptId={scriptId}/>
+        <ScriptInfo detail={detail} episode={episode} season={season} scriptId={scriptId} episodeState={episodeState}/>
         <div className={classes.tablediv}>
            {!seenTable && <Button variant='text' className='text-4xl font-bold text-white p-7' onClick={clickHandler}>Show Pitch</Button>} 
         {seenTable &&<ScriptTable detail={detail} clickHandler={clickHandler}/>}
