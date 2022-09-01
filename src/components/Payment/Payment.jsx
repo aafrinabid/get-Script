@@ -126,7 +126,7 @@ function Payment() {
         console.log(data.paymentIntent.status)
         if(data.paymentIntent.status==='succeeded'){
           console.log('it is confirmed op now')
-          history.replace('/')
+          history.replace(`/Browse/${0}`)
         }
       }
       

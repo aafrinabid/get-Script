@@ -121,7 +121,7 @@ function ProfileInfo() {
       <div className={`mt-20 pt-11 h-screen w-full bg-inherit ${classes.postedScripts}`} >
         <h1 className='pt-12 text-3xl text-white  font-extrabold' style={{paddingTop:'100px'}}>Posted Scripts</h1>
         <div className='bg-inherit w-full'>
-          <ScriptPostedCards id={userid}/>
+          <ScriptPostedCards id={userid} url={'http://localhost:3500/writersscripts'}/>
 
         </div>
 

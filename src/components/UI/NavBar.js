@@ -21,11 +21,15 @@ function NavBar({blockChange,colorChange,socket,userId}) {
   }).then((res)=>{
     setId(res.data.userId)
     setRole(res.data.role)
+    console.log(res.data.userId,'testing data baseeeeeeeeeeeeeeeeeeeeeeeee')
     axios.post('http://localhost:3500/getUsername',{
       id:res.data.userId
     }).then((res)=>{
+      console.log(res.data)
       setUsername(res.data.username)
     })
+  }).catch(e=>{
+    console.log(e)
   })
   },[])
 
@@ -60,16 +64,16 @@ function NavBar({blockChange,colorChange,socket,userId}) {
 {/* <p className='ml-3 text-2xl'>GetScript</p>      */}
     </div>
      <div className={`flex items-center justify-center ${classes.browse}`}> 
-    <Link to='/'> <h1 className='mx-2 text-l cursor-pointer'>Browse</h1> </Link>
-    <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>TV Shows</h1> </Link>
-    <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Movies</h1> </Link>
-    <Link to='/'> <h1 className='mx-2 text-l cursor-pointer'>Anime</h1> </Link>
-    <Link to='/'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
+    <Link to={`/Browse/${0}`}> <h1 className='mx-2 text-l cursor-pointer'>Browse</h1> </Link>
+    <Link to={`/Browse/TV_Series`}> <h1 className='mx-2 text-l  cursor-pointer'>TV Shows</h1> </Link>
+    <Link to={`/Browse/MOVIE`}> <h1 className='mx-2 text-l  cursor-pointer'>Movies</h1> </Link>
+    <Link to={`/Browse/Anime`}> <h1 className='mx-2 text-l cursor-pointer'>Anime</h1> </Link>
+    <Link to='/savedscript'> <h1 className='mx-2 text-l  cursor-pointer'>Saved Script</h1> </Link>
         </div>
         <div className= {`flex ${classes.profile}`} >
     {(userRole===1 || userRole===3) && <Link to='/UploadScript'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><AddBoxSharp /></h1> </Link>}    
         <Link to='/chat/t'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><ChatRounded /></h1> </Link>
-        <Link to='/'> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
+        <Link to={`/Browse/${0}`}> <h1 className='mx-2 text-l ml-5  cursor-pointer'><Notifications/></h1> </Link>
 
          <IconButton size='large'
          aria-label='profile'

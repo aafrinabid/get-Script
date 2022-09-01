@@ -123,12 +123,19 @@ setIsOnline(true)
               <div style={{display:'grid',gridTemplateColumns:'60% 40%'}}>
             <div className={classes.usermessage}>{props.msg}</div>
             {/* </div> */}
-            <div style={{
-              background: isOnline?'green':'red',
-              borderRadius: '109px',
-              padding: '-12px',
-              margin: '7px 56px'
-}}></div>
+            <div>
+            <p style={{
+            margin:'0px',
+            // height:'1px',
+            // backgroundc: isOnline?'green':'red',
+            backgroundImage:isOnline?'url("https://icon2.cleanpng.com/20180328/tsq/kisspng-circle-n-carpet-cleaning-upland-green-dot-corporat-dots-5abb905aa15890.9523326215222416266609.jpg")':'url("https://icon2.cleanpng.com/20180411/pre/kisspng-visual-perception-optical-illusion-eye-color-circle-5acdca5077ff26.9533774115234361124915.png")',
+              color:isOnline?'green':'red',
+              fontSize:'50px'
+              // borderRadius: '109px',
+              // padding: '-12px',
+              // margin: '7px 56px'
+}}></p>
+</div>
             {/* <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p> */}
             </div>
         </div>

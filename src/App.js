@@ -17,6 +17,7 @@ import Message from './pages/Message'
 import {io} from 'socket.io-client';
 import { chatActions } from './assets/store/chatSlice';
 import Featured from './pages/Featured';
+import Saved from './pages/Saved';
 
 
 
@@ -142,8 +143,13 @@ console.log(userId)
 </>    
 }
       <Switch>
-      {loginStatus &&   <Route path='/' exact>
+      {loginStatus &&   <Route path='/Browse/:type' exact>
       <Browse />
+        </Route>
+}
+
+{loginStatus &&   <Route path='/savedscript'>
+          <Saved />
         </Route>
 }
         {loginStatus &&   <Route path='/details/:scriptId'>
@@ -175,7 +181,6 @@ console.log(userId)
 
 {loginStatus && userRole===3 && 
  <Route path='/AdminPanel'>
-  {console.log('what the fuck happended')}
  <AdminPanel />
 </Route>
 }    
@@ -192,7 +197,7 @@ console.log(userId)
 
       <Route path='*'>
 
-        {loginStatus?<Redirect to='/'/>:<Redirect to='/login'/>}
+        {loginStatus?<Redirect to={`/Browse/${0}`}/>:<Redirect to='/login'/>}
         {console.log(loginStatus)}
         // {/* {!loginStatus && <Redirect to='/login'/> } */}
       </Route>

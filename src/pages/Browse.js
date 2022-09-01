@@ -41,14 +41,7 @@ function Browse() {
             <Rows screenper={6} genre={genre} />
           ))
         }
-        {/* <Rows screenper={6} genre='Comedy Genre' />
-        <Rows screenper={6} genre='Fantasy Genre' />
-        <Rows screenper={6} genre='Action Genre' />
-        <Rows screenper={6} genre='Thriller Genre' />
-        <Rows screenper={6} genre='Horror Genre' />
-        <Rows screenper={6} genre='Crime Genre' />
-        <Rows screenper={6} genre='Drama Genre' />
-        <Rows screenper={6} genre='Animation Genre' /> */}
+ 
 
 
 
@@ -58,11 +51,6 @@ function Browse() {
 
         
 
-        {/* <Rows screenper={6} />
-        <Rows screenper={6}/>
-        <Rows screenper={6}/>
-        <Rows screenper={6}/>
-        <Rows screenper={6}/> */}
 
     </div>
   )

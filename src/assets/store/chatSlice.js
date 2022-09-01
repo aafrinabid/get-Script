@@ -66,6 +66,9 @@ const ChatSlice =createSlice({
         },
         currentChatAdder(state,action){
             state.currentChat=action.payload;
+        },
+        userCleaner(state){
+            state.users=[]
         }
         
     }

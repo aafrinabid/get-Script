@@ -80,7 +80,8 @@ function ChatContent(props) {
   return (
     <div>
 <UserNameContent userId={props.recieverid} />
-{data.length>0 && recieverId ?<MessageArea message={data} to={recieverId} from={userId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundColor:'rgb(255,254,254)'}}>
+{data.length>0 && recieverId ?<MessageArea message={data} to={recieverId} from={userId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundImage:`url('https://images.unsplash.com/photo-1531303511320-729cbf66254f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGdyZWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80')`, backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',padding:'0 32px'}}>
 </div>}
 {
 

@@ -115,7 +115,8 @@ const ProducerSlice=createSlice({
             console.log(state.producers)
         },
         addProducers(state,action){
-            const existingProducerIndex=state.producers.findIndex((producer)=>producer.producer_id===action.payload)
+            console.log(action.payload)
+            const existingProducerIndex=state.producers.findIndex((producer)=>producer.id===action.payload)
             const existingProducer=state.producers[existingProducerIndex]
             const UpdatedProducer={
                 ...existingProducer,

@@ -51,8 +51,8 @@ function Row(props) {
       id:id
     }).then((res)=>{
       if(res.data.status){
-        console.log('in dispatch add')
-        dispatch(ProducerActions.addProducers(id))
+        console.log('in dispatch add',res.data)
+        dispatch(ProducerActions.addProducers(res.data.id))
       }
 
     })
@@ -64,7 +64,7 @@ function Row(props) {
         }).then((res)=>{
           if(res.data.deleted){
             console.log(res.data.deleted,'deleting happening')
-            dispatch(ProducerActions.rejectProducers(id))
+            dispatch(ProducerActions.rejectProducers(res.data.id))
             
           }
         }).catch((e)=>{
@@ -91,8 +91,8 @@ function Row(props) {
         <TableCell align="right" className='text-white'>8899112</TableCell>
         {props.state==='approved'?(<TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.producer_id)}><RemoveCircle className='text-white'/></IconButton></TableCell>):
         <React.Fragment>
-        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.producer_id)}><AddCircle className='text-white'/></IconButton> </TableCell>
-        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.producer_id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
+        <TableCell align="right" className='text-white'> <IconButton onClick={addProducer.bind(null,row.id)}><AddCircle className='text-white'/></IconButton> </TableCell>
+        <TableCell align="right" className='text-white'><IconButton onClick={removeProducer.bind(null,row.id)}><RemoveCircle className='text-white'/></IconButton></TableCell>
         </React.Fragment>
         }
         

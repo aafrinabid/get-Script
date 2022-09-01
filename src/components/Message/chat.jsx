@@ -15,7 +15,7 @@ function Chat(props) {
   const [seen,setSeen]=useState(false)
 const [userId,setUserId]=useState(null)
 const [msg,setMsg]=useState({})
-const socket=useRef();
+const [ownerName,setOwnerName]=useState('')
 let role
  useEffect(()=>{
       axios.get('http://localhost:3500/getId',{
@@ -27,6 +27,23 @@ let role
         // userId=res.data.userId
         role=res.data.role
         setUserId(res.data.userId)
+        axios.post('http://localhost:3500/getUsername',{
+          id:res.data.userId
+        }).then(res=>{
+          console.log(res.data.username,'username')
+          const length=res.data.username.length
+          const username=res.data.username.split('')
+          const index=username.findIndex(letter=>letter==='@')
+          let finalName
+          if(index>0){
+              const diff=length-index
+              const deleted=username.splice(index,diff)
+              finalName=username.join('')
+          }else{
+              finalName=res.data.username      
+          }
+          setOwnerName(finalName)
+        })
         // const recId=r
       })
  
@@ -56,7 +73,7 @@ console.log(msg)
     <div className={classes.container}>
   <div className={classes.chat}>
 
-    <ChatUser socket={props.socket}  setSeen={setSeen} msg={msg}/>
+    <ChatUser socket={props.socket}  ownerName={ownerName} userId={userId} setSeen={setSeen} msg={msg}/>
     {!seen && <h1>hiii chat here d</h1>}
     {seen &&
     <Switch>

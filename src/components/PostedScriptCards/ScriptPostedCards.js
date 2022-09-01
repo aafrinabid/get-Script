@@ -38,15 +38,22 @@ const backgroundChanger=(url)=>{
 
 
 function ScriptPostedCards(props) {
+  console.log(props)
   const history=useHistory()
   useEffect(()=>{
-    axios.post('http://localhost:3500/writersscripts',{
+    console.log('fetching saved scripts')
+    axios.post(props.url,{
       username:props.id
+    },{
+      headers:{
+        'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+      }
     }).then(res=>{
+      console.log(res.data)
       setScripts([...res.data])
 
     })
-  })
+  },[])
     const [showContent,setShowContent]=useState(false);
     const [scripts,setScripts]=useState([])
     const showcontent=()=>{

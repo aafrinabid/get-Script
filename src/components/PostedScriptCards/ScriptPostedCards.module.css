@@ -9,7 +9,7 @@
     /* position: absolute; */
     /* position: static; */
     /* position: relative; */
-    background-color: rgb(37, 36, 36);
+    background-color:inherit;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 12px;
