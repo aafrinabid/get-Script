@@ -83,14 +83,7 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         const classes=useStyles()
         const history=useHistory()
         
-     
-        // const [files,setFiles] = useState([])
-        // const [image,setImage] = useState([])
-        // const [poster,setPoster] = useState([])
-        // const [video,setVideo] = useState([])
-     
-       
-        // const [files,setFiles]=useState('')
+
         const nextPageHandler=()=>{
          
           console.log('happpening')
@@ -104,9 +97,7 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
         }).then(res=>{
           if(res.data.uploaded){
             console.log(res.data)
-            // dispatch(formAction.nextStepHandler())
             dispatch(formAction.submitFormHandler())
-            // history.push('/chat/t')
             history.push(`/featured/${res.data.scriptId}`)
           }else{
             throw new Error('some issue at our end please try again after some time')
@@ -125,81 +116,6 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
 
 
 
-        // dropzoneRef.open()
-
-        // const fileHandler=(file)=>{
-        //     setFiles(file)
-        //     console.log(files)
-        // }
-    //     function isDate(val) {
-    //       // Cross realm comptatible
-    //       return Object.prototype.toString.call(val) === '[object Date]'
-    //     }
-        
-    //     function isObj(val) {
-    //       return typeof val === 'object'
-    //     }
-        
-    //      function stringifyValue(val) {
-    //       if (isObj(val) && !isDate(val)) {
-    //         return JSON.stringify(val)
-    //       } else {
-    //         return val
-    //       }
-    //     }
-        
-    //     function buildForm({ action, params }) {
-    //       const form = document.createElement('form')
-    //       form.setAttribute('method', 'post')
-    //       form.setAttribute('action', action)
-        
-    //       Object.keys(params).forEach(key => {
-    //         const input = document.createElement('input')
-    //         input.setAttribute('type', 'hidden')
-    //         input.setAttribute('name', key)
-    //         input.setAttribute('value', stringifyValue(params[key]))
-    //         form.appendChild(input)
-    //       })
-        
-    //       return form
-    //     }
-        
-    //      function post(details) {
-    //       console.log(details)
-    //       const form = buildForm(details)
-    //       document.body.appendChild(form)
-    //       form.submit()
-    //       form.remove()
-    //     }
-        
-    //     const getData=(data)=>{
-
-    //       return fetch(`http://localhost:3500/payment`,{
-    //         method:"POST",
-    //         headers:{
-    //             Accept:"application/json",
-    //             "Content-Type":"application/json"
-    //         },
-    //         body:JSON.stringify(data)
-    //     }).then(response=>response.json()).catch(err=>console.log(err))
-    //   }
-         
-
-
-    //    const makePayment=()=>
-    // {
-    //   getData({amount:500,email:'abc@gmail.com'}).then(response=>{
- 
-    //     var information={
-    //         action:"https://securegw-stage.paytm.in/order/process",
-    //         params:response
-    //     }
-    //   post(information)
-    
-    // })
-  
-
-    // }
   return (
     <div className='flex justify-center h-screen '>
   <Card className='w-1/2 text-white'style={divImage}>

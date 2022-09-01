@@ -33,7 +33,6 @@ console.log(userId)
   const dispatch=useDispatch()
   const history=useHistory()
   const loginStatus=useSelector(state=>state.authHandler.isLoggedIn)
-  // loginStatus && socket.current.emit('online',)
 
  
   const userRole=useSelector(state=>state.authHandler.role)
@@ -55,9 +54,7 @@ console.log(userId)
         dispatch(authActions.loginHandler(res.data))
         console.log(res.data);
         setUserId(res.data.id)
-        // if(res.data['auth'] && res.data['status']){
-        //   history.replace('/')
-        // }
+       
       }).catch((e)=>{
         console.log('kili');
         console.log(e.message)
@@ -68,20 +65,12 @@ console.log(userId)
     console.log(loginStatus,userId)
    
      
-      // if(loginStatus && userId){
      loginStatus&& socket.current.emit('online',{
         room:'room',
       })
       socket.current.on('addUserOnline',(data)=>{
         console.log(data.onlineUsers)
-        // const id=data.userId
-        // const socketId=data.socketId
-        // const users={
-        //   id,
-        //   socketId
-        // }
-        
-        // dispatch(chatActions.OnlineuserAdder({users:{id,socketId}}))
+     
         socket.current.emit('changeOnline',{
           users:data.onlineUsers
         })
@@ -96,10 +85,8 @@ console.log(userId)
       })
       socket.current.on('modify',(data)=>{
         console.log(data)
-        // dispatch(chatActions.OnlineuserAdder({users:{id:data.id,socketId:data.socketId}}))
         dispatch(chatActions.changeOnlineUsers({users:[...data]}))
         
-        // socket.current.emit('newUsers',{onlineUsers,socketId:socket.id})
        })
        socket.current.on('changeIt',(data)=>{
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
@@ -108,7 +95,6 @@ console.log(userId)
     // }
   },[dispatch,loginStatus])
   const location=useLocation()
-  // console.log(params)
   const {pathname}=location
   const [colorChange,setColorchange]=useState(false);
   const [blockChange,setBlockChange]=useState(false)
@@ -205,7 +191,7 @@ console.log(userId)
       </Switch>
       
     <div>
-      
+
     </div>
       
     </div>

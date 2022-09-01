@@ -35,7 +35,6 @@ function ProfileInfo() {
   }).catch(e=>console.log(e))
   },[userid])
   const location=useLocation()
-  // console.log(params)
   const {pathname}=location
   console.log(pathname)
   const url='https://images.unsplash.com/photo-1452423668729-43a98052d3ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
@@ -49,7 +48,6 @@ function ProfileInfo() {
        backgroundSize: '100%',
        backgroundRepeat: 'no-repeat',
    };
-  //  let [userId,setUserId]=useState()
    const chatHandler=(id)=>{
     axios.get('http://localhost:3500/getId',{
       headers:{

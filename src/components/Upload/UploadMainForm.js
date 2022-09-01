@@ -15,7 +15,6 @@ import UploadPdf from './UploadPdf'
 import axios from 'axios'
 import ScriptDetail from '../Details/ScriptDetail'
 import { formAction } from '../../assets/store/formslice'
-// Step titles
 
 const useStyles = makeStyles({
   input: {

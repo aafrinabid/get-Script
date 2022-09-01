@@ -17,19 +17,10 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
     const [errorMsg,setErrorMsg]=useState('')
     const [isValid,setIsValid]=useState(false)
     const [file,setFile]=useState(null)
-    // const [isUploaded,setIsUploaded]=useState(false)
 const handleOnDrop=async(files,rejectedFiles)=>{
     console.log(files)
     console.log(rejectedFiles)
-    // if(rejectedFiles && rejectedFiles.length>0){
-    //     const currentRejectFile=rejectedFiles[0]
-    //     const currentRejecetedFileType=currentRejectFile.type
-    //     const currentRejectFileSize=currentRejectFile.maxSize
-    //     if(currentRejectFileSize>props.dataSize){
-    //         alert('this file is too big')
-    //     }
-    // }
-
+ 
     if(files && files.length>0){
         const currentFile=files[0]
         const currentFileType=currentFile.type

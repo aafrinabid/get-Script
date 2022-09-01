@@ -24,7 +24,6 @@ const UserChart = (props) => {
 
                   ],
                   hoverOffset: 4,
-                  // cutoutPercentage: 80
                  
                 }]
               }} options={{

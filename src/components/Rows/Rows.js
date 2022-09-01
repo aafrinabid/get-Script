@@ -27,7 +27,6 @@ const genres=['Action Genre',
     'Other Genres',]
 
 function Rows(props) {
-  // console.log(props)
 
   const params = useParams()
   const {type}=params
@@ -142,7 +141,7 @@ setIsLoading(false)
  }
 
  {
-  script.featured?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
+  script.featured && props.episodes!==true?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
     {/* <h3 style={{color:'black',textAlign:'end',backgroundColor:'red',marginRight:'110px',paddingBottom:'50px'}}> */}
       FEATURED
       {/* </h3> */}
@@ -154,7 +153,6 @@ setIsLoading(false)
  </div>
  {/* </div> */}
   </SwiperSlide>
-//  <SwiperSlide><div className={classes.poster}  onClick={details.bind(null,script.script_id)}> </div> </SwiperSlide>
 ))}
    
         

@@ -24,33 +24,7 @@ setIsOnline(true)
   setIsOnline(false)
 }
   },[onlineUsers])
-  // useEffect(()=>{
-  //   props.socketi.current.emit('checkonline')
-  //   props.socketi.current.on('isonline',(data)=>{
-  //     console.log(data,'istabulllllllllllllllllllllllllllllllllll')
-      
-      
-  //     if(data.status){
-  //       setIsOnline(true)
-  //     }
-  //     if(data.status===false){
-  //        console.log(data,'false')
-  //       setIsOnline(false)
-  //     }
-      
-  
-  //   })
-  //   // props.socketi.current.on('latestStatus',data=>{
-  //   //   const online=data.users.findIndex(user=>user==props.userId)
-  //   //   const user=data.users[online]
-  //   //   if(user){
-  //   //     setIsOnline(true)
-  //   //   }else{
-  //   //     setIsOnline(false)
-  //   //   }
-
-  //   // })
-  // },[])
+ 
   
   const rooms=useSelector(state=>state.chatHandler.room)
   console.log(rooms)
@@ -60,13 +34,7 @@ setIsOnline(true)
   const [data,setData]=useState({})
   const params=useParams();
   console.log(onlineUsers)
-  // const userIndex=onlineUsers.findIndex(user=>user.userId===props.userId)
-  // const onlineUser=onlineUsers[userIndex]
-  // if(onlineUser){
-  //   setIsOnline(true)
-
-  // }
-
+ 
   
   const chatHandler=()=>{
     history.push(`/chat/t/${props.userId}/${1}`)
@@ -91,13 +59,7 @@ setIsOnline(true)
 
   const currentChat=useSelector(state=>state.chatHandler.currentChat)
 
-//   useEffect(()=>{
-// props.socket.current.on('notifies',data=>{
-//   console.log('userdateeea',data)
-//   setMsg(data)
-// })
-//   },[])
-  // const {role}=params
+
   useEffect(()=>{
     axios.post('http://localhost:3500/userDetails',{
       id:props.userId,
@@ -136,7 +98,6 @@ setIsOnline(true)
               // margin: '7px 56px'
 }}></p>
 </div>
-            {/* <p className='mx-4'>{isOnline?<SwapHorizontalCircleOutlined style={{color:'green'}}/>:''}</p> */}
             </div>
         </div>
     </div>
