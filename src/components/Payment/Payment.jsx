@@ -169,7 +169,7 @@ function Payment() {
             <div className={classes.method}>
                 <Button onClick={makePayment}>Pay with Paytm</Button>
                 <StripeCheckout
-                stripeKey='pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv'
+                stripeKey='pk_test_51LTPCzSCQkcXAqhhdPxstVEJtN1QMAeBuzNaMJuyokB9etMIUE1JtCfkAiGXTib6psO8PzrNNJ6S7dXLMv7gSwRh00oT21JnUo'
                 token={makeStripePayment}
                 name={'featur your script'}
                 amount={price *100}
