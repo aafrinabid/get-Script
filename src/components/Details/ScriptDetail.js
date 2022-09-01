@@ -95,8 +95,11 @@ function ScriptDetail() {
         <div className='bg-inherit'>
        {!seenScript && <Button variant='contained' className='bg-black text-white my-3' onClick={scriptClickHandler}>Script Preview</Button>} 
         {seenScript && <ScriptPdf detail={detail} className='pt-4' scriptHandler={scriptClickHandler}/>}
-        </div> 
+        </div>
+         {userId===scriptwriterId && detail.entertainment !=='MOVIE' && 
+
         <AddEpisodeModal scriptId={scriptId}/>
+        }
         <div className='bg-inherit'>
        { userId===scriptwriterId && !featured && <Button variant='contained' className='bg-black text-white my-3' onClick={paymentHandler}>Get Featured</Button>} 
         </div> 
