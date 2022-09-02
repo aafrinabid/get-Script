@@ -98,6 +98,9 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
           if(res.data.uploaded){
             console.log(res.data)
             dispatch(formAction.submitFormHandler())
+            if(res.data.paid){
+              history.push('/Browse/0')
+            }else
             history.push(`/featured/${res.data.scriptId}`)
           }else{
             throw new Error('some issue at our end please try again after some time')

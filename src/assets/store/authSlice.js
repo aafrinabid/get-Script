@@ -4,7 +4,7 @@ import { data } from "autoprefixer";
 const authSlice=createSlice({
     name:'authentication',
     initialState:{
-        isLoggedIn:false,
+        isLoggedIn:true,
         role:0,
         status:''
     },
