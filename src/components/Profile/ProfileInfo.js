@@ -16,7 +16,8 @@ function ProfileInfo() {
    const [name,setName]=useState('')
    const [scriptCount,setScriptCount]=useState(0)
   const userRole=useSelector(state=>state.authHandler.role)
-
+  const [id,setId]=useState('')
+console.log(id===details.id,id,details.id)
    
    console.log(details)
    const params=useParams();
@@ -24,6 +25,15 @@ function ProfileInfo() {
    const {role}=params;
   useEffect(()=>{
     console.log('dddhdhdhdhdh')
+    axios.get('http://localhost:3500/getId',{
+      headers:{
+        'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+      }
+    }).then((res)=>{
+      console.log(res.data)
+      setId(res.data.userId)
+    })
+    
   axios.post('http://localhost:3500/getProfileInfo',{
     userid:userid,
     role
@@ -49,16 +59,16 @@ function ProfileInfo() {
        backgroundRepeat: 'no-repeat',
    };
    const chatHandler=(id)=>{
-    axios.get('http://localhost:3500/getId',{
-      headers:{
-        'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
-      }
-    }).then((res)=>{
-      console.log(res.data)
+    // axios.get('http://localhost:3500/getId',{
+    //   headers:{
+    //     'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
+    //   }
+    // }).then((res)=>{
+    //   console.log(res.data)
  const date=new Date()
 
     axios.post('http://localhost:3500/messagelist',{
-     senderId:res.data.userId,
+     senderId:id,
      recieverId:id,
      date
     }
@@ -69,9 +79,9 @@ function ProfileInfo() {
     }).catch(e=>{
       console.error(e)
     })
-    }).catch(e=>{
-      console.log(e)
-    })
+    // }).catch(e=>{
+    //   console.log(e)
+    // })
     
 
     
@@ -87,6 +97,8 @@ function ProfileInfo() {
       <h1 className='text-9xl px-10 pt-10'>{name}</h1>
      {
       (userRole===2 || userRole===3) 
+      &&
+      id!==details.id
       &&
       <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>  
     }
@@ -110,20 +122,23 @@ function ProfileInfo() {
         </div>
       </div>
       {/* <div className='h-0.5 bg-cyan-800 col-span-3 m-4'></div> */}
-      <div className={`text-xl col-span-3 pl-12 ml-7 pt-6 mt-12 text-left ${classes.description}`}>
+      <div className={`text-xl col-span-3 pl-12 ml-7  mt-12 text-left ${classes.description}`}>
       Ancient myths, tall tales and ghost stories - Lore and lies. Fascinated by every language in the world and endeavoring to pick at least one up before I die. My cats will tell you I sing too loudly and dance terribly, though I would advise you not to believe them as both are notorious liars. Country, hip-hop, disco, soul, grunge, pop, rock and everything in between. My favourite hobby is laughing until I cry and my goal is making others do the same.
 
       </div>
       
       </div>
+      {details.type==='scriptwriter' &&
       <div className={`mt-20 pt-11  w-full bg-inherit ${classes.postedScripts}`} >
-        <h1 className='pt-12 text-3xl text-white  font-extrabold' style={{paddingTop:'100px'}}>Posted Scripts</h1>
-        <div className='bg-inherit w-full'>
-          <ScriptPostedCards id={userid} url={'http://localhost:3500/writersscripts'}/>
-
-        </div>
+      <h1 className='pt-12 text-3xl text-white  font-extrabold' style={{paddingTop:'100px'}}>Posted Scripts</h1>
+      <div className='bg-inherit w-full'>
+        <ScriptPostedCards id={userid} url={'http://localhost:3500/writersscripts'}/>
 
       </div>
+
+    </div>
+
+      }
       <div>
         
       </div>

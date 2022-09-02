@@ -41,7 +41,7 @@ function Rows(props) {
       divImage={
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'110px',
+           height:'129px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
            backgroundSize: 'cover',
@@ -53,7 +53,7 @@ function Rows(props) {
       divImage={
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'110px',
+           height:'129px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
            backgroundSize: 'cover',
@@ -107,7 +107,7 @@ setIsLoading(false)
 })
 },[type])
   return (
-<div className={`${classes.rows} bg-inherit`}>
+<div className={`${classes.rows} bg-inherit`} style={{height:'auto'}}>
   <div className={classes.rowtitle}>
     <h2>{genre}</h2>
   </div>
