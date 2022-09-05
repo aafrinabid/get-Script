@@ -7,8 +7,11 @@ import { formAction } from '../../assets/store/formslice';
 
 
 function UploadData(props) {
+    const [path,setPath]=useState('')
     const dispatch=useDispatch()
     const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
+    const  data=useSelector(state=>state.formHandler['userData'][props.ext])
+    console.log(data,'brrrrrr')
     const [makeChange,setMakeChange]=useState(false)
     useEffect(()=>{
 dispatch(formAction.formavalidator({name:'uploadPage'}))
@@ -18,13 +21,14 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
     const [isValid,setIsValid]=useState(false)
     const [file,setFile]=useState(null)
 const handleOnDrop=async(files,rejectedFiles)=>{
-    console.log(files)
+    console.log(files[0].path)
     console.log(rejectedFiles)
  
     if(files && files.length>0){
         const currentFile=files[0]
         const currentFileType=currentFile.type
         const currentFileSize=currentFile.maxSize
+        setPath(files[0].path)
         console.log(props.type)
         if(props.type.length===1){
             console.log('here')
@@ -85,8 +89,24 @@ const onUpload =()=>{
     <>
  {isUploaded && !makeChange ?  <section className="container">
   <h1>
-    YOUR FILE IS UPLOADED
+     FILE SHOWN BELOW <br /> IS UPLOADED
   </h1>
+  {
+data.length>0 
+&& props.ext!=='pdf' 
+&& 
+<img src={data} style={{height:'150px',
+    width: '203px',
+    borderRadius:'49px',marginLeft:'28px'}} alt='image'/>
+} 
+
+{/* {
+  data.length>0 && props.ext==='pdf' && 
+  <embed  
+       src={data}
+       width="250"
+       height="200"></embed>
+} */}
   <Button onClick={()=>{
     setMakeChange(true)
   }}>
@@ -127,8 +147,10 @@ Upload
   want to keep the old files click here
 </Button>}
 
+
 </section>
 }
+
 </>
   );
 }
