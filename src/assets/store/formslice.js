@@ -47,6 +47,10 @@ const formHandleSlice=createSlice({
             mainScript:'',
             state:false
         },
+        updateScript:{
+            state:false,
+            scriptId:''
+        }
     },
     reducers:{
         nextStepHandler(state){
@@ -195,6 +199,10 @@ const formHandleSlice=createSlice({
         },
         episodePageHandler(state){
             state.activeStepState=2
+        },
+        updateScript(state,action){
+            state.updateScript.state=true
+            state.updateScript.scriptId=action.payload
         }
         
     }

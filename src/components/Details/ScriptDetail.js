@@ -11,11 +11,14 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import AddEpisodeModal from './AddEpisodeModal';
 import Episodes from './Episodes';
+import { useDispatch } from 'react-redux';
+import { formAction } from '../../assets/store/formslice';
 
 
 function ScriptDetail() {
     const history=useHistory();
-    const params=useParams()
+    const params=useParams();
+    const dispatch=useDispatch()
     const [detail,setDetail]=useState([]);
     const [genres,setGenres]=useState([])
     const [episodeState,setEpisodeState]=useState(false)
@@ -85,6 +88,11 @@ function ScriptDetail() {
         history.push(`/featured/${scriptId}`)
     }
 
+    const scrtiptUpdate=()=>{
+        dispatch(formAction.updateScript(scriptId))
+        history.push('/UploadScript')
+    }
+
   return (
     <div className={classes.scriptdetails}>
         {isLoading && <h1>loading....</h1>}
@@ -109,6 +117,10 @@ function ScriptDetail() {
         <div className='bg-inherit'>
        { userId===scriptwriterId && !featured && <Button variant='contained' className='bg-black text-white my-3' onClick={paymentHandler}>Get Featured</Button>} 
         </div> 
+        <div className='bg-inherit'>
+       { userId===scriptwriterId && <Button variant='contained' className='bg-black text-white my-3' onClick={scrtiptUpdate}>Update your script</Button>} 
+        </div> 
+
 
         <div className={classes.suggestrows}>
             {episodeState && 
