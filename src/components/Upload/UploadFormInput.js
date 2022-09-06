@@ -39,7 +39,7 @@ const genres=['Action Genre',
     const divImage =  {
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.952), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'550px',
+           height:'600px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
            backgroundSize: '163%',

@@ -11,6 +11,7 @@ function UploadData(props) {
     const dispatch=useDispatch()
     const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
     const  data=useSelector(state=>state.formHandler['userData'][props.ext])
+
     console.log(data,'brrrrrr')
     const [makeChange,setMakeChange]=useState(false)
     useEffect(()=>{
@@ -99,14 +100,11 @@ data.length>0
     width: '203px',
     borderRadius:'49px',marginLeft:'28px'}} alt='image'/>
 } 
+{data.length>0 && props.ext==='pdf' && <object data={data} type="application/pdf" width="100%" height="100%">
+      <p>Alternative text - include a link <a href={data}>to the PDF!</a></p>
+  </object>}
 
-{/* {
-  data.length>0 && props.ext==='pdf' && 
-  <embed  
-       src={data}
-       width="250"
-       height="200"></embed>
-} */}
+
   <Button onClick={()=>{
     setMakeChange(true)
   }}>
