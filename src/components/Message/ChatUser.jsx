@@ -18,42 +18,13 @@ function ChatUser(props) {
  const users=useSelector(state=>state.chatHandler.users)
  console.log('***************',users,',****************')
  
-  // const params=useParams()
-
-  // const {recieverid}=params
+ 
   const dispatch= useDispatch()
   const [datas,setDatas]=useState([])
     let role
   console.log(datas)
   useEffect(()=>{
-  //     axios.get('http://localhost:3500/getId',{
-  //       headers:{
-  //         'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
-  //       }
-  //     }).then(res=>{
-  //       console.log(res.data)
-  //       // userId=res.data.userId
-  //       role=res.data.role
-  //       // axios.post('http://localhost:3500/getUsername',{
-  //       //   id:res.data.userId
-  //       // }).then(res=>{
-  //       //   console.log(res.data.username,'username')
-  //       //   const length=res.data.username.length
-  //       //   const username=res.data.username.split('')
-  //       //   const index=username.findIndex(letter=>letter==='@')
-  //       //   let finalName
-  //       //   if(index>0){
-  //       //       const diff=length-index
-  //       //       const deleted=username.splice(index,diff)
-  //       //       finalName=username.join('')
-  //       //   }else{
-  //       //       finalName=res.data.username      
-  //       //   }
-  //       //   setOwnerName(finalName)
-  //       // })
-  //       // props.socket.current.emit('join-chat',res.data.userId)
-  //       setUserId(res.data.userId)
-  //       // const recId=r
+ 
 
         axios.post('http://localhost:3500/messagedetail',{
           userid:props.userId,
@@ -70,7 +41,6 @@ function ChatUser(props) {
 
             dispatch(chatActions.userCleaner())
           }
-          // setDatas([...res.data.result])
       
         }).catch(e=>{
           console.log('message details error')
@@ -80,20 +50,6 @@ function ChatUser(props) {
  
   },[change,props.userId])
 
-//   useEffect(()=>{
-//     if(userId){
-
-//         props.socket.current.emit('join-chat',res.data.userId)
-//     }
-//   },[userId,props.socket.current])
-
-//  const updateList=()=>{
-//   props.socket.current.on('update-list',(data)=>{
-//           console.log(data)
-//           dispatch(chatActions.changeHandler())
-//         })
-
-//  }
 
   useEffect(()=>{
     if(props.socket.current){
@@ -104,11 +60,9 @@ function ChatUser(props) {
         })
         props.socket.current.on('list',(data)=>{
           console.log(data,'from list')
-          // setDatas(...data.users)
           
         })
 
-      //  dispatch(chatActions.changeHandler({date:data}))
         
       })
     }

@@ -15,7 +15,6 @@ import UploadPdf from './UploadPdf'
 import axios from 'axios'
 import ScriptDetail from '../Details/ScriptDetail'
 import { formAction } from '../../assets/store/formslice'
-// Step titles
 
 const useStyles = makeStyles({
   input: {
@@ -47,20 +46,37 @@ function UploadMainForm() {
     const tableData=useSelector(state=>state.formHandler.userData)
       console.log(tableData)
     const addEpisodeState=useSelector(state=>state.formHandler['nextEpisode']['state'])
+    const updateState=useSelector(state=>state.formHandler['updateScript']['state'])
     const mainScript=useSelector(state=>state.formHandler['nextEpisode']['mainScript'])
+    const scriptId=useSelector(state=>state.formHandler['updateScript']['scriptId'])
+
     useEffect(()=>{
-      if(addEpisodeState){
+      if(addEpisodeState||updateState){
         axios.post('http://localhost:3500/nextScriptEpisode',{
-   id:mainScript
+   id:addEpisodeState?mainScript:scriptId,
+   addEpisodeState:addEpisodeState,
+   updateState:updateState
+
         }).then((res)=>{
           console.log(res.data.result)
           const obj=res.data.result
           const keys=Object.keys(obj)
+          const medias=res.data.media
+          const k=Object.keys(medias)
           console.log(keys)
           keys.map(key=>{
             dispatch(formAction.inputChangeHandler({name:key,value:obj[key]}))
-            // dispatch(formAction.episodePageHandler())
+            if(res.data.episodeState){
+            dispatch(formAction.episodePageHandler())
+            }
           })
+if(!res.data.episodeState){
+  k.map(key=>{
+    dispatch(formAction.mediaHandler({name:key,value:medias[key]}))
+    dispatch(formAction.uploadHandler({name:key}))
+  })
+
+}
           
 
           

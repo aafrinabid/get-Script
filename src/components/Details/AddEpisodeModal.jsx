@@ -68,7 +68,7 @@ export default function AddEpisodeModal(props) {
 
   return (
     <div style={{background:'inherit'}}>
-      <Button onClick={handleOpen}>Add More Episodes</Button>
+      <Button  onClick={handleOpen}>Add More Episodes</Button>
       <Modal
         open={open}
         onClose={handleClose}

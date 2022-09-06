@@ -47,6 +47,10 @@ const formHandleSlice=createSlice({
             mainScript:'',
             state:false
         },
+        updateScript:{
+            state:false,
+            scriptId:''
+        }
     },
     reducers:{
         nextStepHandler(state){
@@ -147,6 +151,10 @@ const formHandleSlice=createSlice({
         submitFormHandler(state){
             console.log('happening at submitHandler')
             state.activeStepState=0
+            state.nextEpisode.episode=''
+            state.nextEpisode.season=''
+            state.nextEpisode.mainScript=''
+            state.nextEpisode.state=false
             const data= Object.keys(state.userData)
             console.log(data)
             data.forEach(key=>{
@@ -191,6 +199,10 @@ const formHandleSlice=createSlice({
         },
         episodePageHandler(state){
             state.activeStepState=2
+        },
+        updateScript(state,action){
+            state.updateScript.state=true
+            state.updateScript.scriptId=action.payload
         }
         
     }

@@ -43,7 +43,6 @@ function MessageArea(props) {
     }).catch((e)=>console.log(e))
  
   },[recieverid])
-  // const [userId,setUserId]=useState('')
   console.log(props)
   const scrollRef= useRef()
   const [arrivalMessage,setArrivalMessage]=useState(null)
@@ -60,7 +59,6 @@ function MessageArea(props) {
           dispatch(chatActions.userAdder({users:[...data.users]}))
         })
   
-      //  dispatch(chatActions.changeHandler({date:data}))
         
       })
     
@@ -68,8 +66,7 @@ function MessageArea(props) {
     props.socket.current.on('recieve-msg',(data)=>{
       console.log('messageArea',data,props.messageId)
       console.log(recieverid,'smeeesfge',props.to)
-      // if(data.room==props.messageId){
-        // if(data.reciever===userId || data.sender===userId){
+
 
           if(recieverId){
             if(data.reciever===recieverId || data.sender===recieverId){
@@ -108,8 +105,7 @@ arrivalMessage && setMsgData((prevState)=>[...prevState,arrivalMessage])
 useEffect(()=>{
 scrollRef.current?.scrollIntoView({ behavior: "smooth" });
 },[msgData])
-  // const messages=useSelector(state=>state.messageHandler.message)
-  // console.log(messages)
+ 
   return (
         <div style={{height:'592px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundImage:`url('https://images.unsplash.com/photo-1531303511320-729cbf66254f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGdyZWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80')`, backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',padding:'0 32px'}}>

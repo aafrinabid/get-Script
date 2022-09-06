@@ -61,6 +61,9 @@ function ScripInfo(props) {
      <div className='flex'>
       <img className={classes.miniposter} src={props.detail.script_mini_poster}/>
       <div className={classes.button}>
+       {props.episodeState &&
+        <h1 style={{fontSize:'43px'}}>{`S${props.season} E${props.episode}`}</h1>
+          }
       <Fab   id={classes.download} className='m-4 text-l p-7 justify-center items-center' style={{zIndex:'0'}} ><a href={props.detail.script_pdf_url}> <CloudDownloadRounded/></a></Fab>
          
          <Fab color="primary" aria-label="add" onClick={saveClick} style={{zIndex:'0'}} id={classes.savebutton}>

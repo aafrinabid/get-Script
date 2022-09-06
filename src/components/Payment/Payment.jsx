@@ -13,7 +13,6 @@ function Payment() {
 
   const history=useHistory() 
  const stripe=useStripe()
-  // const stripe=loadStripe('pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv')
     const params=useParams()
     const {scriptId}=params
     const [price,setPrice]=useState(500)
@@ -33,7 +32,6 @@ function Payment() {
 
 
     function isDate(val) {
-        // Cross realm comptatible
         return Object.prototype.toString.call(val) === '[object Date]'
       }
       
@@ -115,9 +113,7 @@ function Payment() {
         }
       }
   
-      // const headers={
-      //   "Content-Type":'application/json'
-      // }
+    
   
       const result=await axios.post(`http://localhost:3500/paymentstripe`,body)
       console.log(result.data)
@@ -131,16 +127,7 @@ function Payment() {
       }
       
 
-      // .then(res=>{
-      //   console.log('RESPONSE',res)
-      //   const {status}=res
-      //   console.log(status)
-      //   if(status===200){
-      //     console.log(res.data)
-      //     history.push('/')
-      //   }
-  
-      // })
+   
      
     }catch(e){
       console.log(e)
@@ -169,7 +156,7 @@ function Payment() {
             <div className={classes.method}>
                 <Button onClick={makePayment}>Pay with Paytm</Button>
                 <StripeCheckout
-                stripeKey='pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv'
+                stripeKey='pk_test_51LTPCzSCQkcXAqhhdPxstVEJtN1QMAeBuzNaMJuyokB9etMIUE1JtCfkAiGXTib6psO8PzrNNJ6S7dXLMv7gSwRh00oT21JnUo'
                 token={makeStripePayment}
                 name={'featur your script'}
                 amount={price *100}

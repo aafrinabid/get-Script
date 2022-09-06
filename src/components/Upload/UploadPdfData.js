@@ -7,8 +7,13 @@ import { formAction } from '../../assets/store/formslice';
 
 
 function UploadData(props) {
+    const [path,setPath]=useState('')
     const dispatch=useDispatch()
     const isUploaded=useSelector(state=>state.formHandler['userData']['isUploaded'][props.ext])
+    const  data=useSelector(state=>state.formHandler['userData'][props.ext])
+
+    console.log(data,'brrrrrr')
+    const [makeChange,setMakeChange]=useState(false)
     useEffect(()=>{
 dispatch(formAction.formavalidator({name:'uploadPage'}))
     },[isUploaded,dispatch])
@@ -16,23 +21,15 @@ dispatch(formAction.formavalidator({name:'uploadPage'}))
     const [errorMsg,setErrorMsg]=useState('')
     const [isValid,setIsValid]=useState(false)
     const [file,setFile]=useState(null)
-    // const [isUploaded,setIsUploaded]=useState(false)
 const handleOnDrop=async(files,rejectedFiles)=>{
-    console.log(files)
+    console.log(files[0].path)
     console.log(rejectedFiles)
-    // if(rejectedFiles && rejectedFiles.length>0){
-    //     const currentRejectFile=rejectedFiles[0]
-    //     const currentRejecetedFileType=currentRejectFile.type
-    //     const currentRejectFileSize=currentRejectFile.maxSize
-    //     if(currentRejectFileSize>props.dataSize){
-    //         alert('this file is too big')
-    //     }
-    // }
-
+ 
     if(files && files.length>0){
         const currentFile=files[0]
         const currentFileType=currentFile.type
         const currentFileSize=currentFile.maxSize
+        setPath(files[0].path)
         console.log(props.type)
         if(props.type.length===1){
             console.log('here')
@@ -77,6 +74,7 @@ const onUpload =()=>{
         const url=res.data.url
         dispatch(formAction.mediaHandler({name:props.ext,value:url}))
         dispatch(formAction.uploadHandler({name:props.ext}))
+        setMakeChange(false)
 
     }).catch(e=>{
         setIsValid(false)
@@ -90,7 +88,31 @@ const onUpload =()=>{
 
   return (
     <>
- {isUploaded?'cooool':
+ {isUploaded && !makeChange ?  <section className="container">
+  <h1>
+     FILE SHOWN BELOW <br /> IS UPLOADED
+  </h1>
+  {
+data.length>0 
+&& props.ext!=='pdf' 
+&& 
+<img src={data} style={{height:'150px',
+    width: '203px',
+    borderRadius:'49px',marginLeft:'28px'}} alt='image'/>
+} 
+{data.length>0 && props.ext==='pdf' && <object data={data} type="application/pdf" width="100%" height="100%">
+      <p>Alternative text - include a link <a href={data}>to the PDF!</a></p>
+  </object>}
+
+
+  <Button onClick={()=>{
+    setMakeChange(true)
+  }}>
+    Do you Want to Change it
+  </Button>
+
+</section>
+:
     <section className="container">
   <Dropzone onDrop={handleOnDrop}  multiple={false} accept={props.type} maxSize={props.dataSize}>
   {({getRootProps, getInputProps}) => (
@@ -113,9 +135,20 @@ const onUpload =()=>{
 Upload
 </Button>:''}
 </div>
+{
+
+}
+{isUploaded && makeChange &&
+  <Button onClick={()=>{
+  setMakeChange(false)
+}}>
+  want to keep the old files click here
+</Button>}
+
 
 </section>
 }
+
 </>
   );
 }

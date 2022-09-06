@@ -21,18 +21,6 @@ import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
 import jwtDecode from 'jwt-decode';
 
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
 
 const theme = createTheme();
 
@@ -136,9 +124,7 @@ google.accounts.id.renderButton(
 )
   
  },[loginUser])
-//  const handleClose=()=>{
-//   setOpen(false)
-//  }
+//
   const handleLogin=()=>{
     setLoginUser(prevstate=>!prevstate)
   }
@@ -148,14 +134,7 @@ google.accounts.id.renderButton(
   }
   const dispatch= useDispatch()
 
-//   const appBar=(m)=>{
-//      <Snackbar
-//   anchorOrigin={{ vertical, horizontal }}
-//   open={open}
-//   onClose={handleClose}
-//   message={m}
-//   key={vertical + horizontal}
-// />
+
 //   }
 
   const handleSubmit = (event) => {

@@ -8,7 +8,6 @@ import {io} from 'socket.io-client'
 
 function ChatContent(props) {
   console.log(props)
-  // const socket=useRef();
   const params=useParams()
   const {recieverid}=params
   const [recieverId,setRecieverId]=useState(null)
@@ -18,34 +17,8 @@ function ChatContent(props) {
   console.log(data)
   const [userId,setUserId]=useState(null)
   console.log(userId)
-  // const socket
-  // useEffect(()=>{
-  //   if(userId){
-  //     socket.current= io('http://localhost:3001')
-  //   }
-  
-  // },[userId])
  
-//   const [arrivalMessage,setArrivalMessage]=useState(null)
-//   console.log(arrivalMessage)
-//   useEffect(()=>{
-//     console.log('hmmmammamamamamm')
-//    if(userId){
-//     console.log(userId,'hope to het eth')
-//   const socket=io('http://localhost:3001')
-//     socket.on('recieve-msg',(data)=>{
-//       console.log('messageArea',data)
-//       setArrivalMessage({fromSelf:userId.toString()===data.from,message:data.msg})
-//    })
-//   }
-// })
-// const socket=io('http://localhost:3001')
-//     socket.on('recieve-msg',(data)=>{
-//       console.log('messageArea',data)
-//       setArrivalMessage({fromSelf:userId.toString()===data.from,message:data.msg})
-//    })
   useEffect(()=>{
-    // localStorage.removeItem('params')
     console.log('what the hell dude its more than i think')
     axios.get('http://localhost:3500/getId',{
       headers:{
@@ -59,7 +32,6 @@ function ChatContent(props) {
         console.log(res.data)
         setMessageId(res.data.messageId)
         setRecieverId(res.data.recieverId)
-        // localStorage.setItem('params',res.data.recieverId)
        axios.post('http://localhost:3500/getMessages',{
         from:res.data.senderId,
         to:res.data.recieverId

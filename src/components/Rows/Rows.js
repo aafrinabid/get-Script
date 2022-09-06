@@ -27,7 +27,6 @@ const genres=['Action Genre',
     'Other Genres',]
 
 function Rows(props) {
-  // console.log(props)
 
   const params = useParams()
   const {type}=params
@@ -38,11 +37,11 @@ function Rows(props) {
   const [season,setSeaosn]=useState(0)
   const backgroundChanger=(url,featured)=>{
     let divImage ={}
-    if(!featured){
+    if(!featured || props.episodes===true){
       divImage={
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'110px',
+           height:'129px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
            backgroundSize: 'cover',
@@ -54,7 +53,7 @@ function Rows(props) {
       divImage={
     
         backgroundImage: `linear-gradient(180deg, rgba(1, 3, 15, 0.252), rgba(73, 69, 68, 0.64)), url(${url})`,
-           height:'110px',
+           height:'129px',
         //    marginTop:'-70px',
         //    fontSize:'50px',
            backgroundSize: 'cover',
@@ -108,7 +107,7 @@ setIsLoading(false)
 })
 },[type])
   return (
-<div className={`${classes.rows} bg-inherit`}>
+<div className={`${classes.rows} bg-inherit`} style={{height:'auto'}}>
   <div className={classes.rowtitle}>
     <h2>{genre}</h2>
   </div>
@@ -122,6 +121,7 @@ setIsLoading(false)
     // scrollbar={{ draggable: true }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}
+    style={{background:'inherit'}}
 
 >
   {isLoading && <h1>loading ...</h1>}
@@ -141,7 +141,7 @@ setIsLoading(false)
  }
 
  {
-  script.featured?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
+  script.featured && props.episodes!==true?<div style={{width:'100%',color:'red',backgroundColor:'#0000008c',borderRadius:'5px'}}>
     {/* <h3 style={{color:'black',textAlign:'end',backgroundColor:'red',marginRight:'110px',paddingBottom:'50px'}}> */}
       FEATURED
       {/* </h3> */}
@@ -153,7 +153,6 @@ setIsLoading(false)
  </div>
  {/* </div> */}
   </SwiperSlide>
-//  <SwiperSlide><div className={classes.poster}  onClick={details.bind(null,script.script_id)}> </div> </SwiperSlide>
 ))}
    
         

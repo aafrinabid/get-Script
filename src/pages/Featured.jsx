@@ -8,7 +8,7 @@ import {Elements} from '@stripe/react-stripe-js';
 
 
 function Featured() {
-  const stripePromise=loadStripe('pk_test_51LTPCzSCQkcXAqhhZxyMcv6zvoLE9nQfQxavukoJtkHgbtANrn1G2e9irr9AdYOgUynxPNVpfFYMdEWpK907C3PV00pR4loQYv')
+  const stripePromise=loadStripe('pk_test_51LTPCzSCQkcXAqhhdPxstVEJtN1QMAeBuzNaMJuyokB9etMIUE1JtCfkAiGXTib6psO8PzrNNJ6S7dXLMv7gSwRh00oT21JnUo')
 
   const params=useParams();
   const {scriptId}=params

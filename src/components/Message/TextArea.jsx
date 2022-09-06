@@ -4,17 +4,14 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
-// import {useDispatch} from 'react-redux'
-// import { messageActions } from "../assets/store/messageSlice";
+
 import { io } from "socket.io-client";
 import axios from "axios";
 import { chatActions } from "../../assets/store/chatSlice";
-// const socket=io('http://localhost:3001')
 import {useDispatch} from 'react-redux'  
 
 function TextArea(props) {
   console.log('text',props)
-  // const socket=io('http://localhost:3001')
 
   const dispatch= useDispatch();
     const [msg, setMsg] = useState("");
@@ -35,16 +32,7 @@ function TextArea(props) {
         const date=new Date()
 
         console.log(props.messageId)
-        // props.socket.current.emit('send-msg',{
-        //   to:props.to,
-        //   from:props.from,
-        //   msg:msg,
-        //   room:props.messageId,
-        //   date:date.toISOString()
-        // })
-      //  setMsg(event.target.value)
-      // socket.emit('send-message',msg)  
-      //  dispatch(messageActions.addMessage({message:msg,from:1}))
+    
       axios.post('http://localhost:3500/addMessage',{
         message:msg,
         from:props.from,
@@ -66,19 +54,7 @@ function TextArea(props) {
           room:props.messageId,
           date:date.toISOString()
         })
-            // props.socket.current.on('update-list',(data)=>{
-            //   console.log(data,'sing for the dancer')
-            //   props.socket.current.emit('fetch-list',{
-            //     userId:props.from
-            //   })
-            //   props.socket.current.on('list',(data)=>{
-            //     console.log(data)
-            //     dispatch(chatActions.userAdder({users:data.users}))
-            //   })
         
-            //  dispatch(chatActions.changeHandler({date:data}))
-              
-            // })
           
            
 dispatch(chatActions.changeHandler({date:date.toISOString()}))
