@@ -1,14 +1,21 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 // import e, { json } from 'express';
 
 const SocketContext = createContext();
 
-const socket = io('http://localhost:5000');
+
+const socket = io('http://localhost:5000',{
+  auth:{
+    token:localStorage.getItem('token')?localStorage.getItem('token'):""
+  }
+})
 // const socket = io('https://sleepy-sierra-81358.herokuapp.com/');
 
 const ContextProvider = ({ children }) => {
+  const isLoggedIn=useSelector(state=>state.authHandler.isLoggedIn)
   const [open,setOpen]=useState(false)
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
@@ -35,13 +42,15 @@ console.log(call)
         myVideo.current.srcObject = currentStream;
       });
 
+      isLoggedIn && socket.emit('join-video-channel')
+
     socket.on('me', (id) => setMe(id));
 
     socket.on('callUser', ({ from, name: callerName, signal }) => {
       setIsRecieving(true)
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, [callAccepted]);
+  }, [callAccepted,isCalling,isLoggedIn]);
 
   // const answerCall = () => {
   //   setCallAccepted(true);
@@ -174,7 +183,7 @@ console.log(call)
                 console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
                 // setOffer(JSON.stringify(localConnection.localDescription))
                 const offer=localConnection.localDescription
-                socket.emit('callUser', { userToCall: id, signalData: offer, from: me, name })
+                socket.emit('callUser', { userId:id, signalData: offer, from: me, name })
                 
 
                }

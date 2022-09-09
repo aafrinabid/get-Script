@@ -30,20 +30,20 @@ const useStyles = makeStyles((theme) => ({
 function VideoChat(props) {
   const classes=useStyles()
   // const myVideo=useRef()
-  const {myVideo,userVideo,endCall,stream,callAccepted,fixStream}=useContext(SocketContext)
+  const {myVideo,userVideo,endCall,stream,callAccepted}=useContext(SocketContext)
   console.log(userVideo)
 
     
   return (
     <Grid container className={classes.gridContainer}>
-    {stream && (
+    (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{'Name'}</Typography>
           <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
         </Grid>
       </Paper>
-    )}
+    )
     {callAccepted && (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
