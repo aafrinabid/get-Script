@@ -66,7 +66,7 @@ console.log(userId)
         console.log(e.message)
       })
     }
-    ,[dispatch,history]) 
+    ,[dispatch,history,loginStatus]) 
   useEffect(()=>{
     console.log(loginStatus,userId)
    
