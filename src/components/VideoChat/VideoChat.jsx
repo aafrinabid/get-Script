@@ -31,7 +31,7 @@ function VideoChat(props) {
   const classes=useStyles()
   // const myVideo=useRef()
   const {myVideo,userVideo,endCall,stream,callAccepted}=useContext(SocketContext)
-  console.log(userVideo)
+  console.log(userVideo,stream,myVideo)
 
     
   return (

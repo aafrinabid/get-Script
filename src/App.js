@@ -27,7 +27,7 @@ import VideoChat from './components/VideoChat/VideoChat';
 
 
 function App() {
-  const { callAccepted,isCalling,isRecieving,setAnswer}=useContext(SocketContext)
+  const { callAccepted,isCalling,isRecieving,setAnswer,setCall,setIsRecieving}=useContext(SocketContext)
 
   const onlineUsers=useSelector((state=>state.chatHandler.onlineUsers))
   console.log(onlineUsers)
@@ -97,7 +97,7 @@ console.log(userId)
        socket.current.on('changeIt',(data)=>{
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
        })
-
+     
     // }
   },[dispatch,loginStatus])
   const location=useLocation()

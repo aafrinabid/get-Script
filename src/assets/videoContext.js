@@ -1,6 +1,7 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 
 // import e, { json } from 'express';
 
@@ -35,18 +36,21 @@ console.log(call)
   const connectionRef = useRef();
 
   useEffect(() => {
-  (callAccepted||isCalling) && navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  // (callAccepted||isCalling) &&
+   navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
+        console.log(currentStream)
 
         myVideo.current.srcObject = currentStream;
-      });
+      }).catch(e=>console.log(e));
 
       isLoggedIn && socket.emit('join-video-channel')
 
     socket.on('me', (id) => setMe(id));
 
     socket.on('callUser', ({ from, name: callerName, signal }) => {
+      console.log('receiving the call')
       setIsRecieving(true)
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
@@ -66,6 +70,7 @@ console.log(call)
   //     userVideo.current.srcObject = currentStream;
   //   });
     const answerCall = () => {
+      setIsRecieving(false)
       setCallAccepted(true);
       const rc=new RTCPeerConnection()
       // rc.onicecandidate=e=>{
@@ -146,8 +151,11 @@ console.log(call)
   //   connectionRef.current = peer;
   // };
   const callUser = (id) => {
+    console.log('callingTheUSer')
+    console.log(id,stream)
     setIsCalling(true)
      const localConnection=new RTCPeerConnection()
+     console.log(localConnection,'calling the user')
      let sdp
     //  localConnection.onicecandidate=e=>{
     //   console.log('NEW Ice candidtnant!! on Localconnection reprintinf sdp')
@@ -156,7 +164,7 @@ console.log(call)
      const sendChannel=localConnection.createDataChannel('sendChannel')
      sendChannel.onmessage=e=>console.log('message recieved!!!'+e.data)
      sendChannel.onopen=e=>console.log('connection open')
-     stream.getTracks().forEach(function (track) {
+    stream.getTracks().forEach(function (track) {
       localConnection.addTrack(track, stream);
     });
      localConnection.ontrack=(e)=>{
