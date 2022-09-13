@@ -8,29 +8,33 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function CustomizedSnackbars() {
-  const [open, setOpen] = React.useState(false);
+export default function CustomizedSnackbars({severity,state,message,vertical,horizontal,setSnakeState}) {
+//   const [open, setOpen] = React.useState(state);
+//   const [vertical,setVertical]=useState(vertical)
+//   const [horizontal,setHorizontal]=useState(horizontal)
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+
+//   const handleClick = () => {
+    // setOpen(true);
+//   };
 
   const handleClose = (event, reason) => {
+    console.log(event,reason)
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
+    setSnakeState(false)
+    // setOpen(false);
   };
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button variant="outlined" onClick={handleClick}>
+      {/* <Button variant="outlined" onClick={handleClick}>
         Open success snackbar
-      </Button>
-      <Snackbar open={open} autoHideDuration={2000} anchorOrigin={{ vertical:'top', horizontal:'center' }} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success"  sx={{ width: '100%' }}>
-          This is a success message!
+      </Button> */}
+      <Snackbar open={state} autoHideDuration={6000} anchorOrigin={{ vertical:vertical, horizontal:horizontal }} onClose={handleClose}>
+        <Alert onClose={handleClose} severity= {severity} sx={{ width: '100%' }}>
+          {message}
         </Alert>
       </Snackbar>
       {/* <Alert severity="error">This is an error message!</Alert>

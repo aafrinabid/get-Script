@@ -20,6 +20,7 @@ import axios from 'axios';
 import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
 import jwtDecode from 'jwt-decode';
+import CustomizedSnackbars from '../components/snackbar/SnackBar';
 
 
 const theme = createTheme();
@@ -53,7 +54,9 @@ export default function SignIn() {
 
   }
   ,[history,loginStatus])
-
+  const [snackState,setSnakeState]=useState(false)
+  const [severity,setSeverity]=useState('')
+ const [message,setMessage]=useState('')
   const [loginUser,setLoginUser]=useState(true);
   const [isLogin,setIsLogin]=useState(true);
   const firstnameRef=useRef();
@@ -144,7 +147,26 @@ google.accounts.id.renderButton(
     const enteredEmail=!isLogin ? emailRef.current.value:'';
     const enteredUsername=usernameRef.current.value;
     const enteredPassword=passwordRef.current.value;
-    console.log(enteredEmail,enteredUsername,enteredPassword)
+    if(isLogin){
+      if(enteredUsername.length<=0 || enteredPassword.length<=0){
+        // setSnakeState(false)
+        setSeverity('error')
+        setMessage('fill all the forms')
+        setSnakeState(true)
+        return
+      }
+    }else{
+      if(enteredUsername.length<=0 || enteredPassword.length<=0 || enteredEmail.length<=0 || enteredFirstname.length<=0 || enteredLastname.length<=0){
+        // setSnakeState(false)
+        setSeverity('error')
+        setMessage('fill all the forms')
+        setSnakeState(true)
+        return
+      }
+
+
+    }
+    console.log(enteredEmail.length,enteredUsername.length,enteredPassword)
     console.log(url)
     if(enteredUsername==='aafrin'){
       url='http://localhost:3500/adminlogin'
@@ -182,7 +204,10 @@ google.accounts.id.renderButton(
         
 
       }).catch((err)=>{
-        console.log(err)
+        console.log(err.response)
+        setSnakeState(true)
+        setSeverity('error')
+        setMessage(err.response.data.message)
         
       })
   };
@@ -314,6 +339,9 @@ google.accounts.id.renderButton(
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
+    {snackState &&
+     <CustomizedSnackbars severity={severity} state={snackState} message={message} vertical={'top'} horizontal={'right'} setSnakeState={setSnakeState}/>
+      } 
     </ThemeProvider>
   );
 }

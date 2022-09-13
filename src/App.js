@@ -105,7 +105,6 @@ console.log(userId)
   const [colorChange,setColorchange]=useState(false);
   const [blockChange,setBlockChange]=useState(false)
   const changeNavbarColor = () =>{
-    console.log('happening guys')
     if(window.scrollY >= 80){
       setColorchange(true);
     }
