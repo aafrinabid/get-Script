@@ -55,7 +55,7 @@ console.log(call)
     socket.on('callUser', ({ from, name: callerName, signal,userId }) => {
       console.log('receiving the call',userId)
       setIsRecieving(true)
-      setFrom(userId)
+      setFrom(from)
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
 
@@ -63,6 +63,7 @@ console.log(call)
       console.log('ending the call')
       setCallAccepted(false)
       setIsCalling(false)
+      setIsRecieving(false)
     })
   }, [callAccepted,isCalling,isLoggedIn]);
 
@@ -185,6 +186,7 @@ console.log(call)
     setCallEnded(true);
     setCallAccepted(false)
     setIsCalling(false)
+    setIsRecieving(false)
     socket.emit('end-call',from)
 
     // connectionRef.current.destroy();

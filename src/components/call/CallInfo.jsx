@@ -1,13 +1,15 @@
+import { Button } from '@material-ui/core'
 import React,{useContext} from 'react'
 import { SocketContext } from '../../assets/videoContext'
 function CallInfo() {
-  const {call,answerCall}=useContext(SocketContext)
+  const {call,answerCall,leaveCall}=useContext(SocketContext)
   return (
-    <div className='flex'>
+    <div className='flex flex-col'>
       <h1>{call.from} is calling you</h1>
-      <h3 onClick={answerCall}>answer</h3>
-      <h3>reject</h3>
-
+      <div>
+      <Button style={{color:'white',background:'green', margin:'20px'}} onClick={answerCall}>answer</Button> 
+      <Button style={{color:'white',background:'red'}} onClick={leaveCall}>reject</Button>
+      </div>
     </div>
   )
 }
