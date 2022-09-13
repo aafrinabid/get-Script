@@ -52,11 +52,11 @@ console.log(call)
 
     socket.on('me', (id) => setMe(id));
 
-    socket.on('callUser', ({ from, name: callerName, signal,userId }) => {
+    socket.on('callUser', ({ from, name, signal,userId }) => {
       console.log('receiving the call',userId)
       setIsRecieving(true)
       setFrom(from)
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
+      setCall({ isReceivingCall: true, from, name, signal });
     });
 
     socket.on('end-call',()=>{
