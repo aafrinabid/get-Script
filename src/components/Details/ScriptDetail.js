@@ -27,6 +27,7 @@ function ScriptDetail() {
     const [featured,setFeatured]=useState(false)
     const [season,setSeaosn]=useState(0)
     const [episode,setEpisode]=useState(0)
+    const [moreThanOne,setMoreThanOne]=useState(false)
     console.log(genres)
     console.log(detail.script_id)
     // const genres=detail.genres
@@ -63,6 +64,7 @@ function ScriptDetail() {
             setFeatured(res.data.featured)
             setEpisodeState(res.data.episodeState)
             setSeaosn(res.data.season)
+            setMoreThanOne(res.data.moreThanOne)
             setEpisode(res.data.episode)
             setIsLoading(false)
             
@@ -123,7 +125,7 @@ function ScriptDetail() {
 
 
         <div className={classes.suggestrows}>
-            {episodeState && 
+            {episodeState && moreThanOne &&
             <div>
                 <Episodes scriptId={scriptId}/>
         

@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './assets/store';
 import {Auth0Provider} from '@auth0/auth0-react'
+import { ContextProvider } from './assets/videoContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StyledEngineProvider injectFirst>
@@ -19,7 +20,9 @@ root.render(
     clientId="BIF4y85zwcZ5xonQj2PIkRpvtupfhwcY"
     redirectUri={window.location.origin}
   >
+    <ContextProvider>
     <App />
+    </ContextProvider>
     </Auth0Provider>
     </Provider>
   </React.StrictMode>

@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import Browse from './pages/Browse';
 import ScriptDetails from './pages/ScriptDetails';
 import Profile from './pages/Profile';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState,useRef,useContext } from 'react';
 import UploadScript from './pages/UploadScript';
 import AdminPanel from './pages/AdminPanel';
 import BackgroundIamge from './components/BackgroundImage/BackgroundIamge';
@@ -18,11 +18,17 @@ import {io} from 'socket.io-client';
 import { chatActions } from './assets/store/chatSlice';
 import Featured from './pages/Featured';
 import Saved from './pages/Saved';
+import Backdrop from '@mui/material/Backdrop';
+import { SocketContext } from './assets/videoContext';
+import CallInfo from './components/call/CallInfo';
+import VideoChat from './components/VideoChat/VideoChat';
 
 
 
 
 function App() {
+  const { callAccepted,isCalling,isRecieving,setAnswer,setCall,setIsRecieving}=useContext(SocketContext)
+
   const onlineUsers=useSelector((state=>state.chatHandler.onlineUsers))
   console.log(onlineUsers)
 
@@ -60,7 +66,7 @@ console.log(userId)
         console.log(e.message)
       })
     }
-    ,[dispatch,history]) 
+    ,[dispatch,history,loginStatus]) 
   useEffect(()=>{
     console.log(loginStatus,userId)
    
@@ -91,7 +97,7 @@ console.log(userId)
        socket.current.on('changeIt',(data)=>{
         dispatch(chatActions.changeOnlineUsers({users:[...data.users]}))
        })
-
+     
     // }
   },[dispatch,loginStatus])
   const location=useLocation()
@@ -193,7 +199,30 @@ console.log(userId)
     <div>
 
     </div>
-      
+    {loginStatus  &&(isCalling||callAccepted)&& 
+      <>
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={isCalling||callAccepted}
+      // onClick={handleClose}
+    >
+      {/* <CircularProgress color="inherit" /> */}
+   <VideoChat/>
+    </Backdrop>
+    </>
+    }
+
+    {isRecieving && 
+    <>
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={isRecieving}
+      // onClick={handleClose}
+    >
+   <CallInfo />
+   </Backdrop>
+    </>
+    }
     </div>
   );
 }

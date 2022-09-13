@@ -65,7 +65,7 @@ useEffect(()=>{
       //  width:'100vw',
     //    marginTop:'-70px',
     //    fontSize:'50px',
-       backgroundSize: '100% 100%',
+       backgroundSize: '100%',
        backgroundRepeat: 'no-repeat',
        overflow:'hidden',
     transition: 'all 1.5s',
