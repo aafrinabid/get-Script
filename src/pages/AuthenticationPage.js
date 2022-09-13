@@ -192,13 +192,13 @@ google.accounts.id.renderButton(
           console.log('not auth')
           handleClick()
           // appBar('you are not authorised')
-        }if(res.data['status']==='pending')(
-          <>
-          {console.log('not approved')}
-         {handleClick()} 
+        }if(res.data['status']==='pending'){
+           setSnakeState(true)
+          setSeverity('info')
+          setMessage('Your account has not been approved')
           
-        </>
-        )
+        
+      }
           
           
         
