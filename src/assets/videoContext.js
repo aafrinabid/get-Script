@@ -42,7 +42,7 @@ console.log(call)
   
   useEffect(() => {
   // (callAccepted||isCalling||room.length>0||) &&
-   (pathname.startsWith('/chat') ||from.length>0)&& navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+   (room.length>0||from.length>0)&& navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
         console.log(currentStream)
@@ -67,8 +67,13 @@ console.log(call)
       setIsCalling(false)
       setIsRecieving(false)
       setFrom('')
+      window.location.reload();
+      stream.getTracks().forEach(function(track) {
+        track.stop();
+      });
+
     })
-  }, [callAccepted,isCalling,isLoggedIn,pathname,from]);
+  }, [callAccepted,isCalling,isLoggedIn,room,from]);
 
 
     const answerCall = () => {
@@ -192,10 +197,12 @@ console.log(call)
     setIsRecieving(false)
     socket.emit('end-call',from)
     setFrom('')
-
+    stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
     // connectionRef.current.destroy();
 
-    // window.location.reload();
+    window.location.reload();
   };
   
   const isCallingHandler=()=>{
