@@ -1,4 +1,4 @@
-import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
+import { Grid, Typography, Paper, makeStyles, Button } from '@material-ui/core';
 
 
 import React, { useContext } from 'react'
@@ -30,20 +30,19 @@ const useStyles = makeStyles((theme) => ({
 function VideoChat(props) {
   const classes=useStyles()
   // const myVideo=useRef()
-  const {myVideo,userVideo,endCall,stream,callAccepted}=useContext(SocketContext)
+  const {myVideo,userVideo,leaveCall,stream,callAccepted}=useContext(SocketContext)
   console.log(userVideo,stream,myVideo)
 
     
   return (
+    <div>
     <Grid container className={classes.gridContainer}>
-    (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>{'Name'}</Typography>
           <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
         </Grid>
       </Paper>
-    )
     {callAccepted && (
       <Paper className={classes.paper}>
         <Grid item xs={12} md={6}>
@@ -53,6 +52,8 @@ function VideoChat(props) {
       </Paper>
     )}
   </Grid>
+  <Button onClick={leaveCall} style={{color:'red',background:'white'}} >END CALL</Button>
+  </div>
 );
   
 }
