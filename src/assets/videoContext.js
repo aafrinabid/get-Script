@@ -1,7 +1,7 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
+import { useLocation } from 'react-router-dom';
 
 // import e, { json } from 'express';
 
@@ -37,10 +37,12 @@ console.log(call)
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
+  const location=useLocation()
+  const {pathname}=location
+  
   useEffect(() => {
-  // (callAccepted||isCalling) &&
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  // (callAccepted||isCalling||room.length>0||) &&
+   (pathname.startsWith('/chat') ||from.length>0)&& navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
         console.log(currentStream)
@@ -64,8 +66,9 @@ console.log(call)
       setCallAccepted(false)
       setIsCalling(false)
       setIsRecieving(false)
+      setFrom('')
     })
-  }, [callAccepted,isCalling,isLoggedIn]);
+  }, [callAccepted,isCalling,isLoggedIn,pathname,from]);
 
 
     const answerCall = () => {
@@ -188,6 +191,7 @@ console.log(call)
     setIsCalling(false)
     setIsRecieving(false)
     socket.emit('end-call',from)
+    setFrom('')
 
     // connectionRef.current.destroy();
 
