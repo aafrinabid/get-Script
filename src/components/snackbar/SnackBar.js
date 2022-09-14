@@ -3,15 +3,21 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { snackActions } from '../../assets/store/snackbarSlice';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function CustomizedSnackbars({severity,state,message,vertical,horizontal,setSnakeState}) {
+export default function CustomizedSnackbars() {
 //   const [open, setOpen] = React.useState(state);
 //   const [vertical,setVertical]=useState(vertical)
 //   const [horizontal,setHorizontal]=useState(horizontal)
+const dispatch=useDispatch();
+const details=useSelector(state=>state.snackBarHandler)
+console.log(details)
+
 
 
 //   const handleClick = () => {
@@ -23,7 +29,8 @@ export default function CustomizedSnackbars({severity,state,message,vertical,hor
     if (reason === 'clickaway') {
       return;
     }
-    setSnakeState(false)
+    dispatch(snackActions.changeState())
+    // setSnakeState(false)
     // setOpen(false);
   };
 
@@ -32,9 +39,9 @@ export default function CustomizedSnackbars({severity,state,message,vertical,hor
       {/* <Button variant="outlined" onClick={handleClick}>
         Open success snackbar
       </Button> */}
-      <Snackbar open={state} autoHideDuration={6000} anchorOrigin={{ vertical:vertical, horizontal:horizontal }} onClose={handleClose}>
-        <Alert onClose={handleClose} severity= {severity} sx={{ width: '100%' }}>
-          {message}
+      <Snackbar open={details.state} autoHideDuration={6000} anchorOrigin={details.position} onClose={handleClose}>
+        <Alert onClose={handleClose} severity= {details.severity} sx={{ width: '100%' }}>
+          {details.message}
         </Alert>
       </Snackbar>
       {/* <Alert severity="error">This is an error message!</Alert>

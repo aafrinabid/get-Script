@@ -21,6 +21,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
 import jwtDecode from 'jwt-decode';
 import CustomizedSnackbars from '../components/snackbar/SnackBar';
+import { snackActions } from '../assets/store/snackbarSlice';
 
 
 const theme = createTheme();
@@ -165,18 +166,22 @@ google.accounts.id.renderButton(
     const enteredPassword=passwordRef.current.value;
     if(isLogin){
       if(enteredUsername.length<=0 || enteredPassword.length<=0){
-        // setSnakeState(false)
-        setSeverity('error')
-        setMessage('fill all the forms')
-        setSnakeState(true)
+
+        
+         // setSnakeState(false)
+         dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
+        // setSeverity('error')
+        // setMessage('fill all the forms')
+        // setSnakeState(true)
         return
       }
     }else{
       if(enteredUsername.length<=0 || enteredPassword.length<=0 || enteredEmail.length<=0 || enteredFirstname.length<=0 || enteredLastname.length<=0){
         // setSnakeState(false)
-        setSeverity('error')
-        setMessage('fill all the forms')
-        setSnakeState(true)
+        dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
+        // setSeverity('error')
+        // setMessage('fill all the forms')
+        // setSnakeState(true)
         return
       }
 
@@ -186,9 +191,12 @@ google.accounts.id.renderButton(
     if(!isLogin){
      const emailValidation =ValidateEmail(enteredEmail)
      if(!emailValidation){
-      setSnakeState(true)
-  setSeverity('info')
-  setMessage('This is not a proper email')
+      dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'This is not a valid email',position:{vertical:'top',horizontal:'right'}}))
+
+      
+      // setSnakeState(true)
+  // setSeverity('info')
+  // setMessage('This is not a proper email')
   emailRef.current.focus();
   return
      }
@@ -216,9 +224,10 @@ google.accounts.id.renderButton(
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
-          setSeverity('success')
-          setMessage('You are logged in')
-          setSnakeState(true)
+          dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'right'}}))
+          // setSeverity('success')
+          // setMessage('You are logged in')
+          // setSnakeState(true)
           history.push(`/Browse/${0}`)
           return
         }if(!res.data['auth']){
@@ -226,9 +235,11 @@ google.accounts.id.renderButton(
           handleClick()
           // appBar('you are not authorised')
         }if(res.data['status']==='pending'){
-           setSnakeState(true)
-          setSeverity('info')
-          setMessage('Your account has not been approved')
+          dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
+
+          //  setSnakeState(true)
+          // setSeverity('info')
+          // setMessage('Your account has not been approved')
           return
           
         
@@ -239,9 +250,11 @@ google.accounts.id.renderButton(
 
       }).catch((err)=>{
         console.log(err.response)
-        setSnakeState(true)
-        setSeverity('error')
-        setMessage(err.response.data.message)
+        dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:err.response.data.message,position:{vertical:'top',horizontal:'right'}}))
+
+        // setSnakeState(true)
+        // setSeverity('error')
+        // setMessage(err.response.data.message)
         return
         
       })
@@ -374,9 +387,9 @@ google.accounts.id.renderButton(
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
-    {snackState &&
+    {/* {snackState && */}
      <CustomizedSnackbars severity={severity} state={snackState} message={message} vertical={'top'} horizontal={'right'} setSnakeState={setSnakeState}/>
-      } 
+      {/* }  */}
     </ThemeProvider>
   );
 }
