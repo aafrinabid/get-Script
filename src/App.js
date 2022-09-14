@@ -22,6 +22,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { SocketContext } from './assets/videoContext';
 import CallInfo from './components/call/CallInfo';
 import VideoChat from './components/VideoChat/VideoChat';
+import CustomizedSnackbars from './components/snackbar/SnackBar';
 
 
 
@@ -222,6 +223,7 @@ console.log(userId)
    </Backdrop>
     </>
     }
+    <CustomizedSnackbars />
     </div>
   );
 }

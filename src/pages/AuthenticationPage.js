@@ -224,7 +224,7 @@ google.accounts.id.renderButton(
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
-          dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'right'}}))
+          dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'center'}}))
           // setSeverity('success')
           // setMessage('You are logged in')
           // setSnakeState(true)
@@ -388,7 +388,6 @@ google.accounts.id.renderButton(
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     {/* {snackState && */}
-     <CustomizedSnackbars severity={severity} state={snackState} message={message} vertical={'top'} horizontal={'right'} setSnakeState={setSnakeState}/>
       {/* }  */}
     </ThemeProvider>
   );
