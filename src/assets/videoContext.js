@@ -1,7 +1,8 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch} from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { snackActions } from '../assets/store/snackbarSlice';
 
 // import e, { json } from 'express';
 
@@ -16,6 +17,7 @@ const socket = io('http://localhost:5000',{
 // const socket = io('https://sleepy-sierra-81358.herokuapp.com/');
 
 const ContextProvider = ({ children }) => {
+  const dispatch = useDispatch();
   const isLoggedIn=useSelector(state=>state.authHandler.isLoggedIn)
   const room=useSelector(state=>state.chatHandler.room)
 
@@ -67,6 +69,7 @@ console.log(call)
       setIsCalling(false)
       setIsRecieving(false)
       setFrom('')
+      dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Call Ended',position:{vertical:'top',horizontal:'center'}}))
       window.location.reload();
       stream.getTracks().forEach(function(track) {
         track.stop();
