@@ -127,6 +127,22 @@ google.accounts.id.renderButton(
 )
   
  },[loginUser])
+ function ValidateEmail(inputText)
+ {
+ var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+ if(inputText.match(mailformat))
+ {
+  console.log('matched')
+  return true
+ 
+ }
+ else
+ {
+  console.log('hurrrah')
+  
+  return false;
+ }
+ }
 //
   const handleLogin=()=>{
     setLoginUser(prevstate=>!prevstate)
@@ -166,6 +182,19 @@ google.accounts.id.renderButton(
 
 
     }
+
+    if(!isLogin){
+     const emailValidation =ValidateEmail(enteredEmail)
+     if(!emailValidation){
+      setSnakeState(true)
+  setSeverity('info')
+  setMessage('This is not a proper email')
+  emailRef.current.focus();
+  return
+     }
+    }
+
+    
     console.log(enteredEmail.length,enteredUsername.length,enteredPassword)
     console.log(url)
     if(enteredUsername==='aafrin'){
@@ -187,7 +216,11 @@ google.accounts.id.renderButton(
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
+          setSeverity('success')
+          setMessage('You are logged in')
+          setSnakeState(true)
           history.push(`/Browse/${0}`)
+          return
         }if(!res.data['auth']){
           console.log('not auth')
           handleClick()
@@ -196,6 +229,7 @@ google.accounts.id.renderButton(
            setSnakeState(true)
           setSeverity('info')
           setMessage('Your account has not been approved')
+          return
           
         
       }
@@ -208,6 +242,7 @@ google.accounts.id.renderButton(
         setSnakeState(true)
         setSeverity('error')
         setMessage(err.response.data.message)
+        return
         
       })
   };
