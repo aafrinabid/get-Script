@@ -96,17 +96,16 @@ export default function SignIn() {
 console.log(res)
 dispatch(authActions.loginHandler(res.data))
 if(res.data['auth'] && res.data['status']==='approved'){
+  dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'center'}}))
   history.push(`/Browse/${0}`)
 }if(!res.data['auth']){
   console.log('not auth')
-  handleClick()
+  // handleClick()
+  dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'you are not authorized',position:{vertical:'top',horizontal:'center'}}))
+
   // appBar('you are not authorised')
 }if(res.data['status']==='pending')(
-  <>
-  {console.log('not approved')}
- {handleClick()} 
-  
-</>
+  dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
 )
       })
 
