@@ -20,7 +20,6 @@ import axios from 'axios';
 import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
 import jwtDecode from 'jwt-decode';
-import CustomizedSnackbars from '../components/snackbar/SnackBar';
 import { snackActions } from '../assets/store/snackbarSlice';
 
 
@@ -88,7 +87,6 @@ export default function SignIn() {
     console.log('Encoded JWT ID token'+response.credential);
     const userObject=jwtDecode(response.credential)
     console.log(userObject)
-    // if(loginUser){
       axios.post('http://localhost:3500/Oauth/google',{
         scriptwriter:loginUser,
         userObject
@@ -100,10 +98,8 @@ if(res.data['auth'] && res.data['status']==='approved'){
   history.push(`/Browse/${0}`)
 }if(!res.data['auth']){
   console.log('not auth')
-  // handleClick()
   dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'you are not authorized',position:{vertical:'top',horizontal:'center'}}))
 
-  // appBar('you are not authorised')
 }if(res.data['status']==='pending')(
   dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
 )
@@ -167,20 +163,14 @@ google.accounts.id.renderButton(
       if(enteredUsername.length<=0 || enteredPassword.length<=0){
 
         
-         // setSnakeState(false)
          dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
-        // setSeverity('error')
-        // setMessage('fill all the forms')
-        // setSnakeState(true)
+   
         return
       }
     }else{
       if(enteredUsername.length<=0 || enteredPassword.length<=0 || enteredEmail.length<=0 || enteredFirstname.length<=0 || enteredLastname.length<=0){
-        // setSnakeState(false)
         dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
-        // setSeverity('error')
-        // setMessage('fill all the forms')
-        // setSnakeState(true)
+     
         return
       }
 
@@ -193,9 +183,7 @@ google.accounts.id.renderButton(
       dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'This is not a valid email',position:{vertical:'top',horizontal:'right'}}))
 
       
-      // setSnakeState(true)
-  // setSeverity('info')
-  // setMessage('This is not a proper email')
+     
   emailRef.current.focus();
   return
      }
@@ -224,21 +212,16 @@ google.accounts.id.renderButton(
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
           dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'center'}}))
-          // setSeverity('success')
-          // setMessage('You are logged in')
-          // setSnakeState(true)
+      
           history.push(`/Browse/${0}`)
           return
         }if(!res.data['auth']){
           console.log('not auth')
           handleClick()
-          // appBar('you are not authorised')
         }if(res.data['status']==='pending'){
           dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
 
-          //  setSnakeState(true)
-          // setSeverity('info')
-          // setMessage('Your account has not been approved')
+         
           return
           
         
@@ -251,9 +234,7 @@ google.accounts.id.renderButton(
         console.log(err.response)
         dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:err.response.data.message,position:{vertical:'top',horizontal:'right'}}))
 
-        // setSnakeState(true)
-        // setSeverity('error')
-        // setMessage(err.response.data.message)
+  
         return
         
       })
