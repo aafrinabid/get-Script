@@ -65,6 +65,7 @@ console.log(userId)
       }).catch((e)=>{
         console.log('kili');
         console.log(e.message)
+        dispatch(authActions.logoutHandler())
         return history.replace('/login')
       })
     }
