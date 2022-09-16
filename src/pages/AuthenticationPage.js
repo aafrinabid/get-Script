@@ -20,6 +20,7 @@ import axios from 'axios';
 import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from '../assets/store/authSlice';
 import jwtDecode from 'jwt-decode';
+import { snackActions } from '../assets/store/snackbarSlice';
 
 
 const theme = createTheme();
@@ -53,7 +54,9 @@ export default function SignIn() {
 
   }
   ,[history,loginStatus])
-
+  const [snackState,setSnakeState]=useState(false)
+  const [severity,setSeverity]=useState('')
+ const [message,setMessage]=useState('')
   const [loginUser,setLoginUser]=useState(true);
   const [isLogin,setIsLogin]=useState(true);
   const firstnameRef=useRef();
@@ -84,7 +87,6 @@ export default function SignIn() {
     console.log('Encoded JWT ID token'+response.credential);
     const userObject=jwtDecode(response.credential)
     console.log(userObject)
-    // if(loginUser){
       axios.post('http://localhost:3500/Oauth/google',{
         scriptwriter:loginUser,
         userObject
@@ -92,17 +94,14 @@ export default function SignIn() {
 console.log(res)
 dispatch(authActions.loginHandler(res.data))
 if(res.data['auth'] && res.data['status']==='approved'){
+  dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'center'}}))
   history.push(`/Browse/${0}`)
 }if(!res.data['auth']){
   console.log('not auth')
-  handleClick()
-  // appBar('you are not authorised')
+  dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'you are not authorized',position:{vertical:'top',horizontal:'center'}}))
+
 }if(res.data['status']==='pending')(
-  <>
-  {console.log('not approved')}
- {handleClick()} 
-  
-</>
+  dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
 )
       })
 
@@ -124,6 +123,22 @@ google.accounts.id.renderButton(
 )
   
  },[loginUser])
+ function ValidateEmail(inputText)
+ {
+ var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+ if(inputText.match(mailformat))
+ {
+  console.log('matched')
+  return true
+ 
+ }
+ else
+ {
+  console.log('hurrrah')
+  
+  return false;
+ }
+ }
 //
   const handleLogin=()=>{
     setLoginUser(prevstate=>!prevstate)
@@ -144,7 +159,38 @@ google.accounts.id.renderButton(
     const enteredEmail=!isLogin ? emailRef.current.value:'';
     const enteredUsername=usernameRef.current.value;
     const enteredPassword=passwordRef.current.value;
-    console.log(enteredEmail,enteredUsername,enteredPassword)
+    if(isLogin){
+      if(enteredUsername.length<=0 || enteredPassword.length<=0){
+
+        
+         dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
+   
+        return
+      }
+    }else{
+      if(enteredUsername.length<=0 || enteredPassword.length<=0 || enteredEmail.length<=0 || enteredFirstname.length<=0 || enteredLastname.length<=0){
+        dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:'fill all the forms',position:{vertical:'top',horizontal:'right'}}))
+     
+        return
+      }
+
+
+    }
+
+    if(!isLogin){
+     const emailValidation =ValidateEmail(enteredEmail)
+     if(!emailValidation){
+      dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'This is not a valid email',position:{vertical:'top',horizontal:'right'}}))
+
+      
+     
+  emailRef.current.focus();
+  return
+     }
+    }
+
+    
+    console.log(enteredEmail.length,enteredUsername.length,enteredPassword)
     console.log(url)
     if(enteredUsername==='aafrin'){
       url='http://localhost:3500/adminlogin'
@@ -165,24 +211,31 @@ google.accounts.id.renderButton(
         dispatch(authActions.loginHandler(res.data))
         console.log(loginStatus)
         if(res.data['auth'] && res.data['status']==='approved'){
+          dispatch(snackActions.snackBarDetailsAdder({severity:'success',message:'you are logged in',position:{vertical:'top',horizontal:'center'}}))
+      
           history.push(`/Browse/${0}`)
+          return
         }if(!res.data['auth']){
           console.log('not auth')
           handleClick()
-          // appBar('you are not authorised')
-        }if(res.data['status']==='pending')(
-          <>
-          {console.log('not approved')}
-         {handleClick()} 
+        }if(res.data['status']==='pending'){
+          dispatch(snackActions.snackBarDetailsAdder({severity:'info',message:'Your account has not been approved',position:{vertical:'top',horizontal:'right'}}))
+
+         
+          return
           
-        </>
-        )
+        
+      }
           
           
         
 
       }).catch((err)=>{
-        console.log(err)
+        console.log(err.response)
+        dispatch(snackActions.snackBarDetailsAdder({severity:'error',message:err.response.data.message,position:{vertical:'top',horizontal:'right'}}))
+
+  
+        return
         
       })
   };
@@ -314,6 +367,8 @@ google.accounts.id.renderButton(
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
+    {/* {snackState && */}
+      {/* }  */}
     </ThemeProvider>
   );
 }

@@ -22,6 +22,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { SocketContext } from './assets/videoContext';
 import CallInfo from './components/call/CallInfo';
 import VideoChat from './components/VideoChat/VideoChat';
+import CustomizedSnackbars from './components/snackbar/SnackBar';
 
 
 
@@ -105,7 +106,6 @@ console.log(userId)
   const [colorChange,setColorchange]=useState(false);
   const [blockChange,setBlockChange]=useState(false)
   const changeNavbarColor = () =>{
-    console.log('happening guys')
     if(window.scrollY >= 80){
       setColorchange(true);
     }
@@ -223,6 +223,7 @@ console.log(userId)
    </Backdrop>
     </>
     }
+    <CustomizedSnackbars />
     </div>
   );
 }

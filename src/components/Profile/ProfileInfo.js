@@ -58,7 +58,7 @@ console.log(id===details.id,id,details.id)
        backgroundSize: '100%',
        backgroundRepeat: 'no-repeat',
    };
-   const chatHandler=(id)=>{
+   const chatHandler=(ids)=>{
     // axios.get('http://localhost:3500/getId',{
     //   headers:{
     //     'x-access-token':localStorage.getItem('token')?localStorage.getItem('token'):""
@@ -69,10 +69,11 @@ console.log(id===details.id,id,details.id)
 
     axios.post('http://localhost:3500/messagelist',{
      senderId:id,
-     recieverId:id,
+     recieverId:ids,
      date
     }
     ).then(res=>{
+      console.log(res)
       history.push(`/chat/t/${details.id}/${1}`)
      
 
