@@ -65,6 +65,7 @@ console.log(userId)
       }).catch((e)=>{
         console.log('kili');
         console.log(e.message)
+        return history.replace('/login')
       })
     }
     ,[dispatch,history,loginStatus]) 
