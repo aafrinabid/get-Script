@@ -32,6 +32,7 @@ function ChatContent(props) {
         // console.log(res.data)
         // setMessageId(res.data.messageId)
         // setRecieverId(res.data.recieverId)
+        setUserId(res.data.userId)
        axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
         messageId:recieverid
@@ -51,7 +52,7 @@ function ChatContent(props) {
   },[recieverid])
   return (
     <div>
-<UserNameContent userId={props.recieverid} />
+<UserNameContent messageId={props.recieverid} userId={userId} />
 {data.length>0  ?<MessageArea message={data} to={recieverId} from={userId} messageId={messageId}  socket={props.socket} userId={userId}/>: <div style={{height:'568px',border:'1px solid black',display:'flex',flexDirection:'column',overflowY:'scroll',backgroundImage:`url('https://images.unsplash.com/photo-1531303511320-729cbf66254f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGdyZWVufGVufDB8fDB8fA%3D%3D&w=1000&q=80')`, backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',padding:'0 32px'}}>
 </div>}

@@ -46,7 +46,6 @@ function ChatUser(props) {
           console.log('message details error')
 
         })
-      // })
  
   },[change,props.userId])
 
@@ -83,13 +82,7 @@ function ChatUser(props) {
             <UserContainer key={data.message_id}  users={data.users} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket} userId={props.userId}  msg={data.last_msg}/>
           ))
         }
-       {/* <UserContainer/>
-       <UserContainer/>
-       <UserContainer/>
-       <UserContainer/>
-       <UserContainer/>
-       <UserContainer/>
-       <UserContainer/> */}
+
 
         
 
