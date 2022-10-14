@@ -36,7 +36,8 @@ function TextArea(props) {
       axios.post('http://localhost:3500/addMessage',{
         message:msg,
         from:props.from,
-        to:props.to
+        // to:props.to.
+        messageId:props.messageId
       }).then((res)=>{
         console.log(res.data)
 
@@ -48,7 +49,7 @@ function TextArea(props) {
           console.log(res.data)
           if(res.data.message==='success'){
              props.socket.current.emit('send-msg',{
-          to:props.to,
+          // to:props.to,
           from:props.from,
           msg:msg,
           room:props.messageId,

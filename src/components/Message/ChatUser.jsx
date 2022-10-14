@@ -80,7 +80,7 @@ function ChatUser(props) {
         {
                   users.map((data)=>(
               
-            <UserContainer key={data.reciever_id}  userId={data.reciever_id} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket}  msg={data.last_msg}/>
+            <UserContainer key={data.message_id}  users={data.users} setSeen={props.setSeen} messageId={data.message_id} socket={props.socket} userId={props.userId}  msg={data.last_msg}/>
           ))
         }
        {/* <UserContainer/>

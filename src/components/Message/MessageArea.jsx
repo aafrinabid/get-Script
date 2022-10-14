@@ -33,7 +33,7 @@ function MessageArea(props) {
       role=res.data.role
       axios.post('http://localhost:3500/getMessages',{
         from:res.data.userId,
-        to:recieverid
+        messageId:props.messageId
           }).then(res=>{
            console.log(res.data)
            setMsgData([...res.data.projectedMessages])
@@ -68,19 +68,11 @@ function MessageArea(props) {
       console.log(recieverid,'smeeesfge',props.to)
 
 
-          if(recieverId){
-            if(data.reciever===recieverId || data.sender===recieverId){
-          
-              const isit=data.reciever===props.to
-              const it=data.sender===props.to
-              console.log(isit,it)
             setArrivalMessage({fromSelf:props.userId.toString()===data.sender,message:data.msg})
           // }
-          }
           
         
         
-      }
      
       // }
       

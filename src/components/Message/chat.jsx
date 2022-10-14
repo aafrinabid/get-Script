@@ -77,7 +77,7 @@ console.log(msg)
     {!seen && <h1>hiii chat here d</h1>}
     {seen &&
     <Switch>
-    <Route path='/chat/t/:recieverid/:role'>
+    <Route path='/chat/t/:recieverid'>
   <ChatComponent socket={props.socket}/>
   </Route>
   </Switch> 

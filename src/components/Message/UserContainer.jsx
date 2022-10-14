@@ -37,7 +37,7 @@ setIsOnline(true)
  
   
   const chatHandler=()=>{
-    history.push(`/chat/t/${props.userId}/${1}`)
+    history.push(`/chat/t/${props.messageId}`)
     rooms.map((room)=>{
       console.log(room.toString(),'sixer')
       props.socket.current.emit('leave room',room)
@@ -61,9 +61,13 @@ setIsOnline(true)
 
 
   useEffect(()=>{
+
     axios.post('http://localhost:3500/userDetails',{
       id:props.userId,
-      role:1
+      role:1,
+      users:props.users
+
+
     }).then((res)=>{
       setData(res.data)
     })
