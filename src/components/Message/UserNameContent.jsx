@@ -12,8 +12,10 @@ function UserNameContent(props) {
   const params=useParams();
   const [data,setData]=useState('')
   console.log(data)
+  // const [id,setId]=useState('')
   const callingTheUser=(id)=>{
     isCallingHandler()
+    console.log(id,'calling the users')
 
     setTimeout(callUser.bind(null,id),1000);
     
@@ -32,13 +34,14 @@ axios.post('http://localhost:3500/userDetails',{
 }).then((res)=>{
   console.log(res.data,'inserting data')
   setData(res.data)
+  // setId(res.data)
 }).catch((e)=>console.log(e,'insert'))
   },[props.userId])
   return (
     <div className={classes.upperpart} style={{justifyContent:'center',alignItems:'center'}}>
          <img className={classes.profile} src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80' />
          <p style={{color:'#a5b9c4',margin:'0px',marginLeft:'10px',textAlign:'start', padding:'15px 0px'}}>{data.username}</p>
-          <VideocamIcon onClick={callingTheUser.bind(null,props.userId)}  style={{cursor:'pointer',color:'rgb(165, 185, 196)'}}/>
+          <VideocamIcon onClick={callingTheUser.bind(null,data.id)}  style={{cursor:'pointer',color:'rgb(165, 185, 196)'}}/>
     </div>
   )
 }

@@ -15,6 +15,7 @@ function ProfileInfo() {
    const [details,setDetails]=useState({})
    const [name,setName]=useState('')
    const [scriptCount,setScriptCount]=useState(0)
+   const [followersCount,setFollowersCount]=useState(0)
   const userRole=useSelector(state=>state.authHandler.role)
   const [id,setId]=useState('')
 console.log(id===details.id,id,details.id)
@@ -36,12 +37,13 @@ console.log(id===details.id,id,details.id)
     
   axios.post('http://localhost:3500/getProfileInfo',{
     userid:userid,
-    role
+    role,
   }).then((res)=>{
-    console.log(res)
+    console.log(res.data)
     setDetails(res.data.result)
     setName(res.data.username)
     setScriptCount(res.data.scriptCount)
+    setFollowersCount(res.data.followersCount)
   }).catch(e=>console.log(e))
   },[userid])
   const location=useLocation()
@@ -85,7 +87,9 @@ console.log(id===details.id,id,details.id)
     // })
     
 
-    
+    const addFollowers=()=>{
+
+    }
 
     
    }
@@ -103,6 +107,9 @@ console.log(id===details.id,id,details.id)
       &&
       <ChatBubble className='text-3xl  cursor-pointer' onClick={chatHandler.bind(null,details.id)}/>  
     }
+    <div>
+      <h1 style={{fontSize:'x-large'}}> followers {followersCount}</h1>
+    </div>
       </div>
       <div className={ `${classes.details}  pt-12 mt-2 `} >
         <div className={classes.socials}>
